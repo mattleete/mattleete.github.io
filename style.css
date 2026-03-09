@@ -147,7 +147,6 @@ ul {
   height: 450px;
   position: relative;
   transform-style: preserve-3d;
-  animation: rotateShape 10s linear infinite;
 }
 
 .ring {
@@ -169,10 +168,6 @@ ul {
 
 /* rotateX(15deg) keeps the shape tilted so you can see the 3D effect.
    Change this value to tilt more or less. */
-@keyframes rotateShape {
-  from { transform: rotateY(0deg) rotateX(15deg); }
-  to   { transform: rotateY(360deg) rotateX(15deg); }
-}
 
 
 /* =====================

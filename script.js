@@ -1,4 +1,53 @@
 // =====================
+// 3D SHAPE ANIMATION
+//
+// PARAMETERS YOU CAN CHANGE:
+//   BASE_SPEED      — average rotation speed in degrees per frame (higher = faster)
+//   SPEED_VARIATION — how much the speed varies (0 = constant, higher = more pulsing)
+//   BASE_TILT       — default X tilt in degrees (how much you see the top of the shape)
+//   MOUSE_TILT      — how much the mouse moves the tilt (0 to disable mouse tracking)
+//   LERP_SPEED      — how smoothly the tilt follows the mouse (0.01 = slow, 0.1 = snappy)
+// =====================
+
+const BASE_SPEED      = 0.3;
+const SPEED_VARIATION = 0.15;
+const BASE_TILT       = 15;
+const MOUSE_TILT      = 10;
+const LERP_SPEED      = 0.04;
+
+const shape = document.querySelector('.shape-3d');
+let angle        = 0;
+let targetTiltX  = BASE_TILT;
+let targetTiltZ  = 0;
+let currentTiltX = BASE_TILT;
+let currentTiltZ = 0;
+
+// Mouse tracking — shape tilts subtly toward cursor
+document.addEventListener('mousemove', (e) => {
+  const cx = window.innerWidth  / 2;
+  const cy = window.innerHeight / 2;
+  targetTiltX = BASE_TILT + ((e.clientY - cy) / cy) * MOUSE_TILT;
+  targetTiltZ =              ((e.clientX - cx) / cx) * (MOUSE_TILT * 0.5);
+});
+
+function animateShape() {
+  // Vary speed with a sine wave for subtle acceleration/deceleration
+  angle += BASE_SPEED + Math.sin(angle * 0.015) * SPEED_VARIATION;
+
+  // Smoothly interpolate tilt toward mouse target (lerp)
+  currentTiltX += (targetTiltX - currentTiltX) * LERP_SPEED;
+  currentTiltZ += (targetTiltZ - currentTiltZ) * LERP_SPEED;
+
+  shape.style.transform =
+    `rotateY(${angle}deg) rotateX(${currentTiltX}deg) rotateZ(${currentTiltZ}deg)`;
+
+  requestAnimationFrame(animateShape);
+}
+
+animateShape();
+
+
+// =====================
 // PARALLAX
 // Elements with data-parallax="0.2" move at 20% of scroll speed.
 // Higher number = more movement. Set to 0 to disable for an element.
