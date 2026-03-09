@@ -11,7 +11,6 @@
 //   DRIFT_AMOUNT    — how much the shape slowly wanders organically
 // =====================
 
-const NUM_RINGS       = 12;
 const BASE_SPEED      = 0.25;
 const SPEED_VARIATION = 0.18;
 const BASE_TILT       = 15;
@@ -19,42 +18,64 @@ const MOUSE_TILT      = 12;
 const LERP_SPEED      = 0.04;
 const DRIFT_AMOUNT    = 8;
 
+// ---- TIER SETTINGS ----
+// Each tier defines a size class of rings.
+// perAxis  — how many rings of this size orbit each axis (more = denser cluster)
+// size     — fraction of the container (0.1 = tiny, 1.0 = full width)
+// variance — random size variation within the tier
+// speed    — individual orbit speed (small = fast, large = slow)
+// thickness — border width in px
+// opacity  — base opacity
+
+const TIERS = [
+  { perAxis: 5, size: 0.18, variance: 0.06, speed: 0.07,  thickness: 0.5, opacity: 0.4 },  // small, fast, many
+  { perAxis: 3, size: 0.45, variance: 0.07, speed: 0.028, thickness: 1.0, opacity: 0.6 },  // medium
+  { perAxis: 1, size: 0.80, variance: 0.08, speed: 0.008, thickness: 1.8, opacity: 0.85 }, // large, slow, few
+];
+
+// Number of axes to distribute rings around (evenly spaced from 0–180°)
+const NUM_AXES = 5;
+
 const shape = document.querySelector('.shape-3d');
+const rings  = [];
 
-// Generate rings with randomised properties
-const rings = [];
+for (let a = 0; a < NUM_AXES; a++) {
+  // Spread axes evenly, with a small random wobble per axis
+  const baseRotX = (a / NUM_AXES) * 180 + (Math.random() - 0.5) * 12;
 
-for (let i = 0; i < NUM_RINGS; i++) {
-  const el = document.createElement('div');
-  el.classList.add('ring');
+  TIERS.forEach(tier => {
+    for (let r = 0; r < tier.perAxis; r++) {
+      const el = document.createElement('div');
+      el.classList.add('ring');
 
-  // Random initial angles
-  const rotX = Math.random() * 180;
-  const rotZ = Math.random() * 180;
+      // Size varies slightly within the tier
+      const size      = tier.size + (Math.random() - 0.5) * tier.variance * 2;
+      const offset    = ((1 - size) / 2) * 100;
 
-  // Random size: 50% to 110% of the container
-  const size = 0.5 + Math.random() * 0.6;
-  const offset = ((1 - size) / 2) * 100;
+      // Each ring on the same axis has a slightly different rotX and evenly spread rotZ
+      const rotX      = baseRotX + (Math.random() - 0.5) * 8;
+      const rotZ      = (r / tier.perAxis) * 360 + (Math.random() - 0.5) * 20;
 
-  // Random visual properties
-  const opacity   = 0.15 + Math.random() * 0.85;
-  const thickness = 0.4  + Math.random() * 1.8;
+      // Speed varies ±30% within the tier; direction randomised per ring
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const speed     = tier.speed * (0.7 + Math.random() * 0.6) * direction;
 
-  // Random individual drift speed and direction
-  const driftSpeed = (Math.random() - 0.5) * 0.025;
-  const driftPhase = Math.random() * Math.PI * 2;
+      // Opacity varies slightly within the tier
+      const opacity   = tier.opacity * (0.7 + Math.random() * 0.5);
 
-  el.style.cssText = `
-    width: ${size * 100}%;
-    height: ${size * 100}%;
-    top: ${offset}%;
-    left: ${offset}%;
-    opacity: ${opacity};
-    border-width: ${thickness}px;
-  `;
+      el.style.cssText = `
+        width: ${size * 100}%;
+        height: ${size * 100}%;
+        top: ${offset}%;
+        left: ${offset}%;
+        opacity: ${Math.min(opacity, 1)};
+        border-width: ${tier.thickness}px;
+      `;
 
-  shape.appendChild(el);
-  rings.push({ el, rotX, rotZ, driftSpeed, driftPhase });
+      shape.appendChild(el);
+      rings.push({ el, rotX, rotZ, speed });
+    }
+  });
 }
 
 // Animation state
@@ -94,9 +115,9 @@ function animateShape() {
   shape.style.transform =
     `scale(${scale}) rotateY(${angle}deg) rotateX(${currentTiltX}deg) rotateZ(${currentTiltZ}deg)`;
 
-  // Each ring drifts individually on its own axis
-  rings.forEach((r, i) => {
-    r.rotZ += r.driftSpeed + Math.sin(frame * 0.01 + r.driftPhase) * 0.01;
+  // Each ring orbits its own axis at its own speed
+  rings.forEach(r => {
+    r.rotZ += r.speed;
     r.el.style.transform = `rotateX(${r.rotX}deg) rotateZ(${r.rotZ}deg)`;
   });
 
