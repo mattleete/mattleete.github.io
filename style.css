@@ -397,28 +397,114 @@ ul {
    RESPONSIVE
    ===================== */
 
+/* =====================
+   HAMBURGER BUTTON
+   Hidden on desktop, shown on mobile.
+   ===================== */
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  /* inherit nav colour (white via mix-blend-mode) */
+  color: inherit;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animate to X when open */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(8.25px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-8.25px) rotate(-45deg); }
+
+
+/* =====================
+   MOBILE MENU OVERLAY
+   ===================== */
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--black);
+  z-index: 99;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  /* shown/hidden via JS: display toggled to flex when open */
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-link {
+  font-size: clamp(36px, 10vw, 56px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -1px;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+
+.mobile-link:hover {
+  opacity: 1;
+}
+
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+
 @media (max-width: 1024px) {
   .shape-3d { width: 330px; height: 330px; }
 }
 
 @media (max-width: 768px) {
+  /* Nav */
   #nav { padding: 20px 24px; }
-  .nav-links { gap: 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
 
-  #hero { padding: 100px 24px 0; }
+  /* Hero */
+  #hero { padding: 100px 24px 0; min-height: 100svh; }
   .hero-name { letter-spacing: -3px; }
   .shape-wrapper { display: none; }
-
   .marquee-wrapper { margin-top: 60px; }
 
+  /* About */
   #about { padding: 80px 24px; }
   .section-header { flex-direction: column; gap: 24px; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
 
+  /* Projects */
   #projects { padding: 0 24px 80px; }
   .projects-grid { grid-template-columns: 1fr; }
 
+  /* Contact */
   #contact { padding: 80px 24px 40px; }
   .contact-heading { letter-spacing: -2px; }
   .contact-links { flex-direction: column; gap: 20px; }
+}
+
+@media (max-width: 480px) {
+  .hero-name { letter-spacing: -2px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .contact-heading { letter-spacing: -1px; }
 }

@@ -128,14 +128,44 @@ animateShape();
 
 
 // =====================
-// PARALLAX
-// Elements with data-parallax="0.2" move at 20% of scroll speed.
-// Higher number = more movement. Set to 0 to disable for an element.
+// HAMBURGER MENU
 // =====================
 
-const parallaxEls = document.querySelectorAll('[data-parallax]');
+const hamburger   = document.getElementById('hamburger');
+const mobileMenu  = document.getElementById('mobileMenu');
+const mobileLinks = document.querySelectorAll('.mobile-link');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = !mobileMenu.classList.contains('open');
+  mobileMenu.style.display = 'flex';
+  // Small delay so display:flex kicks in before opacity transition
+  requestAnimationFrame(() => mobileMenu.classList.toggle('open', isOpen));
+  hamburger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+// Close menu when a link is clicked
+mobileLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { mobileMenu.style.display = 'none'; }, 300);
+  });
+});
+
+
+// =====================
+// PARALLAX
+// Disabled on touch devices to avoid scroll conflicts.
+// Elements with data-parallax="0.2" move at 20% of scroll speed.
+// =====================
+
+const isTouchDevice = window.matchMedia('(hover: none)').matches;
+const parallaxEls   = document.querySelectorAll('[data-parallax]');
 
 function handleParallax() {
+  if (isTouchDevice) return;
   const scrollY = window.scrollY;
   parallaxEls.forEach(el => {
     const speed = parseFloat(el.dataset.parallax);
