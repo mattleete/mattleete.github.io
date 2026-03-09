@@ -159,12 +159,7 @@ ul {
   border-radius: 50%;
 }
 
-/* Each ring is rotated on a different axis to create the 3D sphere effect.
-   Add more rings by copying a .ring div in HTML and adding a new angle here. */
-.ring-1 { transform: rotateX(0deg); }
-.ring-2 { transform: rotateX(45deg); }
-.ring-3 { transform: rotateX(90deg); }
-.ring-4 { transform: rotateX(135deg); }
+/* Individual rings are now generated and animated in script.js */
 
 /* rotateX(15deg) keeps the shape tilted so you can see the 3D effect.
    Change this value to tilt more or less. */
