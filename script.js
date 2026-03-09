@@ -28,13 +28,13 @@ const DRIFT_AMOUNT    = 8;
 // opacity  — base opacity
 
 const TIERS = [
-  { perAxis: 5, size: 0.18, variance: 0.06, speed: 0.07,  thickness: 0.5, opacity: 0.4 },  // small, fast, many
-  { perAxis: 3, size: 0.45, variance: 0.07, speed: 0.028, thickness: 1.0, opacity: 0.6 },  // medium
-  { perAxis: 1, size: 0.80, variance: 0.08, speed: 0.008, thickness: 1.8, opacity: 0.85 }, // large, slow, few
+  { perAxis: 2, size: 0.18, variance: 0.06, speed: 0.07,  thickness: 0.5, opacity: 0.4 },  // small, fast
+  { perAxis: 1, size: 0.45, variance: 0.07, speed: 0.028, thickness: 1.0, opacity: 0.6 },  // medium
+  { perAxis: 1, size: 0.80, variance: 0.08, speed: 0.008, thickness: 1.8, opacity: 0.85 }, // large, slow
 ];
 
 // Number of axes to distribute rings around (evenly spaced from 0–180°)
-const NUM_AXES = 5;
+const NUM_AXES = 3;
 
 const shape = document.querySelector('.shape-3d');
 const rings  = [];
@@ -52,13 +52,16 @@ for (let a = 0; a < NUM_AXES; a++) {
       const size      = tier.size + (Math.random() - 0.5) * tier.variance * 2;
       const offset    = ((1 - size) / 2) * 100;
 
-      // Each ring on the same axis has a slightly different rotX and evenly spread rotZ
-      const rotX      = baseRotX + (Math.random() - 0.5) * 8;
-      const rotZ      = (r / tier.perAxis) * 360 + (Math.random() - 0.5) * 20;
+      // Starting rotation angles — random initial orientation
+      const rotX = Math.random() * 360;
+      const rotY = Math.random() * 360;
+      const rotZ = Math.random() * 360;
 
-      // Speed varies ±30% within the tier; direction randomised per ring
-      const direction = Math.random() > 0.5 ? 1 : -1;
-      const speed     = tier.speed * (0.7 + Math.random() * 0.6) * direction;
+      // Each axis gets an independent velocity; direction randomised per axis per ring
+      const s = tier.speed * (0.7 + Math.random() * 0.6);
+      const velX = s * (Math.random() > 0.5 ? 1 : -1) * (0.4 + Math.random() * 0.6);
+      const velY = s * (Math.random() > 0.5 ? 1 : -1) * (0.4 + Math.random() * 0.6);
+      const velZ = s * (Math.random() > 0.5 ? 1 : -1) * (0.4 + Math.random() * 0.6);
 
       // Opacity varies slightly within the tier
       const opacity   = tier.opacity * (0.7 + Math.random() * 0.5);
@@ -73,7 +76,7 @@ for (let a = 0; a < NUM_AXES; a++) {
       `;
 
       shape.appendChild(el);
-      rings.push({ el, rotX, rotZ, speed });
+      rings.push({ el, rotX, rotY, rotZ, velX, velY, velZ });
     }
   });
 }
@@ -115,10 +118,12 @@ function animateShape() {
   shape.style.transform =
     `scale(${scale}) rotateY(${angle}deg) rotateX(${currentTiltX}deg) rotateZ(${currentTiltZ}deg)`;
 
-  // Each ring orbits its own axis at its own speed
+  // Each ring rotates independently on all three axes
   rings.forEach(r => {
-    r.rotZ += r.speed;
-    r.el.style.transform = `rotateX(${r.rotX}deg) rotateZ(${r.rotZ}deg)`;
+    r.rotX += r.velX;
+    r.rotY += r.velY;
+    r.rotZ += r.velZ;
+    r.el.style.transform = `rotateX(${r.rotX}deg) rotateY(${r.rotY}deg) rotateZ(${r.rotZ}deg)`;
   });
 
   requestAnimationFrame(animateShape);

@@ -191,6 +191,7 @@ ul {
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
+  color: red;
 }
 
 @keyframes marqueeScroll {
@@ -487,6 +488,9 @@ ul {
   .hero-name { letter-spacing: -3px; }
   .shape-wrapper { display: none; }
   .marquee-wrapper { margin-top: 60px; }
+
+  /* Marquee — 4× faster on mobile */
+  .marquee { animation: marqueeScroll 1.83s linear infinite; }
 
   /* About */
   #about { padding: 80px 24px; }
