@@ -143,8 +143,8 @@ ul {
 }
 
 .shape-3d {
-  width: 300px;
-  height: 300px;
+  width: 450px;
+  height: 450px;
   position: relative;
   transform-style: preserve-3d;
   animation: rotateShape 10s linear infinite;
@@ -408,7 +408,7 @@ ul {
    ===================== */
 
 @media (max-width: 1024px) {
-  .shape-3d { width: 220px; height: 220px; }
+  .shape-3d { width: 330px; height: 330px; }
 }
 
 @media (max-width: 768px) {
