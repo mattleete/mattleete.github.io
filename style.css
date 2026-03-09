@@ -132,8 +132,8 @@ ul {
 
 .shape-wrapper {
   position: absolute;
-  top: 50%;
-  right: 8%;
+  top: 28%;
+  right: 15%;
   transform: translateY(-50%);
   z-index: 1;
 
