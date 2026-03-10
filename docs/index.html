@@ -74,7 +74,7 @@
 
     /* ─── NAV ─── */
     nav {
-      background: var(--grey-6);
+      background: transparent;
       height: 64px;
       display: flex;
       align-items: center;
@@ -101,9 +101,14 @@
       text-transform: uppercase;
       color: var(--black);
       text-decoration: none;
-      padding: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      transition: background 0.2s ease, color 0.2s ease;
     }
-    .nav-link:hover { opacity: 0.6; }
+    .nav-link:hover {
+      background: var(--black);
+      color: var(--white);
+    }
 
     /* ─── HERO ─── */
     .hero {
@@ -111,6 +116,16 @@
       display: flex;
       align-items: center;
       gap: 198px;
+      position: relative;
+    }
+    .hero-animation {
+      position: absolute;
+      top: 50%;
+      right: 68px;
+      transform: translateY(0%);
+      width: 272px;
+      height: 272px;
+      pointer-events: none;
     }
     .hero-text {
       display: flex;
@@ -125,6 +140,21 @@
       color: var(--black);
       padding: 8px;
       white-space: nowrap;
+    }
+    .word-slot {
+      position: relative;
+      display: inline-block;
+      vertical-align: baseline;
+    }
+    .slot-mask {
+      visibility: hidden;
+    }
+    .slot-word {
+      position: absolute;
+      left: 0; top: 0;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
     .hero-name {
       font-size: 40px;
@@ -275,7 +305,7 @@
 
     /* ─── FOOTER ─── */
     footer {
-      background: var(--grey-6);
+      background: transparent;
       height: 64px;
       display: flex;
       align-items: center;
@@ -335,9 +365,14 @@
       text-transform: uppercase;
       color: var(--black);
       text-decoration: none;
-      padding: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      transition: background 0.2s ease, color 0.2s ease;
     }
-    .footer-link:hover { opacity: 0.6; }
+    .footer-link:hover {
+      background: var(--black);
+      color: var(--white);
+    }
   </style>
 </head>
 <body>
@@ -367,7 +402,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <div class="hero-display">Turn ______ into ____</div>
+      <div class="hero-display">Turn <span class="word-slot" id="slot1"><span class="slot-mask">friction</span><span class="slot-word">apathy</span></span> into <span class="word-slot" id="slot2"><span class="slot-mask">clarity</span><span class="slot-word">joy</span></span></div>
       <div class="hero-name">Matt Leete<br>Product Designer</div>
     </div>
     <div class="hero-animation">
@@ -557,6 +592,71 @@
 </div><!-- /site-wrapper -->
 
   <script>
+// ─── HERO WORD CYCLING ───
+    (function () {
+      const pairs = [
+        ['apathy',     'joy'],
+        ['chaos',      'clarity'],
+        ['friction',   'flow'],
+      ];
+
+      let index = 0;
+
+      const slot1 = document.getElementById('slot1');
+      const slot2 = document.getElementById('slot2');
+
+      // Fix masks to longest word per slot so layout never shifts
+      const longest1 = pairs.reduce((a, b) => a[0].length >= b[0].length ? a : b)[0];
+      const longest2 = pairs.reduce((a, b) => a[1].length >= b[1].length ? a : b)[1];
+      slot1.querySelector('.slot-mask').textContent = longest1;
+      slot2.querySelector('.slot-mask').textContent = longest2;
+
+      function els(slot) {
+        return {
+          mask: slot.querySelector('.slot-mask'),
+          word: slot.querySelector('.slot-word'),
+        };
+      }
+
+      function runCycle() {
+        const pair = pairs[index];
+        const s1 = els(slot1);
+        const s2 = els(slot2);
+
+        // Only update the visible word — masks are fixed to longest word (set once on init)
+        s1.word.textContent = pair[0];
+        s2.word.textContent = pair[1];
+
+        // Start hidden
+        s1.word.style.opacity = '0';
+        s2.word.style.opacity = '0';
+
+        // Fade in word 1
+        setTimeout(() => {
+          s1.word.style.opacity = '1';
+
+          // Fade in word 2 after word 1
+          setTimeout(() => {
+            s2.word.style.opacity = '1';
+
+            // Hold, then fade both out
+            setTimeout(() => {
+              s1.word.style.opacity = '0';
+              s2.word.style.opacity = '0';
+
+              // Advance to next pair
+              setTimeout(() => {
+                index = (index + 1) % pairs.length;
+                runCycle();
+              }, 1000);
+            }, 4000);
+          }, 1200);
+        }, 500);
+      }
+
+      runCycle();
+    })();
+
     // ─── RING ANIMATION ───
     (function () {
       const canvas = document.getElementById('ringCanvas');
