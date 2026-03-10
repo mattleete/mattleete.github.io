@@ -23,9 +23,53 @@
 
     body {
       font-family: 'Instrument Sans', sans-serif;
-      background: var(--white);
+      background-color: var(--white);
       color: var(--black);
       overflow-x: hidden;
+    }
+
+    /* ─── MESH GRADIENT ─── */
+    .mesh {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 1;
+    }
+    .blob-1 {
+      width: 1400px; height: 1400px;
+      top: -20%; left: -15%;
+      background: radial-gradient(circle, rgba(26, 86, 255, 0.32) 0%, transparent 65%);
+    }
+    .blob-2 {
+      width: 1100px; height: 1100px;
+      top: -10%; right: -10%;
+      background: radial-gradient(circle, rgba(120, 0, 255, 0.22) 0%, transparent 65%);
+    }
+    .blob-3 {
+      width: 1500px; height: 1500px;
+      bottom: 0%; right: -15%;
+      background: radial-gradient(circle, rgba(0, 210, 240, 0.26) 0%, transparent 65%);
+    }
+    .blob-4 {
+      width: 1000px; height: 1000px;
+      bottom: -10%; left: -10%;
+      background: radial-gradient(circle, rgba(0, 120, 255, 0.20) 0%, transparent 65%);
+    }
+    .blob-5 {
+      width: 1600px; height: 1600px;
+      top: 30%; left: 20%;
+      background: radial-gradient(circle, rgba(100, 180, 255, 0.16) 0%, transparent 65%);
+    }
+    .site-wrapper {
+      max-width: 1440px;
+      margin: 0 auto;
     }
 
     /* ─── NAV ─── */
@@ -244,18 +288,39 @@
       flex: 1;
       overflow: hidden;
       min-width: 0;
-    }
-    .footer-marquee {
       display: flex;
-      white-space: nowrap;
-      animation: marquee-scroll 12s linear infinite;
+      align-items: center;
+      gap: 16px;
     }
-    .footer-marquee-item {
+    .footer-static {
       font-size: 16px;
       font-weight: 600;
       line-height: 1.3;
       letter-spacing: -0.01em;
       color: var(--black);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .footer-arrows-wrap {
+      flex: 1;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .footer-arrows-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee-right 8s linear infinite;
+    }
+    .footer-arrows-item {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--black);
+    }
+    @keyframes marquee-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
     }
     .footer-links {
       display: flex;
@@ -276,6 +341,17 @@
   </style>
 </head>
 <body>
+
+  <!-- MESH GRADIENT -->
+  <div class="mesh" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+  </div>
+
+<div class="site-wrapper">
 
   <!-- NAV -->
   <nav>
@@ -463,9 +539,12 @@
   <!-- FOOTER -->
   <footer id="contact">
     <div class="footer-left">
-      <div class="footer-marquee">
-        <span class="footer-marquee-item">Contact me here &nbsp;&nbsp;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&nbsp;&nbsp;</span>
-        <span class="footer-marquee-item">Contact me here &nbsp;&nbsp;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&nbsp;&nbsp;</span>
+      <span class="footer-static">Contact me here</span>
+      <div class="footer-arrows-wrap">
+        <div class="footer-arrows-track">
+          <span class="footer-arrows-item">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+          <span class="footer-arrows-item">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+        </div>
       </div>
     </div>
     <div class="footer-links">
@@ -475,15 +554,15 @@
     </div>
   </footer>
 
-  <!-- RING ANIMATION -->
+</div><!-- /site-wrapper -->
+
   <script>
+    // ─── RING ANIMATION ───
     (function () {
       const canvas = document.getElementById('ringCanvas');
       const ctx = canvas.getContext('2d');
-      const W = canvas.width;
-      const H = canvas.height;
-      const cx = W / 2;
-      const cy = H / 2;
+      const W = canvas.width, H = canvas.height;
+      const cx = W / 2, cy = H / 2;
 
       const rings = Array.from({ length: 10 }, (_, i) => ({
         baseR:    30 + i * 11,
@@ -498,30 +577,67 @@
         alpha:    0.55 + Math.random() * 0.30,
       }));
 
-      let t = 0;
-
-      function drawRing(ring, now) {
-        const dx = Math.sin(now * ring.speedX + ring.phaseX) * ring.driftAmp;
-        const dy = Math.cos(now * ring.speedY + ring.phaseY) * ring.driftAmp;
-        const scale = 1 + 0.04 * Math.sin(now * ring.speedZ + ring.phaseZ);
+      function drawRing(ring, t) {
+        const dx = Math.sin(t * ring.speedX + ring.phaseX) * ring.driftAmp;
+        const dy = Math.cos(t * ring.speedY + ring.phaseY) * ring.driftAmp;
+        const scale = 1 + 0.04 * Math.sin(t * ring.speedZ + ring.phaseZ);
         const rx = ring.baseR * scale;
-        const ry = rx * (0.28 + 0.12 * Math.abs(Math.sin(now * ring.speedX * 0.5 + ring.tilt)));
-
+        const ry = rx * (0.28 + 0.12 * Math.abs(Math.sin(t * ring.speedX * 0.5 + ring.tilt)));
         ctx.beginPath();
-        ctx.ellipse(cx + dx, cy + dy, rx, ry, ring.tilt + now * 0.08, 0, Math.PI * 2);
+        ctx.ellipse(cx + dx, cy + dy, rx, ry, ring.tilt + t * 0.08, 0, Math.PI * 2);
         ctx.strokeStyle = `rgba(10,10,10,${ring.alpha})`;
         ctx.lineWidth = 1;
         ctx.stroke();
       }
 
-      function frame(ts) {
-        t = ts / 1000;
+      function ringFrame(ts) {
+        const t = ts / 1000;
         ctx.clearRect(0, 0, W, H);
         rings.forEach(r => drawRing(r, t));
-        requestAnimationFrame(frame);
+        requestAnimationFrame(ringFrame);
       }
+      requestAnimationFrame(ringFrame);
+    })();
 
-      requestAnimationFrame(frame);
+    // ─── BLOB MOUSE ANIMATION ───
+    (function () {
+      const blobs = document.querySelectorAll('.blob');
+
+      const settings = [
+        { driftAmpX: 180, driftAmpY: 220, speedX: 0.28, speedY: 0.35, phaseX: 0.0, phaseY: 1.2, mouseStr: 0.14 },
+        { driftAmpX: 220, driftAmpY: 180, speedX: 0.22, speedY: 0.27, phaseX: 2.1, phaseY: 0.5, mouseStr: 0.10 },
+        { driftAmpX: 190, driftAmpY: 220, speedX: 0.18, speedY: 0.22, phaseX: 1.0, phaseY: 3.0, mouseStr: 0.08 },
+        { driftAmpX: 200, driftAmpY: 190, speedX: 0.24, speedY: 0.30, phaseX: 3.5, phaseY: 1.8, mouseStr: 0.12 },
+        { driftAmpX: 220, driftAmpY: 190, speedX: 0.15, speedY: 0.18, phaseX: 0.8, phaseY: 2.4, mouseStr: 0.06 },
+      ];
+
+      let mouseX = window.innerWidth  / 2;
+      let mouseY = window.innerHeight / 2;
+      window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+      const current = settings.map(() => ({ x: 0, y: 0 }));
+
+      function blobFrame(ts) {
+        const t  = ts / 1000;
+        const mx = (mouseX / window.innerWidth)  - 0.5;
+        const my = (mouseY / window.innerHeight) - 0.5;
+
+        blobs.forEach((blob, i) => {
+          const s = settings[i];
+          const targetX = Math.sin(t * s.speedX + s.phaseX) * s.driftAmpX
+                        + mx * s.mouseStr * window.innerWidth;
+          const targetY = Math.cos(t * s.speedY + s.phaseY) * s.driftAmpY
+                        + my * s.mouseStr * window.innerHeight;
+
+          current[i].x += (targetX - current[i].x) * 0.035;
+          current[i].y += (targetY - current[i].y) * 0.035;
+
+          blob.style.transform = `translate(${current[i].x}px, ${current[i].y}px)`;
+        });
+
+        requestAnimationFrame(blobFrame);
+      }
+      requestAnimationFrame(blobFrame);
     })();
   </script>
 
