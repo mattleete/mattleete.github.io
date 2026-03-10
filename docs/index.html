@@ -373,6 +373,97 @@
       background: var(--black);
       color: var(--white);
     }
+
+    /* ─── HAMBURGER ─── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--black);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 24px;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: 56px;
+      }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        width: 100%;
+        padding: 8px 0 16px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { padding: 10px 8px; font-size: 13px; }
+
+      .hero {
+        padding: 48px 24px 40px;
+        flex-direction: column;
+        gap: 40px;
+        align-items: flex-start;
+      }
+      .hero-display {
+        font-size: 36px;
+        white-space: normal;
+        padding: 4px;
+      }
+      .hero-name { font-size: 22px; padding: 4px; }
+      .hero-animation {
+        position: static;
+        transform: none;
+        width: 200px;
+        height: 200px;
+        align-self: center;
+      }
+
+      .banner { height: 40px; }
+      .banner-item { font-size: 13px; }
+
+      .section { padding: 64px 24px; }
+      .section-inner { width: 100%; }
+      .section-title { font-size: 28px; }
+
+      .cards-row {
+        overflow-x: auto;
+        padding-bottom: 16px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .cards-row::-webkit-scrollbar { display: none; }
+      .card { width: 300px; }
+
+      footer {
+        flex-direction: column;
+        height: auto;
+        padding: 24px;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      .footer-left { width: 100%; }
+      .footer-links { gap: 8px; flex-wrap: wrap; }
+      .footer-static { font-size: 13px; }
+      .footer-arrows-item { font-size: 13px; }
+    }
   </style>
 </head>
 <body>
@@ -391,6 +482,9 @@
   <!-- NAV -->
   <nav>
     <div class="nav-logo">Matt Leete</div>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="nav-links">
       <a class="nav-link" href="#work">Work</a>
       <a class="nav-link" href="#fun">Fun</a>
@@ -593,6 +687,24 @@
 
   <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
   <script>
+    // ─── HAMBURGER ───
+    (function () {
+      const btn   = document.querySelector('.nav-hamburger');
+      const links = document.querySelector('.nav-links');
+      btn.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open);
+      });
+      links.addEventListener('click', e => {
+        if (e.target.classList.contains('nav-link')) {
+          links.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded', false);
+        }
+      });
+    })();
+
 // ─── HERO WORD CYCLING ───
     (function () {
       const pairs = [
@@ -769,6 +881,14 @@
 
       const mesh = new THREE.Mesh(geo, material);
       scene.add(mesh);
+
+      // Resize handler
+      function onResize() {
+        const size = window.innerWidth <= 768 ? 200 : 272;
+        renderer.setSize(size, size);
+      }
+      window.addEventListener('resize', onResize);
+      onResize();
 
       // Mouse tracking
       window.addEventListener('mousemove', e => {
