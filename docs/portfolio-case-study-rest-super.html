@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Matt Leete — Reducing Churn at the Moment of Value</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    width: 1440px; height: 64px; border-bottom: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 64px;
+  }
+  .nav-logo { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; text-decoration: none; }
+  .nav-back { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #4a4a4a; text-decoration: none; }
+  .nav-link-cta { color: #ffffff; background: #0a0a0a; padding: 8px 18px; }
+
+  /* ─── HERO ─── */
+  .cs-hero {
+    padding: 80px 64px 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .cs-breadcrumb {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 48px;
+  }
+  .cs-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
+    align-items: end;
+    padding-bottom: 64px;
+  }
+  .cs-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .tag {
+    display: inline-flex; align-items: center; padding: 4px 10px;
+    font-family: 'Instrument Sans', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .tag-default { color: #4a4a4a; border: 1px solid #d0d0d0; }
+  .tag-accent  { color: #1a56ff; border: 1px solid #1a56ff; }
+  .tag-filled  { background: #0a0a0a; color: #ffffff; border: none; }
+  .cs-title {
+    font-size: 72px; font-weight: 600; line-height: 100%;
+    letter-spacing: -0.04em; color: #0a0a0a;
+  }
+  .cs-subtitle {
+    font-size: 16px; font-weight: 400; line-height: 140%;
+    color: #4a4a4a; margin-top: 20px; max-width: 600px;
+  }
+  .cs-meta-grid { display: flex; flex-direction: column; gap: 20px; padding-bottom: 8px; }
+  .cs-meta-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 4px;
+  }
+  .cs-meta-value { font-size: 13px; font-weight: 400; color: #0a0a0a; line-height: 150%; }
+
+  /* ─── HERO IMAGE ─── */
+  .cs-hero-image {
+    width: 1440px; height: 640px; background: #f7f7f7;
+    border-top: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-ph-lg { width: 80px; height: 80px; background: #ebebeb; border: 1px solid #d0d0d0; }
+  .img-ph-sm { width: 40px; height: 40px; background: #ebebeb; border: 1px solid #d0d0d0; }
+
+  /* ─── CONTENT WRAPPER ─── */
+  .cs-content { padding: 0 64px; }
+
+  /* ─── SECTION SHARED ─── */
+  .cs-section {
+    padding: 80px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+  }
+  .cs-section-aside {}
+  .cs-section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 12px;
+  }
+  .cs-section-heading {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+  }
+  .cs-section-body { display: flex; flex-direction: column; gap: 20px; }
+  .cs-body-text {
+    font-size: 14px; font-weight: 400; line-height: 170%; color: #4a4a4a;
+  }
+  .cs-body-text strong { font-weight: 600; color: #0a0a0a; }
+
+  /* ─── OVERVIEW STRIP ─── */
+  .cs-overview {
+    padding: 64px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+    margin-top: 0;
+  }
+  .overview-cell {
+    background: #ffffff;
+    padding: 40px;
+  }
+  .overview-cell-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 16px;
+    padding-bottom: 16px; border-bottom: 1px solid #ebebeb;
+  }
+  .overview-cell-text {
+    font-size: 14px; font-weight: 400; line-height: 170%; color: #4a4a4a;
+  }
+
+  /* ─── STAT BOXES ─── */
+  .cs-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb; margin-bottom: 0;
+  }
+  .stat-box { background: #ffffff; padding: 28px; }
+  .stat-num {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #1a56ff; margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; font-weight: 400; line-height: 160%; color: #8a8a8a; }
+
+  /* ─── TABLE ─── */
+  .cs-table { width: 100%; border-collapse: collapse; border: 1px solid #ebebeb; }
+  .cs-table th {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: #8a8a8a; padding: 12px 20px; background: #f7f7f7;
+    border-bottom: 1px solid #ebebeb; border-right: 1px solid #ebebeb;
+    text-align: left;
+  }
+  .cs-table th:last-child { border-right: none; }
+  .cs-table td {
+    font-size: 13px; font-weight: 400; color: #0a0a0a;
+    padding: 14px 20px; border-bottom: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+  }
+  .cs-table td:last-child { border-right: none; }
+  .cs-table tr:last-child td { border-bottom: none; }
+  .cs-table .td-meta { color: #8a8a8a; }
+  .cs-table .td-highlight { font-weight: 600; color: #0a0a0a; }
+
+  /* ─── ROLE GRID ─── */
+  .cs-role-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb;
+  }
+  .role-cell { background: #ffffff; padding: 32px; }
+  .role-title {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a;
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #ebebeb;
+  }
+  .role-body { font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── PHASE ─── */
+  .cs-phases { display: flex; flex-direction: column; }
+  .phase-item {
+    padding: 32px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .phase-item:first-child { padding-top: 0; }
+  .phase-num {
+    width: 32px; height: 32px; background: #0a0a0a;
+    color: #ffffff; font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 3px;
+  }
+  .phase-content {}
+  .phase-title {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a; margin-bottom: 10px;
+  }
+  .phase-body { font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── JOURNEY STAGES ─── */
+  .cs-journey {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb; margin-top: 0;
+  }
+  .journey-cell { background: #ffffff; padding: 32px; }
+  .journey-num {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0; margin-bottom: 12px;
+  }
+  .journey-title {
+    font-size: 14px; font-weight: 600; color: #0a0a0a;
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #ebebeb;
+  }
+  .journey-problem-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 8px;
+  }
+  .journey-problem-text { font-size: 12px; font-weight: 400; line-height: 160%; color: #4a4a4a; margin-bottom: 16px; }
+  .journey-goal-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #1a56ff; margin-bottom: 8px;
+  }
+  .journey-goal-text { font-size: 12px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── QUOTE ─── */
+  .cs-quote {
+    padding: 40px; border-left: 2px solid #0a0a0a; background: #f7f7f7;
+  }
+  .cs-quote-text {
+    font-size: 20px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.02em; color: #0a0a0a; margin-bottom: 12px;
+  }
+  .cs-quote-attr {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a;
+  }
+
+  /* ─── IMAGE BLOCKS ─── */
+  .cs-image-full {
+    width: 100%; height: 400px; background: #f7f7f7;
+    border: 1px solid #ebebeb; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .cs-image-half-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .cs-image-half {
+    height: 280px; background: #f7f7f7;
+    border: 1px solid #ebebeb; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .cs-image-caption {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0; margin-top: 10px;
+  }
+
+  /* ─── CONCEPTS ─── */
+  .cs-concepts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb;
+  }
+  .concept-cell { background: #ffffff; padding: 32px; }
+  .concept-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #ebebeb;
+    gap: 16px;
+  }
+  .concept-title { font-size: 14px; font-weight: 600; color: #0a0a0a; flex: 1; }
+  .concept-priority {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #1a56ff; flex-shrink: 0;
+    border: 1px solid #1a56ff; padding: 3px 8px;
+  }
+  .concept-num {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0; margin-bottom: 8px;
+  }
+  .concept-insight-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 6px;
+  }
+  .concept-insight {
+    font-size: 12px; font-weight: 400; font-style: italic;
+    line-height: 160%; color: #4a4a4a; margin-bottom: 14px;
+    padding: 12px; background: #f7f7f7;
+  }
+  .concept-body { font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── REFLECTION ─── */
+  .cs-reflection-list { display: flex; flex-direction: column; gap: 0; }
+  .reflection-item {
+    padding: 28px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+  .reflection-item:first-child { padding-top: 0; }
+  .reflection-heading {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a;
+  }
+  .reflection-body { font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── PERSONA ─── */
+  .cs-persona {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb;
+  }
+  .persona-stage { background: #ffffff; padding: 32px; }
+  .persona-age {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 8px;
+  }
+  .persona-title {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a;
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #ebebeb;
+  }
+  .persona-body { font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── PRINCIPLES ─── */
+  .cs-principles {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb;
+  }
+  .principle-cell { background: #ffffff; padding: 32px; }
+  .principle-name {
+    font-size: 14px; font-weight: 600; color: #0a0a0a;
+    margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ebebeb;
+  }
+  .principle-body { font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a; }
+
+  /* ─── NEXT PROJECT ─── */
+  .cs-next {
+    padding: 80px 64px;
+    border-top: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cs-next-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 12px;
+  }
+  .cs-next-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: #1a56ff; color: #ffffff; font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none; border: none;
+    white-space: nowrap;
+  }
+  .btn-secondary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: transparent; color: #0a0a0a; border: 1px solid #d0d0d0;
+    font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+    white-space: nowrap;
+  }
+
+  footer {
+    padding: 40px 64px; border-top: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-name { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
+
+  .divider { border: none; border-top: 1px solid #ebebeb; margin: 0; }
+  .gap-s { height: 20px; }
+  .gap-m { height: 32px; }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-back" href="#">← Work</a>
+    <a class="nav-logo" href="#">Matt Leete</a>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Work</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link nav-link-cta" href="#">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="cs-hero">
+    <div class="cs-breadcrumb">Work → Superannuation</div>
+    <div class="cs-hero-inner">
+      <div>
+        <div class="cs-tags">
+          <span class="tag tag-accent">CX Strategy</span>
+          <span class="tag tag-default">Journey Design</span>
+          <span class="tag tag-default">Superannuation</span>
+          <span class="tag tag-default">12 Weeks</span>
+        </div>
+        <h1 class="cs-title">Reducing Churn at the Moment of Value</h1>
+        <p class="cs-subtitle">Member Experience Strategy & CX Journey Design for a Major Australian Superannuation Fund</p>
+      </div>
+      <div class="cs-meta-grid">
+        <div>
+          <div class="cs-meta-label">My Role</div>
+          <div class="cs-meta-value">Designer, Strategist & Facilitator</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Industry</div>
+          <div class="cs-meta-value">Superannuation</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Duration</div>
+          <div class="cs-meta-value">12 Weeks</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Team Size</div>
+          <div class="cs-meta-value">3–4 People</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Deliverables</div>
+          <div class="cs-meta-value">CX Journey Map<br>Experience Framework<br>Design Concepts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <div class="cs-hero-image">
+    <div class="img-ph-lg"></div>
+  </div>
+
+  <div class="cs-content">
+
+    <!-- OVERVIEW STRIP -->
+    <div style="border-bottom: 1px solid #ebebeb;">
+      <div class="cs-overview" style="border:none; border-bottom:none; margin:0;">
+        <div class="overview-cell">
+          <div class="overview-cell-label">The Challenge</div>
+          <div class="overview-cell-text">A 2-million-member super fund was losing its highest-potential members at the exact moment they were becoming most valuable — just as they began to accumulate meaningful retirement savings.</div>
+        </div>
+        <div class="overview-cell">
+          <div class="overview-cell-label">The Approach</div>
+          <div class="overview-cell-text">Over 12 weeks: research synthesis, CX strategy, journey mapping, concept design and user testing — delivering a comprehensive experience framework and actionable design concepts.</div>
+        </div>
+        <div class="overview-cell">
+          <div class="overview-cell-label">The Outcome</div>
+          <div class="overview-cell-text">A validated experience framework and suite of design concepts received with strong enthusiasm by the client — described as immediately actionable and aligned with their strategic direction.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE PROBLEM -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">01</div>
+        <h2 class="cs-section-heading">The Problem</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">The fund had a well-documented retention problem. Members were entering a phase of their financial lives where super began to feel more real and relevant — yet the experience they encountered at that moment was disconnected, generic and difficult to navigate. Rather than deepening their relationship with the fund, this friction pushed them toward competitors.</p>
+        <p class="cs-body-text">Two dynamics compounded the issue:</p>
+        <div class="cs-stats">
+          <div class="stat-box">
+            <div style="font-size:14px;font-weight:600;color:#0a0a0a;margin-bottom:8px;">Low Engagement</div>
+            <div class="stat-label">Members didn't feel a sense of ownership or connection to their super — it was something that happened to them, not something they actively managed. When they did interact, the experience failed to meet the moment.</div>
+          </div>
+          <div class="stat-box">
+            <div style="font-size:14px;font-weight:600;color:#0a0a0a;margin-bottom:8px;">'Starter Fund' Perception</div>
+            <div class="stat-label">Many members perceived the fund as a starter option — a choice for people who hadn't yet made a deliberate decision about their super. As their financial lives matured, this made them feel they'd outgrown it.</div>
+          </div>
+          <div class="stat-box">
+            <div style="font-size:14px;font-weight:600;color:#0a0a0a;margin-bottom:8px;">The Key Signal</div>
+            <div class="stat-label">Members who logged into the fund's app had significantly lower churn rates than those who didn't. Regular app engagement was one of the strongest behavioural signals of member retention.</div>
+          </div>
+        </div>
+        <p class="cs-body-text">The business consequence was measurable. A fund managing tens of billions in retirement savings was losing high-potential members at the exact moment those members were poised to deliver the greatest long-term value.</p>
+        <div class="cs-image-full"><div class="img-ph-sm"></div></div>
+        <div class="cs-image-caption">Current-state experience map — fragmented touchpoints across digital and communications channels</div>
+      </div>
+    </div>
+
+    <!-- CONTEXT & SCALE -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">02</div>
+        <h2 class="cs-section-heading">Context & Scale</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">To understand the stakes of the engagement, it helps to appreciate the scale of the fund and the trajectory it was on. Against a backdrop of healthy overall growth, the churn problem represented a significant drag — and a significant opportunity.</p>
+        <table class="cs-table">
+          <thead>
+            <tr>
+              <th>Financial Year</th>
+              <th>Total Members</th>
+              <th>Funds Under Management</th>
+              <th>FUM Growth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-meta">FY2023</td>
+              <td>~1.9 million</td>
+              <td>~$75 billion</td>
+              <td class="td-meta">—</td>
+            </tr>
+            <tr>
+              <td class="td-meta">FY2024</td>
+              <td>~2.0 million</td>
+              <td>~$86 billion</td>
+              <td class="td-highlight">+~14%</td>
+            </tr>
+            <tr>
+              <td class="td-meta">FY2025</td>
+              <td>~2.1 million</td>
+              <td>~$99 billion</td>
+              <td class="td-highlight">+~15%</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="cs-body-text" style="font-size:11px; color:#8a8a8a;">Note: All figures are approximate and have been rounded to protect client confidentiality. Data sourced from publicly available annual reports.</p>
+        <p class="cs-body-text">Retaining members through the early engagement phase had the potential to compound into substantially greater FUM over the long term. This wasn't a marginal problem — it was a strategic priority.</p>
+      </div>
+    </div>
+
+    <!-- MY ROLE -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">03</div>
+        <h2 class="cs-section-heading">My Role</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">I operated across three distinct functions throughout the engagement, often switching between them within a single working session.</p>
+        <div class="cs-role-grid">
+          <div class="role-cell">
+            <div class="role-title">Strategist</div>
+            <div class="role-body">Led the synthesis of existing member research and translated it into a strategic framework. This included identifying the core tension at the heart of the problem — a mismatch between the life stage of at-risk members and the experience the fund was delivering — and developing a point of view on where the greatest leverage lay.</div>
+          </div>
+          <div class="role-cell">
+            <div class="role-title">Experience Designer</div>
+            <div class="role-body">Designed the end-to-end CX journey map in Figma, visualising the member experience across key moments and touchpoints. Led concept ideation and developed the design concepts that formed the final client deliverable, taking them through rounds of iteration informed by user testing.</div>
+          </div>
+          <div class="role-cell">
+            <div class="role-title">Facilitator</div>
+            <div class="role-body">Planned and facilitated collaborative workshops with the client team throughout the engagement — aligning stakeholders on strategic direction, pressure-testing journey assumptions, and building shared ownership of emerging concepts. Critical for ensuring the work had legs beyond the consulting engagement.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE PERSONA -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">04</div>
+        <h2 class="cs-section-heading">The Member Persona</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">To ground the strategy and design work, we developed a <strong>dual-stage persona</strong> representing the at-risk member segment at two critical points in their life. Rather than a single static profile, the persona showed the same person at two different ages — capturing how their relationship with super needed to evolve as their life circumstances changed.</p>
+        <div class="cs-persona">
+          <div class="persona-stage">
+            <div class="persona-age">Age 18</div>
+            <div class="persona-title">First job, no financial context</div>
+            <div class="persona-body">Grew up in a close-knit regional family with limited exposure to financial planning. After finishing high school, she landed a part-time retail job — her first experience of earning an income. She has no clear career direction, and while she's excited about earning money, adult financial responsibilities feel unfamiliar and slightly overwhelming. Super exists in the background — she knows it's there, but it holds no real meaning for her yet.</div>
+          </div>
+          <div class="persona-stage">
+            <div class="persona-age">Age 21</div>
+            <div class="persona-title">Career beginning, life getting more complex</div>
+            <div class="persona-body">Three years later, she's completed a diploma and been offered her first professional role at a youth mental health foundation in Sydney. She's relocating from her hometown, navigating rent, full-time work and city life simultaneously. Financial management is becoming a more pressing reality — but her immediate focus is on making the transition work. Super still isn't a priority, but this is precisely the moment she's most vulnerable to switching and most open to being engaged.</div>
+          </div>
+        </div>
+        <div class="cs-quote">
+          <div class="cs-quote-text">The dual-stage persona was most valuable during strategy and problem framing — helping align the client team around a shared, human understanding of who they were designing for and why the experience was falling short at a critical life moment.</div>
+          <div class="cs-quote-attr">Project reflection</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">05</div>
+        <h2 class="cs-section-heading">Process</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">The 12-week engagement was structured as a phased progression from understanding through to validated design concepts.</p>
+        <div class="cs-phases">
+          <div class="phase-item">
+            <div class="phase-num">1</div>
+            <div class="phase-content">
+              <div class="phase-title">Research Synthesis & Strategic Framing</div>
+              <div class="phase-body">The fund had already invested in qualitative and quantitative member research. Rather than duplicate that effort, we immersed ourselves in the existing body of work — identifying patterns, tensions and unanswered questions. From this synthesis, we developed a clear strategic framing: a definition of the at-risk member segment, a map of key moments where experience was falling short, and a set of design principles to guide the work ahead. A workshop with the client's strategy and product teams stress-tested our synthesis early in this phase.</div>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">2</div>
+            <div class="phase-content">
+              <div class="phase-title">CX Vision, Principles & Journey Mapping</div>
+              <div class="phase-body">Before mapping the journey, we established a clear experience vision and design principles. The vision: <strong>make super surprisingly simple</strong> — acknowledging super is inherently complex, and that the goal was to make engaging with it feel effortless and even unexpectedly enjoyable. Three principles underpinned this:</div>
+            </div>
+          </div>
+        </div>
+        <div class="gap-m"></div>
+        <div class="cs-principles">
+          <div class="principle-cell">
+            <div class="principle-name">Intuitive</div>
+            <div class="principle-body">Every interaction should feel natural and require no instruction to navigate.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Personalised</div>
+            <div class="principle-body">The experience should reflect the member's individual goals, financial literacy and life stage — not a generic template.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Surprising</div>
+            <div class="principle-body">The fund should create moments of genuine delight in unexpected places, shifting super from obligation to something worth engaging with.</div>
+          </div>
+        </div>
+        <div class="gap-m"></div>
+        <p class="cs-body-text">With the vision and principles established, we built the journey map across three key stages:</p>
+        <div class="gap-s"></div>
+        <div class="cs-journey">
+          <div class="journey-cell">
+            <div class="journey-num">Stage 01</div>
+            <div class="journey-title">Acquire & Onboard</div>
+            <div class="journey-problem-label">Problem</div>
+            <div class="journey-problem-text">New members have a lot going on. They don't have the time or headspace to engage with super, and begin their journey with apathy or misunderstanding about what it is and why it matters.</div>
+            <div class="journey-goal-label">Goal</div>
+            <div class="journey-goal-text">A warm welcome followed by a simple, guided onboarding journey that personalises the member's future experience based on their goals and financial literacy level.</div>
+          </div>
+          <div class="journey-cell">
+            <div class="journey-num">Stage 02</div>
+            <div class="journey-title">Reasons to Stay</div>
+            <div class="journey-problem-label">Problem</div>
+            <div class="journey-problem-text">Young members often lack awareness, interest and understanding of their super. Others perceive the fund as one for beginners — a default choice. Both lead to apathy as they approach a job change.</div>
+            <div class="journey-goal-label">Goal</div>
+            <div class="journey-goal-text">Engage younger members by sparking genuine interest in their super, guiding them through priority tasks, and providing consistent reassurance and compelling reasons to return to the app regularly.</div>
+          </div>
+          <div class="journey-cell">
+            <div class="journey-num">Stage 03</div>
+            <div class="journey-title">Job Change</div>
+            <div class="journey-problem-label">Problem</div>
+            <div class="journey-problem-text">Young members lack confidence in the fund as their preferred provider. Many are unaware they can take their super with them when they change jobs. This is the highest-risk moment in the journey.</div>
+            <div class="journey-goal-label">Goal</div>
+            <div class="journey-goal-text">Ensure members feel the fund is the right choice at this stage. Provide personalised guidance on how to stay — and a seamless exit experience for those who do choose to leave, leaving the door open for return.</div>
+          </div>
+        </div>
+        <div class="gap-m"></div>
+        <div class="cs-phases">
+          <div class="phase-item">
+            <div class="phase-num">3</div>
+            <div class="phase-content">
+              <div class="phase-title">Concept Ideation & Design</div>
+              <div class="phase-body">Working from the opportunity spaces identified in the journey map, we ran structured ideation sessions — both internally and collaboratively with the client. Concepts were designed in Figma to a level of fidelity sufficient for user testing — detailed enough to feel real, but flexible enough to iterate quickly. Each concept was framed around a specific member insight and a clear articulation of the experience shift it was designed to create.</div>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">4</div>
+            <div class="phase-content">
+              <div class="phase-title">User Testing & Refinement</div>
+              <div class="phase-body">We tested concepts with members representative of the at-risk segment. Testing focused on comprehension, emotional resonance and perceived relevance — we wanted to understand not just whether members understood the concepts, but whether they felt like experiences worth staying for. Several concepts were significantly reworked based on feedback; one concept that had performed strongly in internal reviews was substantially de-prioritised after testing revealed it addressed a problem members didn't actually experience as painful.</div>
+            </div>
+          </div>
+        </div>
+        <div class="gap-m"></div>
+        <div class="cs-image-full"><div class="img-ph-sm"></div></div>
+        <div class="cs-image-caption">Journey mapping workshop — client co-design session, Week 4</div>
+      </div>
+    </div>
+
+    <!-- DELIVERABLES -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">06</div>
+        <h2 class="cs-section-heading">Deliverables</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">The final deliverable presented to the client consisted of two core components:</p>
+
+        <div style="border:1px solid #ebebeb; padding:32px; margin-bottom:16px;">
+          <div style="font-size:14px;font-weight:600;color:#0a0a0a;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #ebebeb;">CX Journey Map</div>
+          <div class="cs-body-text">A comprehensive, designed artefact mapping the end-to-end experience of the at-risk member segment. The key finding from the current state analysis: the member experience was inconsistent and confusing across touchpoints — members encountered a different look, feel and logic depending on how they engaged with the fund, which eroded confidence and made it harder to take action.</div>
+          <div class="gap-s"></div>
+          <div class="cs-body-text">The journey map and accompanying experience framework established a consistent and intuitive experience standard across all touchpoints, and was designed to give members the signals they needed to feel confident — that they had made the right choice and were being looked after well. The framework was designed to be durable beyond the engagement, giving the client's internal teams a shared reference to align future work.</div>
+        </div>
+        <div style="border:1px solid #ebebeb; padding:32px;">
+          <div style="font-size:14px;font-weight:600;color:#0a0a0a;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #ebebeb;">Design Concepts</div>
+          <div class="cs-body-text">A suite of validated experience concepts addressing the highest-priority opportunity spaces identified in the journey. The concepts were designed with two interconnected goals: improving the overall quality and consistency of the member experience, and driving regular app engagement as a concrete retention behaviour — given that app log-in frequency was one of the strongest indicators of member retention.</div>
+        </div>
+        <div class="gap-m"></div>
+        <div class="cs-image-half-grid">
+          <div class="cs-image-half"><div class="img-ph-sm"></div></div>
+          <div class="cs-image-half"><div class="img-ph-sm"></div></div>
+        </div>
+        <div class="cs-image-caption">Left: Final CX journey map. Right: Selected design concept mockups.</div>
+      </div>
+    </div>
+
+    <!-- CONCEPTS -->
+    <div class="cs-section" style="display:block; padding:80px 0; border-bottom:1px solid #ebebeb;">
+      <div style="display:grid; grid-template-columns:280px 1fr; gap:80px; margin-bottom:40px;">
+        <div>
+          <div class="cs-section-label">07</div>
+          <h2 class="cs-section-heading">Design Concepts</h2>
+        </div>
+        <div>
+          <p class="cs-body-text">Six concepts developed to drive first app login and consistent return engagement among the at-risk member segment. Each is grounded in the persona and the three experience principles. Concepts 1, 3 and 5 are considered highest priority — directly addressing the first login barrier, the life-stage trigger and the return habit.</p>
+        </div>
+      </div>
+      <div class="cs-concepts">
+
+        <div class="concept-cell">
+          <div class="concept-num">Concept 01 — Priority</div>
+          <div class="concept-header">
+            <div class="concept-title">'Your Super So Far' — First Login Moment</div>
+            <span class="concept-priority">High</span>
+          </div>
+          <div class="concept-insight-label">Member Insight</div>
+          <div class="concept-insight">"The persona doesn't know super is happening for them. Making the invisible visible creates an immediate emotional hook."</div>
+          <div class="concept-body">On first app open, instead of a generic dashboard, the member sees a personalised summary of what has already been accumulated on their behalf — framed as a positive surprise. "You've already saved $X without doing anything. Here's what that could look like at 65." Requires no financial literacy to understand, and directly embodies the <em>surprising</em> principle. Answers the unspoken question — "is this worth my time?" — in the first 30 seconds.</div>
+        </div>
+
+        <div class="concept-cell">
+          <div class="concept-num">Concept 02</div>
+          <div class="concept-header">
+            <div class="concept-title">One-Question Onboarding Personaliser</div>
+          </div>
+          <div class="concept-insight-label">Member Insight</div>
+          <div class="concept-insight">"The persona has limited headspace. Generic onboarding reads as irrelevant before it's finished."</div>
+          <div class="concept-body">Rather than a full profile setup, ask a single question on first login: "What matters most to you right now?" with options like <em>saving for something</em>, <em>understanding my money</em>, or <em>just getting set up</em>. The answer tailor what the home screen surfaces — signalling that the experience is built around the member, not a generic template. The response also feeds data to personalise future communications.</div>
+        </div>
+
+        <div class="concept-cell">
+          <div class="concept-num">Concept 03 — Priority</div>
+          <div class="concept-header">
+            <div class="concept-title">Life Milestone Triggers</div>
+            <span class="concept-priority">High</span>
+          </div>
+          <div class="concept-insight-label">Member Insight</div>
+          <div class="concept-insight">"The persona is in a life transition. Meeting her at that moment with something relevant — not a generic marketing message — is exactly what 'surprisingly simple' means in practice."</div>
+          <div class="concept-body">Proactively reach out at moments the fund can reasonably infer — starting a new job, turning 21, receiving a first payslip above a threshold. A short, warm notification: "Looks like things are picking up for you. Here's one thing worth knowing about your super right now." Creates a reason to open the app that feels personal rather than promotional, and maps directly to the job change stage of the journey.</div>
+        </div>
+
+        <div class="concept-cell">
+          <div class="concept-num">Concept 04</div>
+          <div class="concept-header">
+            <div class="concept-title">Progress Indicator with Dollar Value</div>
+          </div>
+          <div class="concept-insight-label">Member Insight</div>
+          <div class="concept-insight">"The persona's barrier is apathy, not hostility. Abstract future benefits don't move her; concrete personalised numbers do."</div>
+          <div class="concept-body">A subtle but persistent home screen element showing what completing a profile or reviewing an investment option could mean in dollar terms over time — not a nag, but a quiet and always-available nudge. Also gives the member a reason to return, since the figure changes as her balance grows. Respects attention while still driving action.</div>
+        </div>
+
+        <div class="concept-cell">
+          <div class="concept-num">Concept 05 — Priority</div>
+          <div class="concept-header">
+            <div class="concept-title">'Just One Thing' Return Mechanic</div>
+            <span class="concept-priority">High</span>
+          </div>
+          <div class="concept-insight-label">Member Insight</div>
+          <div class="concept-insight">"Consistent return behaviour is built on low friction. If every visit feels manageable, the habit forms. If every visit feels like homework, it doesn't."</div>
+          <div class="concept-body">Each time the member opens the app, surface one single relevant action or piece of information — never more. "This week: check your insurance cover. Takes 2 minutes." This is the <em>intuitive</em> principle applied to re-engagement — the app earns the next visit by not overloading the current one. Directly addresses the strongest behavioural retention signal identified in the data.</div>
+        </div>
+
+        <div class="concept-cell">
+          <div class="concept-num">Concept 06</div>
+          <div class="concept-header">
+            <div class="concept-title">Social Proof for the Confidence Problem</div>
+          </div>
+          <div class="concept-insight-label">Member Insight</div>
+          <div class="concept-insight">"The persona's churn risk is partly identity-based: she perceives the fund as something she has outgrown."</div>
+          <div class="concept-body">Subtly surface proof points that normalise staying with the fund as members level up: "Members who joined at your age and stayed through their first job change have on average X% more saved by 30." Reframes the fund as something serious, engaged people actively choose to stay with — directly addressing the starter-fund perception in context, in the app, at the right moment.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- REFLECTION -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">08</div>
+        <h2 class="cs-section-heading">Reflection</h2>
+      </div>
+      <div class="cs-section-body">
+        <div class="cs-reflection-list">
+          <div class="reflection-item">
+            <div class="reflection-heading">Inconsistency is often invisible to the teams living inside a product.</div>
+            <div class="reflection-body">Each touchpoint had been designed and maintained by different people at different times — each one reasonable in isolation. But from a member's perspective, the cumulative effect was disorienting. Getting the client's team to see their own experience through that lens was as important as any of the design work itself.</div>
+          </div>
+          <div class="reflection-item">
+            <div class="reflection-heading">A framework only has value if people can use it after you leave.</div>
+            <div class="reflection-body">The experience framework was practical by design — it needed to be something the client could actually use after we left, not just a polished deliverable that sat in a folder. Building it with that in mind shaped how we structured the work and how we ran the workshops, making sure the internal team understood the reasoning behind it, not just the output.</div>
+          </div>
+          <div class="reflection-item">
+            <div class="reflection-heading">Working across strategy, design and facilitation produces better work.</div>
+            <div class="reflection-body">The strategy informs the design, the design stress-tests the strategy, and the facilitation makes sure the client is with you at each step rather than just receiving a final presentation. The cost is personal — it's demanding to switch modes constantly — but the quality of the output reflects it.</div>
+          </div>
+          <div class="reflection-item" style="border-bottom:none;">
+            <div class="reflection-heading">Test assumptions, not solutions.</div>
+            <div class="reflection-body">One concept that had performed strongly in internal reviews was substantially de-prioritised after testing revealed it addressed a problem members didn't actually experience as painful. Framing usability sessions around behaviours and mental models rather than feature validation gave us richer insight and surfaced two major pivots before we'd committed to any direction.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cs-content -->
+
+  <!-- NEXT PROJECT -->
+  <div class="cs-next">
+    <div>
+      <div class="cs-next-label">Next Project</div>
+      <div class="cs-next-title">Spix App</div>
+    </div>
+    <div style="display:flex;gap:16px;">
+      <a class="btn-primary" href="#">View Project →</a>
+      <a class="btn-secondary" href="#">← All Work</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-name">Matt Leete © 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">LinkedIn ↗</a>
+      <a class="footer-link" href="#">Read.cv ↗</a>
+      <a class="footer-link" href="#">matt@mattleete.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>

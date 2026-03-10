@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Matt Leete — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  nav {
+    width: 1440px;
+    height: 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+  }
+  .nav-logo { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #4a4a4a; text-decoration: none; }
+  .nav-link-active { color: #0a0a0a; }
+  .nav-link-cta { color: #ffffff; background: #0a0a0a; padding: 8px 18px; }
+
+  /* HERO */
+  .about-hero {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 64px;
+    align-items: end;
+  }
+  .about-hero-eyebrow {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 32px;
+  }
+  .about-hero-title {
+    font-size: 72px; font-weight: 600; line-height: 100%;
+    letter-spacing: -0.04em; color: #0a0a0a;
+  }
+  .about-hero-right { padding-bottom: 6px; }
+  .about-hero-body {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a; margin-bottom: 32px;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: #1a56ff; color: #ffffff; font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none; border: none;
+  }
+  .btn-secondary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: transparent; color: #0a0a0a; border: 1px solid #d0d0d0;
+    font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  }
+
+  /* PHOTO + BIO */
+  .bio-section {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 480px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .photo-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .photo-placeholder {
+    width: 480px;
+    height: 560px;
+    background: #f7f7f7;
+    border: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-placeholder-inner {
+    width: 64px; height: 64px;
+    background: #ebebeb; border: 1px solid #d0d0d0;
+  }
+  .photo-caption {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0;
+  }
+  .bio-content { padding-top: 8px; }
+  .bio-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 24px;
+  }
+  .bio-heading {
+    font-size: 24px; font-weight: 600; line-height: 110%;
+    letter-spacing: -0.02em; color: #0a0a0a; margin-bottom: 24px;
+  }
+  .bio-para {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a; margin-bottom: 20px;
+  }
+  .bio-para:last-of-type { margin-bottom: 40px; }
+
+  /* SKILLS */
+  .skills-section {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .skills-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .skills-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+  }
+  .skill-cell {
+    background: #ffffff;
+    padding: 32px;
+  }
+  .skill-category {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 20px;
+    padding-bottom: 16px; border-bottom: 1px solid #ebebeb;
+  }
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .skill-name {
+    font-size: 13px; font-weight: 400; color: #0a0a0a;
+  }
+  .skill-level {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #d0d0d0;
+  }
+
+  /* EXPERIENCE */
+  .experience-section {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+  }
+  .exp-sidebar-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+    position: sticky;
+    top: 80px;
+  }
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item {
+    padding: 32px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    gap: 24px;
+  }
+  .exp-item:first-child { padding-top: 0; }
+  .exp-role {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a; margin-bottom: 4px;
+  }
+  .exp-company {
+    font-size: 14px; font-weight: 400; color: #4a4a4a; margin-bottom: 12px;
+  }
+  .exp-desc {
+    font-size: 12px; font-weight: 400; line-height: 160%; color: #8a8a8a;
+  }
+  .exp-meta { text-align: right; padding-top: 4px; }
+  .exp-period {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0;
+  }
+
+  /* CTA STRIP */
+  .cta-strip {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cta-text {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a; max-width: 600px;
+  }
+  .cta-actions { display: flex; gap: 16px; }
+
+  footer {
+    padding: 40px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-name { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Matt Leete</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Work</a>
+      <a class="nav-link nav-link-active" href="#">About</a>
+      <a class="nav-link nav-link-cta" href="#">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div>
+      <div class="about-hero-eyebrow">About Matt Leete</div>
+      <h1 class="about-hero-title">Product Designer based in Australia.</h1>
+    </div>
+    <div class="about-hero-right">
+      <p class="about-hero-body">Six years designing digital products that balance business goals with genuine user needs. I care about craft, clarity, and getting things built.</p>
+      <a class="btn-primary" href="#">Download CV</a>
+    </div>
+  </section>
+
+  <!-- BIO + PHOTO -->
+  <section class="bio-section">
+    <div class="photo-block">
+      <div class="photo-placeholder">
+        <div class="photo-placeholder-inner"></div>
+      </div>
+      <div class="photo-caption">Photo — Sydney, 2025</div>
+    </div>
+    <div class="bio-content">
+      <div class="bio-label">Background</div>
+      <div class="bio-heading">I design products at the intersection of people, business, and technology.</div>
+      <p class="bio-para">My background spans early-stage startups, product studios, and in-house teams. That range has given me a broad toolkit — I'm as comfortable running research sessions as I am refining interaction details or reviewing a component library PR.</p>
+      <p class="bio-para">I work best in environments where design has a genuine seat at the table and where teams care about the details. I don't separate strategy from execution — the thinking and the making are the same process to me.</p>
+      <p class="bio-para">When I'm not designing, I'm probably thinking about type, reading about systems, or attempting to explain design to my non-designer friends.</p>
+      <div style="display:flex;gap:16px;">
+        <a class="btn-primary" href="#">View my work</a>
+        <a class="btn-secondary" href="#">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section">
+    <div class="skills-header">
+      <h2 class="skills-title">Skills & Tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <div class="skill-category">Design</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">Product Design</span><span class="skill-level">Expert</span></div>
+          <div class="skill-item"><span class="skill-name">UX Research</span><span class="skill-level">Expert</span></div>
+          <div class="skill-item"><span class="skill-name">Interaction Design</span><span class="skill-level">Expert</span></div>
+          <div class="skill-item"><span class="skill-name">Design Systems</span><span class="skill-level">Expert</span></div>
+          <div class="skill-item"><span class="skill-name">Visual Design</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-item"><span class="skill-name">Motion Design</span><span class="skill-level">Intermediate</span></div>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-category">Tools</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">Figma</span><span class="skill-level">Expert</span></div>
+          <div class="skill-item"><span class="skill-name">Framer</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-item"><span class="skill-name">Principle</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-item"><span class="skill-name">Maze / UserTesting</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-item"><span class="skill-name">Jira / Linear</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-item"><span class="skill-name">Notion</span><span class="skill-level">Advanced</span></div>
+        </div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-category">Development</div>
+        <div class="skill-list">
+          <div class="skill-item"><span class="skill-name">HTML & CSS</span><span class="skill-level">Advanced</span></div>
+          <div class="skill-item"><span class="skill-name">JavaScript</span><span class="skill-level">Intermediate</span></div>
+          <div class="skill-item"><span class="skill-name">React</span><span class="skill-level">Intermediate</span></div>
+          <div class="skill-item"><span class="skill-name">Tailwind CSS</span><span class="skill-level">Intermediate</span></div>
+          <div class="skill-item"><span class="skill-name">Git</span><span class="skill-level">Intermediate</span></div>
+          <div class="skill-item"><span class="skill-name">Accessibility</span><span class="skill-level">Advanced</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience-section">
+    <div>
+      <h2 class="exp-sidebar-title">Experience</h2>
+    </div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Senior Product Designer</div>
+          <div class="exp-company">GGWC — Spix App</div>
+          <div class="exp-desc">Leading product design across mobile and web for a social platform. Responsible for end-to-end design process, design system ownership, and cross-functional collaboration with engineering and product.</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-period">2024 — Present</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Product Designer</div>
+          <div class="exp-company">Freelance</div>
+          <div class="exp-desc">End-to-end product and UX design for a range of clients spanning fintech, SaaS, and consumer apps. From discovery workshops to shipped product.</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-period">2022 — 2024</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">UX Designer</div>
+          <div class="exp-company">Design Studio</div>
+          <div class="exp-desc">Delivered UX and visual design across client projects. Worked within agile teams on web and native app projects for mid-sized businesses.</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-period">2020 — 2022</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Junior Designer</div>
+          <div class="exp-company">Agency</div>
+          <div class="exp-desc">First industry role. Supported senior designers on branding and digital projects. Learned the fundamentals of production-quality design work.</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-period">2019 — 2020</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="cta-strip">
+    <div class="cta-text">Interested in working together?</div>
+    <div class="cta-actions">
+      <a class="btn-primary" href="#">Get in touch</a>
+      <a class="btn-secondary" href="#">View work</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Matt Leete © 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">LinkedIn ↗</a>
+      <a class="footer-link" href="#">Read.cv ↗</a>
+      <a class="footer-link" href="#">matt@mattleete.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>

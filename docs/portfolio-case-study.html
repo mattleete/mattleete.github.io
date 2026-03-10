@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Matt Leete — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  nav {
+    width: 1440px; height: 64px; border-bottom: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 64px;
+  }
+  .nav-logo { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #4a4a4a; text-decoration: none; }
+  .nav-link-cta { color: #ffffff; background: #0a0a0a; padding: 8px 18px; }
+  .nav-back { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
+
+  /* HERO */
+  .cs-hero {
+    padding: 80px 64px 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .cs-breadcrumb {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 48px;
+  }
+  .cs-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
+    align-items: end;
+    padding-bottom: 64px;
+  }
+  .cs-tags { display: flex; gap: 8px; margin-bottom: 24px; }
+  .tag {
+    display: inline-flex; align-items: center; padding: 4px 10px;
+    font-family: 'Instrument Sans', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .tag-default { color: #4a4a4a; border: 1px solid #d0d0d0; }
+  .tag-accent { color: #1a56ff; border: 1px solid #1a56ff; }
+  .cs-title {
+    font-size: 72px; font-weight: 600; line-height: 100%;
+    letter-spacing: -0.04em; color: #0a0a0a;
+  }
+  .cs-meta-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 8px;
+  }
+  .cs-meta-item {}
+  .cs-meta-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 4px;
+  }
+  .cs-meta-value {
+    font-size: 13px; font-weight: 400; color: #0a0a0a;
+  }
+
+  /* HERO IMAGE */
+  .cs-hero-image {
+    width: 1440px;
+    height: 640px;
+    background: #f7f7f7;
+    border-top: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cs-hero-image-placeholder {
+    width: 80px; height: 80px;
+    background: #ebebeb; border: 1px solid #d0d0d0;
+  }
+
+  /* CONTENT LAYOUT */
+  .cs-content {
+    padding: 0 64px;
+  }
+
+  /* OVERVIEW */
+  .cs-overview {
+    padding: 80px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    gap: 64px;
+  }
+  .cs-section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 20px;
+  }
+  .cs-overview-text {
+    font-size: 24px; font-weight: 600; line-height: 110%;
+    letter-spacing: -0.02em; color: #0a0a0a;
+  }
+  .cs-outcome-list {
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .cs-outcome-item {
+    padding: 16px;
+    border: 1px solid #ebebeb;
+  }
+  .cs-outcome-number {
+    font-size: 24px; font-weight: 600; letter-spacing: -0.02em;
+    color: #1a56ff; margin-bottom: 4px;
+  }
+  .cs-outcome-label {
+    font-size: 11px; font-weight: 400; color: #8a8a8a;
+  }
+
+  /* BODY SECTIONS */
+  .cs-body-section {
+    padding: 80px 0;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+  }
+  .cs-section-heading {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+    position: sticky; top: 80px;
+  }
+  .cs-section-body {}
+  .cs-body-text {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a; margin-bottom: 24px;
+  }
+  .cs-body-text:last-child { margin-bottom: 0; }
+
+  /* IMAGE BLOCKS */
+  .cs-image-full {
+    width: 100%; height: 480px;
+    background: #f7f7f7; border: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+  }
+  .cs-image-half-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-bottom: 24px;
+  }
+  .cs-image-half {
+    height: 320px; background: #f7f7f7; border: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-ph {
+    width: 40px; height: 40px; background: #ebebeb; border: 1px solid #d0d0d0;
+  }
+  .cs-image-caption {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0; margin-bottom: 24px;
+  }
+
+  /* QUOTE */
+  .cs-quote {
+    padding: 40px;
+    border-left: 2px solid #0a0a0a;
+    margin-bottom: 24px;
+  }
+  .cs-quote-text {
+    font-size: 24px; font-weight: 600; line-height: 110%;
+    letter-spacing: -0.02em; color: #0a0a0a; margin-bottom: 12px;
+  }
+  .cs-quote-attr {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a;
+  }
+
+  /* LEARNINGS */
+  .cs-learnings {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: #ebebeb; border: 1px solid #ebebeb;
+    margin-bottom: 24px;
+  }
+  .cs-learning-cell {
+    background: #ffffff; padding: 28px;
+  }
+  .cs-learning-num {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0; margin-bottom: 12px;
+  }
+  .cs-learning-title {
+    font-size: 14px; font-weight: 600; color: #0a0a0a;
+    margin-bottom: 8px;
+  }
+  .cs-learning-text {
+    font-size: 12px; font-weight: 400; line-height: 160%; color: #4a4a4a;
+  }
+
+  /* NEXT PROJECT */
+  .cs-next {
+    padding: 80px 64px;
+    border-top: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cs-next-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 12px;
+  }
+  .cs-next-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: #1a56ff; color: #ffffff; font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none; border: none;
+  }
+
+  footer {
+    padding: 40px 64px; border-top: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-name { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
+</style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-back" href="#">← Work</a>
+    <div class="nav-logo">Matt Leete</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Work</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link nav-link-cta" href="#">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="cs-hero">
+    <div class="cs-breadcrumb">Work → Spix App</div>
+    <div class="cs-hero-inner">
+      <div>
+        <div class="cs-tags">
+          <span class="tag tag-accent">Product Design</span>
+          <span class="tag tag-default">Mobile</span>
+          <span class="tag tag-default">iOS</span>
+        </div>
+        <h1 class="cs-title">Spix App</h1>
+      </div>
+      <div class="cs-meta-grid">
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Role</div>
+          <div class="cs-meta-value">Senior Product Designer</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Year</div>
+          <div class="cs-meta-value">2024 — 2025</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Platform</div>
+          <div class="cs-meta-value">iOS & Web</div>
+        </div>
+        <div class="cs-meta-item">
+          <div class="cs-meta-label">Team</div>
+          <div class="cs-meta-value">3 designers, 6 engineers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <div class="cs-hero-image">
+    <div class="cs-hero-image-placeholder"></div>
+  </div>
+
+  <div class="cs-content">
+
+    <!-- OVERVIEW -->
+    <div class="cs-overview">
+      <div>
+        <div class="cs-section-label">Overview</div>
+        <div class="cs-outcome-list">
+          <div class="cs-outcome-item">
+            <div class="cs-outcome-number">+42%</div>
+            <div class="cs-outcome-label">Day-7 retention after redesign</div>
+          </div>
+          <div class="cs-outcome-item">
+            <div class="cs-outcome-number">4.7★</div>
+            <div class="cs-outcome-label">App Store rating at launch</div>
+          </div>
+          <div class="cs-outcome-item">
+            <div class="cs-outcome-number">0→1</div>
+            <div class="cs-outcome-label">Full product built from scratch</div>
+          </div>
+        </div>
+      </div>
+      <div class="cs-overview-text">End-to-end product design for a mobile-first social platform — from research and strategy through to shipped UI and a living design system.</div>
+      <div></div>
+    </div>
+
+    <!-- PROBLEM -->
+    <div class="cs-body-section">
+      <div>
+        <div class="cs-section-label">01</div>
+        <h2 class="cs-section-heading">The Problem</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">Spix needed to carve out a distinct position in a crowded social app market. Early user testing revealed that existing platforms left a specific user need unaddressed — the desire for smaller, more intentional social connections without the noise of large public feeds.</p>
+        <p class="cs-body-text">The challenge was translating a nuanced social behaviour into a product experience that felt natural and low-friction, while building in the interaction patterns that would drive long-term retention.</p>
+        <div class="cs-image-full"><div class="img-ph"></div></div>
+        <div class="cs-image-caption">Research synthesis from 24 user interviews — affinity mapping session</div>
+        <p class="cs-body-text">We ran 24 in-depth user interviews, competitive analysis across 12 platforms, and a 2-week diary study to understand social media behaviour patterns in the target demographic.</p>
+      </div>
+    </div>
+
+    <!-- APPROACH -->
+    <div class="cs-body-section">
+      <div>
+        <div class="cs-section-label">02</div>
+        <h2 class="cs-section-heading">The Approach</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">We ran three design sprints over six weeks, moving from problem framing to low-fidelity concepts to testable prototypes. Each sprint ended with usability sessions that fed directly into the next iteration.</p>
+        <div class="cs-image-half-grid">
+          <div class="cs-image-half"><div class="img-ph"></div></div>
+          <div class="cs-image-half"><div class="img-ph"></div></div>
+        </div>
+        <div class="cs-image-caption">Left: Early wireframe concepts. Right: Sprint 2 prototype tested with 8 users.</div>
+        <div class="cs-quote">
+          <div class="cs-quote-text">"It feels like the app actually understands what I want to share, not just what's easy to share."</div>
+          <div class="cs-quote-attr">User interview participant — Sprint 3 testing</div>
+        </div>
+        <p class="cs-body-text">A key design decision was the "circle" metaphor — limiting visible audiences by default and requiring active opt-in to share more broadly. This reduced posting anxiety significantly in testing while maintaining the social rewards that drive engagement.</p>
+      </div>
+    </div>
+
+    <!-- SOLUTION -->
+    <div class="cs-body-section">
+      <div>
+        <div class="cs-section-label">03</div>
+        <h2 class="cs-section-heading">The Solution</h2>
+      </div>
+      <div class="cs-section-body">
+        <div class="cs-image-full"><div class="img-ph"></div></div>
+        <div class="cs-image-caption">Final UI — Home feed, profile, and post creation flow</div>
+        <p class="cs-body-text">The shipped product introduced a gesture-first navigation system, an opt-in audience model, and a content format built around short media rather than long-form text. The design system built alongside the product gave the engineering team the components and logic needed to ship at pace.</p>
+        <div class="cs-learnings">
+          <div class="cs-learning-cell">
+            <div class="cs-learning-num">Learning 01</div>
+            <div class="cs-learning-title">Constraints are your friend</div>
+            <div class="cs-learning-text">The audience limitation feature felt counterintuitive to stakeholders but was the most positively received feature in testing. Shipping the constraint built trust.</div>
+          </div>
+          <div class="cs-learning-cell">
+            <div class="cs-learning-num">Learning 02</div>
+            <div class="cs-learning-title">Design system investment pays early</div>
+            <div class="cs-learning-text">Building the component library from sprint 1 — not after — meant we could prototype at high fidelity within days and the engineering handoff required almost no rework.</div>
+          </div>
+          <div class="cs-learning-cell">
+            <div class="cs-learning-num">Learning 03</div>
+            <div class="cs-learning-title">Retention is a design problem</div>
+            <div class="cs-learning-text">Mapping the day-1, day-3, and day-7 user journeys as separate design briefs — not just an onboarding flow — surfaced critical drop-off points that data alone wouldn't have caught.</div>
+          </div>
+          <div class="cs-learning-cell">
+            <div class="cs-learning-num">Learning 04</div>
+            <div class="cs-learning-title">Test your assumptions, not your solutions</div>
+            <div class="cs-learning-text">Framing usability sessions around behaviours and mental models rather than feature validation gave us richer insight and surfaced two major pivots before we'd written a line of code.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cs-content -->
+
+  <!-- NEXT PROJECT -->
+  <div class="cs-next">
+    <div>
+      <div class="cs-next-label">Next Project</div>
+      <div class="cs-next-title">Portfolio Design System</div>
+    </div>
+    <a class="btn-primary" href="#">View Project →</a>
+  </div>
+
+  <footer>
+    <div class="footer-name">Matt Leete © 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">LinkedIn ↗</a>
+      <a class="footer-link" href="#">Read.cv ↗</a>
+      <a class="footer-link" href="#">matt@mattleete.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>

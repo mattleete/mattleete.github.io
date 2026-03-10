@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Matt Leete — Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  nav {
+    width: 1440px; height: 64px; border-bottom: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 64px;
+  }
+  .nav-logo { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #4a4a4a; text-decoration: none; }
+  .nav-link-active { color: #0a0a0a; }
+  .nav-link-cta { color: #ffffff; background: #0a0a0a; padding: 8px 18px; }
+
+  /* HERO */
+  .contact-hero {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 64px;
+    align-items: end;
+  }
+  .contact-eyebrow {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 32px;
+  }
+  .contact-title {
+    font-size: 72px; font-weight: 600; line-height: 100%;
+    letter-spacing: -0.04em; color: #0a0a0a;
+  }
+  .contact-right { padding-bottom: 6px; }
+  .contact-body {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a; margin-bottom: 40px;
+  }
+
+  /* EMAIL CTA */
+  .email-cta {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 24px;
+  }
+  .email-address {
+    font-size: 14px; font-weight: 400; color: #0a0a0a;
+    padding: 12px 20px; border: 1px solid #ebebeb;
+    border-right: none; flex: 1;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; padding: 12px 22px;
+    background: #1a56ff; color: #ffffff; font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none; border: none;
+    white-space: nowrap;
+  }
+  .availability-note {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a;
+  }
+  .availability-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: #0a0a0a; border-radius: 50%; margin-right: 8px;
+  }
+
+  /* CHANNELS */
+  .channels-section {
+    padding: 80px 64px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .channels-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .channels-list { display: flex; flex-direction: column; }
+  .channel-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0;
+    border-bottom: 1px solid #ebebeb;
+    text-decoration: none;
+  }
+  .channel-left { display: flex; align-items: center; gap: 24px; }
+  .channel-platform {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; width: 120px;
+  }
+  .channel-handle {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a;
+  }
+  .channel-desc {
+    font-size: 12px; font-weight: 400; color: #8a8a8a;
+  }
+  .channel-arrow {
+    font-size: 14px; color: #d0d0d0;
+  }
+
+  /* AVAILABILITY -->
+  .availability-section {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 128px;
+    align-items: start;
+  }
+  .avail-heading {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a; margin-bottom: 24px;
+  }
+  .avail-body {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a;
+  }
+  .avail-list { display: flex; flex-direction: column; }
+  .avail-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .avail-item:first-child { border-top: 1px solid #ebebeb; }
+  .avail-type {
+    font-size: 14px; font-weight: 400; color: #0a0a0a;
+  }
+  .avail-status {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .avail-open { color: #0a0a0a; }
+  .avail-limited { color: #8a8a8a; }
+  .avail-closed { color: #d0d0d0; }
+
+  /* FAQ */
+  .faq-section {
+    padding: 128px 64px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .faq-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .faq-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+  }
+  .faq-list { display: flex; flex-direction: column; }
+  .faq-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    padding: 32px 0;
+    border-bottom: 1px solid #ebebeb;
+    align-items: start;
+  }
+  .faq-q {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: #0a0a0a;
+  }
+  .faq-a {
+    font-size: 14px; font-weight: 400; line-height: 170%; color: #4a4a4a;
+  }
+
+  footer {
+    padding: 40px 64px; border-top: 1px solid #ebebeb;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-name { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Matt Leete</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Work</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link nav-link-active nav-link-cta" href="#">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="contact-hero">
+    <div>
+      <div class="contact-eyebrow">Get in touch</div>
+      <h1 class="contact-title">Let's make something good.</h1>
+    </div>
+    <div class="contact-right">
+      <p class="contact-body">Whether you have a project in mind, want to talk about a role, or just want to say hello — my inbox is open. I'll get back to you within a day or two.</p>
+      <div class="email-cta">
+        <div class="email-address">matt@mattleete.com</div>
+        <a class="btn-primary" href="#">Copy email</a>
+      </div>
+      <div class="availability-note">
+        <span class="availability-dot"></span>Currently available for new projects
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section class="channels-section">
+    <div class="channels-label">Find me on</div>
+    <div class="channels-list">
+      <a class="channel-item" href="#">
+        <div class="channel-left">
+          <span class="channel-platform">LinkedIn</span>
+          <div>
+            <div class="channel-handle">Matt Leete</div>
+            <div class="channel-desc">Professional profile and career history</div>
+          </div>
+        </div>
+        <span class="channel-arrow">↗</span>
+      </a>
+      <a class="channel-item" href="#">
+        <div class="channel-left">
+          <span class="channel-platform">Read.cv</span>
+          <div>
+            <div class="channel-handle">@mattleete</div>
+            <div class="channel-desc">Selected work and detailed case studies</div>
+          </div>
+        </div>
+        <span class="channel-arrow">↗</span>
+      </a>
+      <a class="channel-item" href="#">
+        <div class="channel-left">
+          <span class="channel-platform">GitHub</span>
+          <div>
+            <div class="channel-handle">mattleete</div>
+            <div class="channel-desc">Side projects and front-end experiments</div>
+          </div>
+        </div>
+        <span class="channel-arrow">↗</span>
+      </a>
+      <a class="channel-item" href="#">
+        <div class="channel-left">
+          <span class="channel-platform">Figma</span>
+          <div>
+            <div class="channel-handle">Community Profile</div>
+            <div class="channel-desc">Public design files and community resources</div>
+          </div>
+        </div>
+        <span class="channel-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- AVAILABILITY -->
+  <section class="availability-section">
+    <div>
+      <h2 class="avail-heading">What I'm open to right now.</h2>
+      <p class="avail-body">I take on a small number of projects at a time to make sure I can give each one the attention it deserves. Here's what I'm currently available for.</p>
+    </div>
+    <div class="avail-list">
+      <div class="avail-item">
+        <span class="avail-type">Full-time roles</span>
+        <span class="avail-status avail-open">Open</span>
+      </div>
+      <div class="avail-item">
+        <span class="avail-type">Contract & freelance</span>
+        <span class="avail-status avail-open">Open</span>
+      </div>
+      <div class="avail-item">
+        <span class="avail-type">Advisory / consulting</span>
+        <span class="avail-status avail-limited">Limited</span>
+      </div>
+      <div class="avail-item">
+        <span class="avail-type">Speaking engagements</span>
+        <span class="avail-status avail-limited">Limited</span>
+      </div>
+      <div class="avail-item">
+        <span class="avail-type">Speculative work</span>
+        <span class="avail-status avail-closed">Closed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-header">
+      <h2 class="faq-title">Common questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">What does your typical engagement look like?</div>
+        <div class="faq-a">Most projects start with a discovery phase — understanding the problem, the users, and the constraints before any design work begins. From there I work iteratively, keeping stakeholders close to the process rather than presenting finished work.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you work with early-stage startups?</div>
+        <div class="faq-a">Yes — a lot of my best work has been at the 0→1 stage where design decisions have the most leverage. I'm comfortable working with ambiguity and helping founders think through product strategy before jumping to execution.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can you work with an existing design system?</div>
+        <div class="faq-a">Absolutely. I've worked within established systems at larger teams and know how to contribute meaningfully without breaking what's already working. I can also help audit and extend systems that have grown organically.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How quickly can you start?</div>
+        <div class="faq-a">Typically within 1–2 weeks of an agreement being signed. For urgent engagements get in touch and we can discuss what's possible.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Matt Leete © 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">LinkedIn ↗</a>
+      <a class="footer-link" href="#">Read.cv ↗</a>
+      <a class="footer-link" href="#">matt@mattleete.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>

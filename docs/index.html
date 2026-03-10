@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matt Leete — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0a0a0a;
+      --grey-2:  #4a4a4a;
+      --grey-3:  #8a8a8a;
+      --grey-4:  #d0d0d0;
+      --grey-5:  #ebebeb;
+      --grey-6:  #f7f7f7;
+      --white:   #ffffff;
+      --accent:  #1a56ff;
+    }
+
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      background: var(--grey-6);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      overflow: hidden;
+    }
+    .nav-logo {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      padding: 8px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+    .nav-link {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      padding: 8px;
+    }
+    .nav-link:hover { opacity: 0.6; }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 91px 68px;
+      display: flex;
+      align-items: center;
+      gap: 198px;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .hero-display {
+      font-size: 72px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--black);
+      padding: 8px;
+      white-space: nowrap;
+    }
+    .hero-name {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      padding: 8px;
+    }
+
+    /* ─── HERO ANIMATION ─── */
+    .hero-animation {
+      width: 272px;
+      height: 272px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .hero-animation canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ─── MARQUEE BANNER ─── */
+    .banner {
+      height: 48px;
+      border-top: 1px solid var(--grey-5);
+      border-bottom: 1px solid var(--grey-5);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .banner-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee-scroll 28s linear infinite;
+    }
+    .banner-item {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      padding-right: 0;
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      padding: 128px 64px;
+    }
+    .section-inner {
+      width: 1312px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .section-title {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--black);
+    }
+    .cards-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    /* ─── CARD ─── */
+    .card {
+      width: 432px;
+      flex-shrink: 0;
+      border: 1px solid var(--grey-5);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-bottom: 16px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--grey-4); }
+    .card-image {
+      width: 100%;
+      height: 288px;
+      background: #d9d9d9;
+      flex-shrink: 0;
+    }
+    .card-title {
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      padding: 0 8px 0 16px;
+    }
+    .card-desc {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--black);
+      padding: 0 8px 0 16px;
+    }
+    .card-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--grey-5);
+      flex-shrink: 0;
+    }
+    .card-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px 0 16px;
+    }
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 27px;
+      padding: 6px 13px;
+      border: 1px solid var(--grey-4);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey-2);
+      white-space: nowrap;
+    }
+    .card-arrow {
+      font-size: 16px;
+      color: var(--grey-4);
+      flex-shrink: 0;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .card:hover .card-arrow {
+      color: var(--black);
+      transform: translateX(2px);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--grey-6);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      overflow: hidden;
+      gap: 48px;
+    }
+    .footer-left {
+      flex: 1;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .footer-marquee {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee-scroll 12s linear infinite;
+    }
+    .footer-marquee-item {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--black);
+    }
+    .footer-links {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .footer-link {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      padding: 8px;
+    }
+    .footer-link:hover { opacity: 0.6; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Matt Leete</div>
+    <nav class="nav-links">
+      <a class="nav-link" href="#work">Work</a>
+      <a class="nav-link" href="#fun">Fun</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-display">Turn ______ into ____</div>
+      <div class="hero-name">Matt Leete<br>Product Designer</div>
+    </div>
+    <div class="hero-animation">
+      <canvas id="ringCanvas" width="272" height="272"></canvas>
+    </div>
+  </section>
+
+  <!-- MARQUEE BANNER -->
+  <div class="banner">
+    <div class="banner-track">
+      <span class="banner-item">&nbsp;Product Design &mdash;&mdash; User Research &mdash;&mdash; UX Design &mdash;&mdash; Prototyping &mdash;&mdash; Interaction Design &mdash;&mdash; Digital Strategy &mdash;&mdash; Experience Design &mdash;&mdash; Designing for AI &mdash;&mdash; Product Thinking &mdash;&mdash;&nbsp;</span>
+      <span class="banner-item">&nbsp;Product Design &mdash;&mdash; User Research &mdash;&mdash; UX Design &mdash;&mdash; Prototyping &mdash;&mdash; Interaction Design &mdash;&mdash; Digital Strategy &mdash;&mdash; Experience Design &mdash;&mdash; Designing for AI &mdash;&mdash; Product Thinking &mdash;&mdash;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="section-inner">
+      <div class="section-title">Work</div>
+      <div class="cards-row">
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">Making complex simple</div>
+          <div class="card-desc">A member experience framework with supporting product concepts</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">CX</span>
+              <span class="tag">Journey Mapping</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">Making unknown trustworthy</div>
+          <div class="card-desc">Embedding trust in the user experience of an AI-powered workflow accelerator</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">UX</span>
+              <span class="tag">AI</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">Making formidable fun</div>
+          <div class="card-desc">A digital product to support voice communication in online videogames</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">Accessibility</span>
+              <span class="tag">Interaction</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUN -->
+  <section class="section" id="fun">
+    <div class="section-inner">
+      <div class="section-title">Fun</div>
+      <div class="cards-row">
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">Move to the music</div>
+          <div class="card-desc">An exploration of computer vision and machine learning to reflect and recognise emotion through music</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">CX</span>
+              <span class="tag">Journey Mapping</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">Sound of Mind</div>
+          <div class="card-desc">An ECG based sonic experience that supports mindfulness meditation with the sound of your thoughts</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">UX</span>
+              <span class="tag">AI</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">Campfire</div>
+          <div class="card-desc">A multisensory place-making concept where participants gather and create</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Product Design</span>
+              <span class="tag">Accessibility</span>
+              <span class="tag">Interaction</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <div class="section-title">About</div>
+      <div class="cards-row">
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">What I do for you</div>
+          <div class="card-desc">I'm an experienced senior product designer that works end to end from strategy to delivery.</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Intentional</span>
+              <span class="tag">Process driven</span>
+              <span class="tag">Leadership</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">What I do for me</div>
+          <div class="card-desc">If I'm not designing products I'm tinkering with tech, making noise or trying to get tubed (🤙)</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Creative Coding</span>
+              <span class="tag">Music and sound</span>
+              <span class="tag">Surfing</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-title">What I do for everyone</div>
+          <div class="card-desc">I'm a 'rising tide lifts all boats' kind of person. I build a positive and safe work culture that helps teams thrive.</div>
+          <div class="card-divider"></div>
+          <div class="card-bottom">
+            <div class="card-tags">
+              <span class="tag">Teamwork</span>
+              <span class="tag">Optimistic</span>
+              <span class="tag">Authentic</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-left">
+      <div class="footer-marquee">
+        <span class="footer-marquee-item">Contact me here &nbsp;&nbsp;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&nbsp;&nbsp;</span>
+        <span class="footer-marquee-item">Contact me here &nbsp;&nbsp;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://www.linkedin.com/in/mattleete" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="#" target="_blank" rel="noopener">CV</a>
+      <a class="footer-link" href="mailto:matt.c.leete@gmail.com">Matt.c.leete@gmail.com</a>
+    </div>
+  </footer>
+
+  <!-- RING ANIMATION -->
+  <script>
+    (function () {
+      const canvas = document.getElementById('ringCanvas');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+      const cx = W / 2;
+      const cy = H / 2;
+
+      const rings = Array.from({ length: 10 }, (_, i) => ({
+        baseR:    30 + i * 11,
+        tilt:     (Math.random() - 0.5) * 0.6,
+        phaseX:   Math.random() * Math.PI * 2,
+        phaseY:   Math.random() * Math.PI * 2,
+        phaseZ:   Math.random() * Math.PI * 2,
+        speedX:   (0.12 + Math.random() * 0.18) * (i < 5 ? 1.6 : 0.8),
+        speedY:   (0.10 + Math.random() * 0.15) * (i < 5 ? 1.6 : 0.8),
+        speedZ:   (0.08 + Math.random() * 0.12) * (i < 5 ? 1.6 : 0.8),
+        driftAmp: 4 + Math.random() * 6,
+        alpha:    0.55 + Math.random() * 0.30,
+      }));
+
+      let t = 0;
+
+      function drawRing(ring, now) {
+        const dx = Math.sin(now * ring.speedX + ring.phaseX) * ring.driftAmp;
+        const dy = Math.cos(now * ring.speedY + ring.phaseY) * ring.driftAmp;
+        const scale = 1 + 0.04 * Math.sin(now * ring.speedZ + ring.phaseZ);
+        const rx = ring.baseR * scale;
+        const ry = rx * (0.28 + 0.12 * Math.abs(Math.sin(now * ring.speedX * 0.5 + ring.tilt)));
+
+        ctx.beginPath();
+        ctx.ellipse(cx + dx, cy + dy, rx, ry, ring.tilt + now * 0.08, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(10,10,10,${ring.alpha})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      function frame(ts) {
+        t = ts / 1000;
+        ctx.clearRect(0, 0, W, H);
+        rings.forEach(r => drawRing(r, t));
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Matt Leete — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    width: 1440px;
+    height: 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+    position: relative;
+  }
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #0a0a0a;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .nav-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    text-decoration: none;
+  }
+  .nav-link-cta {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #0a0a0a;
+    padding: 8px 18px;
+    text-decoration: none;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    width: 1440px;
+    padding: 128px 64px 128px;
+    border-bottom: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 64px;
+    align-items: end;
+  }
+  .hero-left {}
+  .hero-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 32px;
+  }
+  .hero-title {
+    font-size: 72px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.04em;
+    color: #0a0a0a;
+    max-width: 760px;
+  }
+  .hero-right {
+    padding-bottom: 6px;
+  }
+  .hero-body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 170%;
+    color: #4a4a4a;
+    margin-bottom: 32px;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    background: #1a56ff;
+    color: #ffffff;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-text {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* ─── WORK SECTION ─── */
+  .work-section {
+    padding: 80px 64px 128px;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .section-title {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 105%;
+    letter-spacing: -0.03em;
+    color: #0a0a0a;
+  }
+  .section-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    text-decoration: none;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+  }
+  .card {
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-image {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .card-image-placeholder {
+    width: 48px;
+    height: 48px;
+    background: #ebebeb;
+    border: 1px solid #d0d0d0;
+  }
+  .card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: -0.01em;
+    color: #0a0a0a;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #8a8a8a;
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid #ebebeb;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4a4a4a;
+    border: 1px solid #d0d0d0;
+  }
+  .card-arrow {
+    font-size: 14px;
+    color: #d0d0d0;
+  }
+
+  /* ─── DIVIDER SECTION ─── */
+  .divider-section {
+    padding: 80px 64px;
+    border-top: 1px solid #ebebeb;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .stat-cell {
+    background: #ffffff;
+    padding: 48px 40px;
+  }
+  .stat-number {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 105%;
+    letter-spacing: -0.03em;
+    color: #0a0a0a;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #8a8a8a;
+  }
+
+  /* ─── ABOUT STRIP ─── */
+  .about-strip {
+    padding: 128px 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 128px;
+    border-bottom: 1px solid #ebebeb;
+    align-items: start;
+  }
+  .about-left {}
+  .about-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 24px;
+  }
+  .about-heading {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 105%;
+    letter-spacing: -0.03em;
+    color: #0a0a0a;
+    margin-bottom: 32px;
+  }
+  .about-body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 170%;
+    color: #4a4a4a;
+    margin-bottom: 32px;
+  }
+  .about-right {
+    padding-top: 56px;
+  }
+  .discipline-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .discipline-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .discipline-item:first-child {
+    border-top: 1px solid #ebebeb;
+  }
+  .discipline-name {
+    font-size: 14px;
+    font-weight: 400;
+    color: #0a0a0a;
+  }
+  .discipline-meta {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px 64px;
+    border-top: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-name {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+  .footer-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Matt Leete</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#">Work</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link nav-link-cta" href="#">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Product Designer — Available for work</div>
+      <h1 class="hero-title">Designing products people actually want to use.</h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-body">I'm Matt — a product designer focused on turning complex problems into clear, considered digital experiences. Currently open to full-time and freelance opportunities.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#">View Work</a>
+        <a class="btn-text" href="#">About me ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work-section">
+    <div class="section-header">
+      <h2 class="section-title">Selected Work</h2>
+      <a class="section-link" href="#">All Projects ↗</a>
+    </div>
+    <div class="cards-grid">
+
+      <!-- Card 1 -->
+      <div class="card">
+        <div class="card-image">
+          <div class="card-image-placeholder"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-eyebrow">Product Design · 2025</div>
+          <div class="card-title">Spix App</div>
+          <div class="card-desc">End-to-end product design for a mobile-first social platform — from research and strategy through to shipped UI.</div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tag">Mobile</span>
+              <span class="tag">iOS</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <div class="card-image">
+          <div class="card-image-placeholder"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-eyebrow">UX Design · 2024</div>
+          <div class="card-title">Portfolio Design System</div>
+          <div class="card-desc">A systematic approach to designing and documenting a personal design language — tokens, components, and usage guidelines.</div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tag">Design Systems</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <div class="card-image">
+          <div class="card-image-placeholder"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-eyebrow">Product Strategy · 2024</div>
+          <div class="card-title">Dashboard Redesign</div>
+          <div class="card-desc">Rethinking a complex analytics dashboard to reduce cognitive load and surface the insights users actually need.</div>
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tag">Web App</span>
+              <span class="tag">Data</span>
+            </div>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="divider-section" style="padding:0; border-top:none;">
+    <div class="stat-cell">
+      <div class="stat-number">6+</div>
+      <div class="stat-label">Years designing digital products across mobile, web, and enterprise platforms.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">20+</div>
+      <div class="stat-label">Projects shipped across startups, agencies, and in-house product teams.</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">0→1</div>
+      <div class="stat-label">Comfortable taking products from first principles to launched product.</div>
+    </div>
+  </div>
+
+  <!-- ABOUT STRIP -->
+  <section class="about-strip">
+    <div class="about-left">
+      <div class="about-eyebrow">About</div>
+      <h2 class="about-heading">Design that's clear, considered, and built to last.</h2>
+      <p class="about-body">I believe good design removes friction — from the first interaction to the hundredth. I work closely with product and engineering teams to make sure ideas survive contact with reality.</p>
+      <a class="btn-primary" href="#">More about me</a>
+    </div>
+    <div class="about-right">
+      <div class="discipline-list">
+        <div class="discipline-item">
+          <span class="discipline-name">Product Design</span>
+          <span class="discipline-meta">Primary</span>
+        </div>
+        <div class="discipline-item">
+          <span class="discipline-name">UX Research</span>
+          <span class="discipline-meta">Primary</span>
+        </div>
+        <div class="discipline-item">
+          <span class="discipline-name">Design Systems</span>
+          <span class="discipline-meta">Primary</span>
+        </div>
+        <div class="discipline-item">
+          <span class="discipline-name">Interaction Design</span>
+          <span class="discipline-meta">Secondary</span>
+        </div>
+        <div class="discipline-item">
+          <span class="discipline-name">Prototyping</span>
+          <span class="discipline-meta">Secondary</span>
+        </div>
+        <div class="discipline-item">
+          <span class="discipline-name">Front-end Development</span>
+          <span class="discipline-meta">Supporting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Matt Leete © 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="#">LinkedIn ↗</a>
+      <a class="footer-link" href="#">Read.cv ↗</a>
+      <a class="footer-link" href="#">matt@mattleete.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
