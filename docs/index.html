@@ -410,12 +410,12 @@
       }
       .nav-hamburger { display: flex; }
 
-      /* Fan menu – anchored to hamburger centre */
+      /* Fan menu – anchored to hamburger centre via JS */
       .nav-links {
         display: block;
         position: absolute;
-        top: 28px;   /* vertical centre of 56px nav */
-        right: 43px; /* horizontal centre of hamburger button */
+        top: 0;
+        right: 0;
         width: 0;
         height: 0;
         gap: unset;
@@ -726,6 +726,21 @@
     (function () {
       const btn   = document.querySelector('.nav-hamburger');
       const links = document.querySelector('.nav-links');
+
+      function anchorFanToButton() {
+        const btnRect = btn.getBoundingClientRect();
+        const navRect = btn.closest('nav').getBoundingClientRect();
+        // distance from nav's right edge to button's horizontal centre
+        const fromRight = navRect.right - (btnRect.left + btnRect.width / 2);
+        // distance from nav's top edge to button's vertical centre
+        const fromTop   = btnRect.top - navRect.top + btnRect.height / 2;
+        links.style.right = fromRight + 'px';
+        links.style.top   = fromTop   + 'px';
+      }
+
+      anchorFanToButton();
+      window.addEventListener('resize', anchorFanToButton);
+
       btn.addEventListener('click', () => {
         const open = links.classList.toggle('open');
         btn.classList.toggle('open', open);
