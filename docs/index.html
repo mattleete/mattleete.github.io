@@ -403,20 +403,24 @@
       nav {
         padding: 0 24px;
         flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
         height: auto;
         min-height: 56px;
+        overflow: visible;
       }
       .nav-hamburger { display: flex; }
       .nav-links {
         display: none;
         flex-direction: column;
         align-items: flex-start;
+        justify-content: flex-start;
         gap: 4px;
         width: 100%;
         padding: 8px 0 16px;
       }
       .nav-links.open { display: flex; }
-      .nav-link { padding: 10px 8px; font-size: 13px; }
+      .nav-link { padding: 10px 8px; font-size: 13px; width: 100%; }
 
       .hero {
         padding: 48px 24px 40px;
