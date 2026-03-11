@@ -69,11 +69,12 @@
       background-color: var(--bg);
       color: var(--black);
       overflow-x: hidden;
+      position: relative;
     }
 
     /* ─── LIGHT MODE: MESH GRADIENT ─── */
     .mesh {
-      position: fixed;
+      position: absolute;
       inset: 0;
       z-index: -1;
       overflow: hidden;
@@ -89,7 +90,7 @@
 
     /* ─── DARK MODE: AURORA ─── */
     .aurora {
-      position: fixed;
+      position: absolute;
       inset: 0;
       z-index: -1;
       overflow: hidden;
