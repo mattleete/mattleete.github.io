@@ -154,7 +154,7 @@
       left: 0; top: 0;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.8s ease;
+      transition: none;
     }
     .hero-name {
       font-size: 40px;
@@ -726,6 +726,12 @@
         ['friction',   'flow'],
       ];
 
+      const CHARS = 'abcdefghijklmnopqrstuvwxyz';
+      const SCRAMBLE_IN  = 600;  // ms to resolve each word in
+      const SCRAMBLE_OUT = 360;  // ms to scramble out
+      const HOLD = 3500;         // ms to hold before cycling
+      const GAP  = 400;          // ms between word 1 and word 2
+
       let index = 0;
 
       const slot1 = document.getElementById('slot1');
@@ -737,50 +743,68 @@
       slot1.querySelector('.slot-mask').textContent = longest1;
       slot2.querySelector('.slot-mask').textContent = longest2;
 
-      function els(slot) {
-        return {
-          mask: slot.querySelector('.slot-mask'),
-          word: slot.querySelector('.slot-word'),
-        };
+      function scramble(el, target, onDone) {
+        el.style.opacity = '1';
+        const len = target.length;
+        const start = performance.now();
+        function frame(now) {
+          const p = Math.min((now - start) / SCRAMBLE_IN, 1);
+          const resolved = Math.floor(p * len);
+          let text = '';
+          for (let i = 0; i < len; i++) {
+            text += i < resolved
+              ? target[i]
+              : CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+          el.textContent = text;
+          if (p < 1) { requestAnimationFrame(frame); }
+          else        { el.textContent = target; if (onDone) onDone(); }
+        }
+        requestAnimationFrame(frame);
+      }
+
+      function scrambleOut(el, onDone) {
+        const len = el.textContent.length;
+        const start = performance.now();
+        function frame(now) {
+          const p = Math.min((now - start) / SCRAMBLE_OUT, 1);
+          let text = '';
+          for (let i = 0; i < len; i++) {
+            text += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+          el.textContent = text;
+          if (p < 1) { requestAnimationFrame(frame); }
+          else        { el.style.opacity = '0'; if (onDone) onDone(); }
+        }
+        requestAnimationFrame(frame);
       }
 
       function runCycle() {
         const pair = pairs[index];
-        const s1 = els(slot1);
-        const s2 = els(slot2);
+        const w1 = slot1.querySelector('.slot-word');
+        const w2 = slot2.querySelector('.slot-word');
 
-        // Only update the visible word — masks are fixed to longest word (set once on init)
-        s1.word.textContent = pair[0];
-        s2.word.textContent = pair[1];
-
-        // Start hidden
-        s1.word.style.opacity = '0';
-        s2.word.style.opacity = '0';
-
-        // Fade in word 1
-        setTimeout(() => {
-          s1.word.style.opacity = '1';
-
-          // Fade in word 2 after word 1
+        scramble(w1, pair[0], () => {
           setTimeout(() => {
-            s2.word.style.opacity = '1';
-
-            // Hold, then fade both out
-            setTimeout(() => {
-              s1.word.style.opacity = '0';
-              s2.word.style.opacity = '0';
-
-              // Advance to next pair
+            scramble(w2, pair[1], () => {
               setTimeout(() => {
-                index = (index + 1) % pairs.length;
-                runCycle();
-              }, 1000);
-            }, 4000);
-          }, 1200);
-        }, 500);
+                scrambleOut(w1, () => {
+                  scrambleOut(w2, () => {
+                    setTimeout(() => {
+                      index = (index + 1) % pairs.length;
+                      runCycle();
+                    }, 300);
+                  });
+                });
+              }, HOLD);
+            });
+          }, GAP);
+        });
       }
 
-      runCycle();
+      slot1.querySelector('.slot-word').style.opacity = '0';
+      slot2.querySelector('.slot-word').style.opacity = '0';
+      setTimeout(runCycle, 500);
     })();
 
     // ─── 3D BLOB (Three.js) ───
