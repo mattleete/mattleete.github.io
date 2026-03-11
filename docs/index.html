@@ -727,10 +727,9 @@
       ];
 
       const CHARS = 'abcdefghijklmnopqrstuvwxyz';
-      const SCRAMBLE_IN  = 600;  // ms to resolve each word in
-      const SCRAMBLE_OUT = 360;  // ms to scramble out
-      const HOLD = 3500;         // ms to hold before cycling
-      const GAP  = 400;          // ms between word 1 and word 2
+      const SCRAMBLE_IN = 600;  // ms to resolve each word
+      const HOLD = 3500;        // ms to hold before cycling
+      const GAP  = 400;         // ms between word 1 and word 2
 
       let index = 0;
 
@@ -763,22 +762,6 @@
         requestAnimationFrame(frame);
       }
 
-      function scrambleOut(el, onDone) {
-        const len = el.textContent.length;
-        const start = performance.now();
-        function frame(now) {
-          const p = Math.min((now - start) / SCRAMBLE_OUT, 1);
-          let text = '';
-          for (let i = 0; i < len; i++) {
-            text += CHARS[Math.floor(Math.random() * CHARS.length)];
-          }
-          el.textContent = text;
-          if (p < 1) { requestAnimationFrame(frame); }
-          else        { el.style.opacity = '0'; if (onDone) onDone(); }
-        }
-        requestAnimationFrame(frame);
-      }
-
       function runCycle() {
         const pair = pairs[index];
         const w1 = slot1.querySelector('.slot-word');
@@ -788,14 +771,8 @@
           setTimeout(() => {
             scramble(w2, pair[1], () => {
               setTimeout(() => {
-                scrambleOut(w1, () => {
-                  scrambleOut(w2, () => {
-                    setTimeout(() => {
-                      index = (index + 1) % pairs.length;
-                      runCycle();
-                    }, 300);
-                  });
-                });
+                index = (index + 1) % pairs.length;
+                runCycle();
               }, HOLD);
             });
           }, GAP);
