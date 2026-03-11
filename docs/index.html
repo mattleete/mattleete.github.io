@@ -427,7 +427,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        transform: translateX(-50%) translateY(-50%) rotate(calc(var(--i, 0) * 30deg)) scale(0);
+        transform: translateX(-50%) translateY(-50%) rotate(calc(var(--i, 0) * -30deg)) scale(0);
         opacity: 0;
         transition:
           transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 40ms),
@@ -449,9 +449,9 @@
 
       .nav-links.open .nav-link {
         transform:
-          translateX(calc(-50% + cos(var(--angle)) * 80px))
-          translateY(calc(-50% + sin(var(--angle)) * 80px))
-          rotate(calc(var(--i, 0) * 30deg))
+          translateX(calc(-50% + cos(var(--angle)) * 60px))
+          translateY(calc(-50% + sin(var(--angle)) * 60px))
+          rotate(calc(var(--i, 0) * -30deg))
           scale(1);
         opacity: 1;
       }
