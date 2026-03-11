@@ -402,12 +402,11 @@
     @media (max-width: 768px) {
       nav {
         padding: 0 24px;
-        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        height: auto;
-        min-height: 56px;
+        height: 56px;
         overflow: visible;
+        position: relative;
       }
       .nav-hamburger { display: flex; }
       .nav-links {
@@ -416,8 +415,15 @@
         align-items: flex-end;
         justify-content: flex-start;
         gap: 4px;
-        width: 100%;
-        padding: 8px 0 16px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255,255,255,0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 8px 24px 16px;
+        z-index: 999;
       }
       .nav-links.open { display: flex; }
       .nav-link { padding: 10px 8px; font-size: 13px; }
