@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,11 +19,54 @@
       --grey-6:  #f7f7f7;
       --white:   #ffffff;
       --accent:  #1a56ff;
+      --bg:      #ffffff;
+    }
+    [data-theme="dark"] {
+      --black:   #ffffff;
+      --grey-2:  #c0c0c0;
+      --grey-3:  #8a8a8a;
+      --grey-4:  #3a3a3a;
+      --grey-5:  #222222;
+      --grey-6:  #161616;
+      --white:   #0a0a0a;
+      --bg:      #0a0a0a;
+    }
+
+    /* ─── THEME TOGGLE ─── */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--grey-5);
+      border-radius: 9999px;
+      width: 36px;
+      height: 20px;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s;
+      flex-shrink: 0;
+    }
+    .theme-btn::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--black);
+      top: 3px;
+      left: 3px;
+      transition: transform 0.25s ease, background 0.2s;
+    }
+    [data-theme="dark"] .theme-btn::after {
+      transform: translateX(16px);
     }
 
     body {
       font-family: 'Instrument Sans', sans-serif;
-      background-color: var(--white);
+      background-color: var(--bg);
       color: var(--black);
       overflow-x: hidden;
     }
@@ -495,7 +538,10 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Matt Leete</div>
+    <div class="theme-toggle">
+      <button class="theme-btn" aria-label="Toggle dark mode"></button>
+      <div class="nav-logo">Matt Leete</div>
+    </div>
     <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -702,6 +748,19 @@
 
   <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
   <script>
+    // ─── THEME TOGGLE ───
+    (function () {
+      const html = document.documentElement;
+      const btn  = document.querySelector('.theme-btn');
+      const saved = localStorage.getItem('theme') || 'light';
+      html.setAttribute('data-theme', saved);
+      btn.addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    })();
+
     // ─── HAMBURGER ───
     (function () {
       const btn   = document.querySelector('.nav-hamburger');
