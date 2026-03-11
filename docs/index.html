@@ -992,46 +992,6 @@
       requestAnimationFrame(frame);
     })();
 
-    // ─── BLOB MOUSE ANIMATION ───
-    (function () {
-      const blobs = document.querySelectorAll('.blob');
-
-      const settings = [
-        { driftAmpX: 180, driftAmpY: 220, speedX: 0.28, speedY: 0.35, phaseX: 0.0, phaseY: 1.2, mouseStr: 0.14 },
-        { driftAmpX: 220, driftAmpY: 180, speedX: 0.22, speedY: 0.27, phaseX: 2.1, phaseY: 0.5, mouseStr: 0.10 },
-        { driftAmpX: 190, driftAmpY: 220, speedX: 0.18, speedY: 0.22, phaseX: 1.0, phaseY: 3.0, mouseStr: 0.08 },
-        { driftAmpX: 200, driftAmpY: 190, speedX: 0.24, speedY: 0.30, phaseX: 3.5, phaseY: 1.8, mouseStr: 0.12 },
-        { driftAmpX: 220, driftAmpY: 190, speedX: 0.15, speedY: 0.18, phaseX: 0.8, phaseY: 2.4, mouseStr: 0.06 },
-      ];
-
-      let mouseX = window.innerWidth  / 2;
-      let mouseY = window.innerHeight / 2;
-      window.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
-
-      const current = settings.map(() => ({ x: 0, y: 0 }));
-
-      function blobFrame(ts) {
-        const t  = ts / 1000;
-        const mx = (mouseX / window.innerWidth)  - 0.5;
-        const my = (mouseY / window.innerHeight) - 0.5;
-
-        blobs.forEach((blob, i) => {
-          const s = settings[i];
-          const targetX = Math.sin(t * s.speedX + s.phaseX) * s.driftAmpX
-                        + mx * s.mouseStr * window.innerWidth;
-          const targetY = Math.cos(t * s.speedY + s.phaseY) * s.driftAmpY
-                        + my * s.mouseStr * window.innerHeight;
-
-          current[i].x += (targetX - current[i].x) * 0.035;
-          current[i].y += (targetY - current[i].y) * 0.035;
-
-          blob.style.transform = `translate(${current[i].x}px, ${current[i].y}px)`;
-        });
-
-        requestAnimationFrame(blobFrame);
-      }
-      requestAnimationFrame(blobFrame);
-    })();
   </script>
 
 </body>
