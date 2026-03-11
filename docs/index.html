@@ -189,8 +189,10 @@
     .banner-track {
       display: flex;
       white-space: nowrap;
-      animation: none;
+      animation: marquee-scroll 28s linear infinite;
+      animation-play-state: paused;
     }
+    .banner:hover .banner-track { animation-play-state: running; }
     .banner-item {
       font-size: 16px;
       font-weight: 600;
