@@ -427,7 +427,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        transform: translateX(-50%) translateY(-50%) scale(0);
+        transform: translateX(-50%) translateY(-50%) rotate(calc(var(--i, 0) * 30deg)) scale(0);
         opacity: 0;
         transition:
           transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 40ms),
@@ -435,9 +435,10 @@
         white-space: nowrap;
         padding: 6px 14px;
         font-size: 13px;
-        background: var(--white);
-        border: 1px solid var(--border-default);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        background: none;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
       }
 
       /* Angles: 180° = left, 150°, 120°, 90° = down  (quarter-circle fan) */
@@ -450,6 +451,7 @@
         transform:
           translateX(calc(-50% + cos(var(--angle)) * 80px))
           translateY(calc(-50% + sin(var(--angle)) * 80px))
+          rotate(calc(var(--i, 0) * 30deg))
           scale(1);
         opacity: 1;
       }
