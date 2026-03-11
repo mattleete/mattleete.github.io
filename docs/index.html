@@ -375,6 +375,7 @@
     }
 
     .mobile-break { display: none; }
+    .footer-mobile-label { display: none; }
 
     /* ─── HAMBURGER ─── */
     .nav-hamburger {
@@ -461,10 +462,16 @@
         flex-direction: column;
         height: auto;
         padding: 24px;
-        gap: 16px;
+        gap: 8px;
         align-items: flex-start;
       }
-      .footer-left { width: 100%; }
+      .footer-left { display: none; }
+      .footer-mobile-label {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--black);
+      }
       .footer-links { gap: 8px; flex-wrap: wrap; }
       .footer-static { font-size: 13px; }
       .footer-arrows-item { font-size: 13px; }
@@ -681,6 +688,7 @@
         </div>
       </div>
     </div>
+    <span class="footer-mobile-label">Contact:</span>
     <div class="footer-links">
       <a class="footer-link" href="https://www.linkedin.com/in/mattleete" target="_blank" rel="noopener">LinkedIn</a>
       <a class="footer-link" href="#" target="_blank" rel="noopener">CV</a>
