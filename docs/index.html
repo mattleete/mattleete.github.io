@@ -374,6 +374,8 @@
       color: var(--white);
     }
 
+    .mobile-break { display: none; }
+
     /* ─── HAMBURGER ─── */
     .nav-hamburger {
       display: none;
@@ -436,6 +438,7 @@
         align-self: center;
       }
 
+      .mobile-break { display: block; height: 0; }
       .banner { height: 40px; }
       .banner-item { font-size: 13px; }
 
@@ -496,7 +499,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <div class="hero-display">Turn <span class="word-slot" id="slot1"><span class="slot-mask">friction</span><span class="slot-word">apathy</span></span> into <span class="word-slot" id="slot2"><span class="slot-mask">clarity</span><span class="slot-word">joy</span></span></div>
+      <div class="hero-display">Turn <span class="word-slot" id="slot1"><span class="slot-mask">friction</span><span class="slot-word">apathy</span></span><span class="mobile-break"></span>into <span class="word-slot" id="slot2"><span class="slot-mask">clarity</span><span class="slot-word">joy</span></span></div>
       <div class="hero-name">Matt Leete<br>Product Designer</div>
     </div>
     <div class="hero-animation">
