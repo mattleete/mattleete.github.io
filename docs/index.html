@@ -71,51 +71,6 @@
       overflow-x: hidden;
     }
 
-    /* ─── MESH GRADIENT ─── */
-    .mesh {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 1;
-    }
-    .blob-1 {
-      width: 1400px; height: 1400px;
-      top: -20%; left: -15%;
-      background: radial-gradient(circle, rgba(26, 86, 255, 0.32) 0%, transparent 65%);
-    }
-    .blob-2 {
-      width: 1100px; height: 1100px;
-      top: -10%; right: -10%;
-      background: radial-gradient(circle, rgba(120, 0, 255, 0.22) 0%, transparent 65%);
-    }
-    .blob-3 {
-      width: 1500px; height: 1500px;
-      bottom: 0%; right: -15%;
-      background: radial-gradient(circle, rgba(0, 210, 240, 0.26) 0%, transparent 65%);
-    }
-    .blob-4 {
-      width: 1000px; height: 1000px;
-      bottom: -10%; left: -10%;
-      background: radial-gradient(circle, rgba(0, 120, 255, 0.20) 0%, transparent 65%);
-    }
-    .blob-5 {
-      width: 1600px; height: 1600px;
-      top: 30%; left: 20%;
-      background: radial-gradient(circle, rgba(100, 180, 255, 0.16) 0%, transparent 65%);
-    }
-    [data-theme="dark"] .blob { mix-blend-mode: screen; }
-    [data-theme="dark"] .blob-1 { background: radial-gradient(circle, rgba(180, 185, 200, 0.10) 0%, transparent 65%); }
-    [data-theme="dark"] .blob-2 { background: radial-gradient(circle, rgba(160, 160, 185, 0.08) 0%, transparent 65%); }
-    [data-theme="dark"] .blob-3 { background: radial-gradient(circle, rgba(170, 185, 195, 0.09) 0%, transparent 65%); }
-    [data-theme="dark"] .blob-4 { background: radial-gradient(circle, rgba(155, 165, 180, 0.07) 0%, transparent 65%); }
-    [data-theme="dark"] .blob-5 { background: radial-gradient(circle, rgba(165, 175, 185, 0.06) 0%, transparent 65%); }
     .site-wrapper {
       max-width: 1440px;
       margin: 0 auto;
@@ -531,14 +486,6 @@
 </head>
 <body>
 
-  <!-- MESH GRADIENT -->
-  <div class="mesh" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="blob blob-4"></div>
-    <div class="blob blob-5"></div>
-  </div>
 
 <div class="site-wrapper">
 
