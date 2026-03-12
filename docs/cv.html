@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matt Leete — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    min-height: 100vh;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    height: 64px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+  }
+  .nav-back {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #8a8a8a; text-decoration: none;
+  }
+  .nav-back:hover { color: #0a0a0a; }
+  .nav-logo {
+    font-size: 14px; font-weight: 600;
+    letter-spacing: -0.01em; color: #0a0a0a;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; align-items: center; gap: 40px; }
+  .nav-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #4a4a4a; text-decoration: none;
+  }
+  .nav-link:hover { color: #0a0a0a; }
+  .nav-link-cta {
+    color: #ffffff; background: #0a0a0a;
+    padding: 8px 18px;
+  }
+  .nav-link-cta:hover { background: #1a1a1a; color: #ffffff; }
+
+  /* ─── PAGE WRAPPER ─── */
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 80px 64px 128px;
+  }
+
+  /* ─── HEADER ─── */
+  .cv-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 64px;
+  }
+  .cv-name {
+    font-size: 40px; font-weight: 600;
+    letter-spacing: -0.03em; line-height: 100%;
+    color: #0a0a0a;
+  }
+  .cv-role {
+    font-size: 16px; font-weight: 400;
+    color: #4a4a4a; margin-top: 8px;
+  }
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #0a0a0a; color: #ffffff;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none;
+    padding: 12px 20px;
+    border: none; cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-download:hover { background: #1a1a1a; }
+
+  /* ─── SECTIONS ─── */
+  .cv-section { margin-bottom: 56px; }
+
+  .cv-section-label {
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 24px;
+  }
+
+  /* ─── EXPERIENCE ROWS ─── */
+  .cv-row {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid #ebebeb;
+    align-items: baseline;
+  }
+  .cv-row:last-child { border-bottom: 1px solid #ebebeb; }
+
+  .cv-org {
+    font-size: 14px; font-weight: 600;
+    color: #0a0a0a;
+  }
+  .cv-position {
+    font-size: 14px; font-weight: 400;
+    color: #4a4a4a; margin-top: 2px;
+  }
+  .cv-dates {
+    font-size: 12px; font-weight: 400;
+    color: #8a8a8a; text-align: right;
+    white-space: nowrap;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid #ebebeb;
+    padding: 24px 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f7f7f7;
+  }
+  .footer-name {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #8a8a8a;
+  }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-link {
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #4a4a4a; text-decoration: none;
+  }
+  .footer-link:hover { color: #0a0a0a; }
+
+  /* ─── PRINT ─── */
+  @media print {
+    nav, footer, .btn-download { display: none; }
+    .page { padding: 40px; max-width: 100%; }
+    .cv-header { padding-bottom: 24px; margin-bottom: 40px; }
+    body { color: #000; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    nav { padding: 0 24px; }
+    .page { padding: 48px 24px 80px; }
+    .cv-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .cv-row { grid-template-columns: 1fr; gap: 4px; }
+    .cv-dates { text-align: left; }
+    footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-back" href="index.html">← Home</a>
+    <a class="nav-logo" href="index.html">Matt Leete</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Work</a>
+      <a class="nav-link" href="#">About</a>
+      <a class="nav-link nav-link-cta" href="mailto:matt.c.leete@gmail.com">Contact</a>
+    </div>
+  </nav>
+
+  <!-- CV CONTENT -->
+  <div class="page">
+
+    <!-- Header -->
+    <div class="cv-header">
+      <div>
+        <div class="cv-name">Matt Leete</div>
+        <div class="cv-role">Product Designer</div>
+      </div>
+      <a class="btn-download" href="matt-leete-cv.pdf" download>Download PDF ↓</a>
+    </div>
+
+    <!-- Experience -->
+    <div class="cv-section">
+      <div class="cv-section-label">Experience</div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">KPMG</div>
+          <div class="cv-position">Senior Consultant</div>
+        </div>
+        <div class="cv-dates">Jan 2022 – Present</div>
+      </div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">Spix App</div>
+          <div class="cv-position">Product Designer / Founder</div>
+        </div>
+        <div class="cv-dates">Oct 2020 – Dec 2022</div>
+      </div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">University of Sydney Design Lab</div>
+          <div class="cv-position">Design Researcher & Mentor</div>
+        </div>
+        <div class="cv-dates">Aug 2020 – Feb 2022</div>
+      </div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">With You With Me</div>
+          <div class="cv-position">Digital Designer</div>
+        </div>
+        <div class="cv-dates">Jun 2019 – Aug 2020</div>
+      </div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">Thinkun</div>
+          <div class="cv-position">UX Design Intern</div>
+        </div>
+        <div class="cv-dates">Nov 2018 – Mar 2019</div>
+      </div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">Nomad VR</div>
+          <div class="cv-position">Experience Design Intern</div>
+        </div>
+        <div class="cv-dates">Apr 2018 – Aug 2018</div>
+      </div>
+
+    </div>
+
+    <!-- Education -->
+    <div class="cv-section">
+      <div class="cv-section-label">Education</div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">University of Sydney</div>
+          <div class="cv-position">Master of Interaction Design</div>
+        </div>
+        <div class="cv-dates">2018 – 2020</div>
+      </div>
+
+      <div class="cv-row">
+        <div>
+          <div class="cv-org">University of Technology, Sydney</div>
+          <div class="cv-position">Bachelor of Product Design</div>
+        </div>
+        <div class="cv-dates">2014 – 2017</div>
+      </div>
+
+    </div>
+
+  </div><!-- /page -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Matt Leete © 2026</div>
+    <div class="footer-links">
+      <a class="footer-link" href="https://www.linkedin.com/in/matthewleete/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="footer-link" href="#" target="_blank" rel="noopener">CV ↗</a>
+      <a class="footer-link" href="mailto:matt.c.leete@gmail.com">matt.c.leete@gmail.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
