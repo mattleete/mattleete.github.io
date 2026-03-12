@@ -373,6 +373,60 @@
 </head>
 <body>
 
+<!-- PASSWORD GATE -->
+<style>
+  #pw-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #ffffff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px; font-family: 'Instrument Sans', sans-serif;
+  }
+  #pw-gate label { font-size: 14px; color: #0a0a0a; }
+  #pw-gate input {
+    font-family: inherit; font-size: 14px;
+    border: 1px solid #ebebeb; padding: 10px 16px;
+    outline: none; width: 240px;
+    transition: border-color 0.2s;
+  }
+  #pw-gate input:focus { border-color: #0a0a0a; }
+  #pw-gate button {
+    font-family: inherit; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: #0a0a0a; color: #ffffff;
+    border: none; padding: 10px 24px; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  #pw-gate button:hover { opacity: 0.75; }
+  #pw-error { font-size: 12px; color: #c00; display: none; }
+</style>
+<div id="pw-gate">
+  <label for="pw-input">Enter password to view this case study</label>
+  <input id="pw-input" type="password" placeholder="Password" autofocus/>
+  <button onclick="checkPassword()">Enter</button>
+  <span id="pw-error">Incorrect password</span>
+</div>
+<script>
+  (function () {
+    if (sessionStorage.getItem('cs-unlocked') === 'yes') {
+      document.getElementById('pw-gate').style.display = 'none';
+    }
+    document.getElementById('pw-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+  })();
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    if (val === 'MattLeete') {
+      sessionStorage.setItem('cs-unlocked', 'yes');
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+    }
+  }
+</script>
+
   <!-- NAV -->
   <nav>
     <a class="nav-back" href="#">← Work</a>
