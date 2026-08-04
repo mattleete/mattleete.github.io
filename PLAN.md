@@ -1,0 +1,145 @@
+# Portfolio → Job-Ready Plan
+
+**Goal:** Get the portfolio into a shippable, consistent, presentable state ASAP for a job search — and, along the way, build the reusable design system + Claude skill that keeps every future edit on-brand and to Matt's taste.
+
+**Guiding principle:** Fix the *system* first, then apply it everywhere. Every page should render from one shared source of truth, so consistency is enforced in code — not remembered by hand each time.
+
+---
+
+## Current state (audit)
+
+| Page | Tokens (CSS vars) | Dark mode | Responsive | Shared nav/footer | Notes |
+|---|---|---|---|---|---|
+| `index.html` | ✅ | ✅ | ✅ | inline | Reference page — most modern |
+| `portfolio-case-study-rest-super.html` | ✅ | ✅ | ✅ | inline | Password-gated, most complete case study |
+| `portfolio-about.html` | ❌ hardcoded | ❌ | partial | inline | Older generation |
+| `portfolio-contact.html` | ❌ hardcoded | ❌ | partial | inline | Older generation |
+| `portfolio-case-study.html` | ❌ hardcoded | ❌ | partial | inline | Generic/template case study, password-gated |
+| `cv.html` | ❌ hardcoded | ❌ | ? | inline | + `matt-leete-cv.pdf` |
+| `icon-preview.html` | — | — | — | — | Scratch/dev file — likely delete or move out of `docs/` |
+
+**Core problems to solve:**
+1. Two design "generations" — no single source of truth. Tokens live in `tokens.json` (Figma) but nothing in HTML consumes them.
+2. Nav + footer are duplicated inline on every page → drift.
+3. No Claude skill, so each session re-derives "the design" from scratch and taste is inconsistent.
+4. Content completeness unknown — likely the real job-search bottleneck (case studies matter more than pixels).
+
+---
+
+## Phase 0 — Foundation: design system + Claude skill *(do first; everything depends on it)*
+
+> This is the "build Claude the skills" phase. It's front-loaded on purpose: once it exists, every later step is faster and stays consistent.
+
+### 0.1 Calibrate taste *(needs Matt's input — see Decisions below)*
+Nail down the aesthetic in writing so it can be encoded, not guessed:
+- Mood words (e.g. minimal / editorial / confident / warm).
+- 2–3 reference sites Matt admires + what specifically he likes about each.
+- Motion appetite (the mesh-gradient + ring animation — keep as signature, dial back, or drop?).
+- Light-only vs. dark-mode-as-first-class.
+- Density: generous whitespace vs. compact.
+
+**Working hypothesis (until Matt confirms):** minimal, monochrome greyscale + single electric-blue accent (`#1a56ff`), Instrument Sans, generous whitespace, restrained/purposeful motion, dark mode first-class.
+
+### 0.2 Build the shared CSS design system
+Create **`docs/assets/design-system.css`** — the single source of truth, generated from `tokens.json`:
+- `:root` custom properties for every colour, type style, space step (`--space-3: 16px`, etc.).
+- `@media (prefers-color-scheme: dark)` + `:root[data-theme=…]` overrides in one place.
+- Base element styles (body, headings, links, focus states).
+- Reusable component classes: `.nav`, `.footer`, `.card`, `.section`, `.btn`, `.tag`, `.marquee`.
+- Type utility classes matching the scale: `.t-display`, `.t-h1`, `.t-h2`, `.t-body`, `.t-label`, etc.
+- Responsive: define breakpoints once (e.g. 1440 / 1024 / 768 / 480) as documented tokens.
+
+Every page then links this file and deletes its inline duplicate. Consistency becomes structural.
+
+### 0.3 Extract shared nav + footer
+Options (pick one in Decisions):
+- **(a) Small JS include** — `nav.js` / `footer.js` inject shared markup. Zero build step, works on GitHub Pages.
+- **(b) HTML partial + copy** — keep inline but source-controlled from one canonical block.
+Recommendation: **(a)** — one edit updates all pages.
+
+### 0.4 Write the Claude skill(s)
+Create **`.claude/skills/portfolio-design/SKILL.md`** (project-scoped, committed to the repo). Contents:
+- **Design tokens** — full colour / type / space reference (mirrors `design-system.css`).
+- **Taste rules** — do / don't list from 0.1 (e.g. "one accent colour only", "never hardcode hex — use vars", "sentence case in body, uppercase only for labels", motion rules).
+- **Layout patterns** — how nav, footer, cards, sections, case-study templates are structured, with copy-paste-ready snippets that reference the shared CSS.
+- **Dark mode + responsive** — the required approach, non-negotiable.
+- **Page-build checklist** — steps to add/edit a page and stay on-system.
+- **Pointers** — to `design-system.css`, `tokens.json`, the reference page (`index.html`).
+
+Optionally a second skill **`new-case-study`** that scaffolds a case-study page from the template with the right structure (problem → role → process → outcome → metrics).
+
+**Acceptance for Phase 0:** `design-system.css` exists and `index.html` renders identically after switching to it; the skill loads and a fresh page built from it matches the reference visually.
+
+---
+
+## Phase 1 — Consistency pass: bring every page onto the system
+
+Retrofit the older-generation pages so all pages share one look:
+1. `portfolio-about.html` → link `design-system.css`, remove hardcoded values, add dark mode + responsive, swap in shared nav/footer.
+2. `portfolio-contact.html` → same.
+3. `portfolio-case-study.html` → same (or fold into the case-study template).
+4. `cv.html` → same; ensure it matches and the PDF is linked/consistent.
+5. Re-verify `index.html` and `rest-super` still match after CSS extraction.
+
+**Acceptance:** open every page in light + dark, desktop + mobile — nav, footer, type, colour, spacing all identical in feel. No page looks "older".
+
+---
+
+## Phase 2 — Content: the actual job-search substance
+
+> Pixels get you in the door; case studies get you hired. This phase likely matters most.
+1. **Case studies** — decide how many to show (2–3 strong > many weak). For each: problem, your role, process, decisions, outcome + metrics. REST Super is the anchor; identify the next 1–2.
+2. **Home** — sharpen the hero line and the card copy so it reads clearly to a hiring manager in 5 seconds.
+3. **About** — positioning: who you are, what you do, what you're looking for.
+4. **Contact** — working email link, LinkedIn, CV download. Make it frictionless.
+5. **CV** — confirm `cv.html` + `matt-leete-cv.pdf` are current and consistent with the site.
+6. **Password gates** — decide: keep case studies gated (share password with recruiters) or open them up for the job hunt. Gated content can't be discovered by someone browsing.
+
+**Acceptance:** every card links somewhere real; no lorem/placeholder; every case study tells a complete story.
+
+---
+
+## Phase 3 — Polish & QA
+1. **Images/assets** — replace grey `#d9d9d9` placeholders with real work. Optimise (WebP, sized, lazy-load).
+2. **Meta / SEO / sharing** — `<title>`, meta description, Open Graph + Twitter card image per page (so links look good when shared with recruiters), favicon.
+3. **Accessibility** — colour contrast, focus states, alt text, semantic landmarks, keyboard nav.
+4. **Performance** — self-host or `font-display: swap` fonts, minimise layout shift, check Lighthouse.
+5. **Cross-device** — real check on mobile Safari + Chrome, tablet, desktop; both themes.
+6. **404 / edge** — a styled 404 page is a nice touch.
+
+**Acceptance:** Lighthouse ≥ 90 across the board; looks intentional shared as a link.
+
+---
+
+## Phase 4 — Ship
+1. Housekeeping: commit the untracked folders (or `.gitignore` the source `.pages`/`.docx` assets), remove/relocate `icon-preview.html` out of `docs/`, clean `Superceded/`.
+2. Final commit(s) with descriptive messages; push.
+3. Verify live on `mattleete.github.io` — every page, both themes, on a phone.
+4. Confirm custom domain / DNS if one is planned.
+
+---
+
+## Sequencing (fast path)
+
+```
+Phase 0 (system + skill)  ─┐
+                           ├─►  Phase 1 (consistency)  ──►  Phase 2 (content)  ──►  Phase 3 (polish)  ──►  Phase 4 (ship)
+   ▲ do this first          │
+   └── unblocks everything ─┘
+```
+
+If time is tight, the minimum shippable cut is: **Phase 0.2 (shared CSS) + Phase 1 + Phase 2 (1–2 case studies) + Phase 4.** Phase 3 polish and the full skill can follow after you're already applying.
+
+---
+
+## Decisions (resolved 2026-08)
+1. **Taste** — ✅ **Minimal / editorial**: monochrome greyscale + single electric-blue accent (`#1a56ff`), Instrument Sans, generous whitespace, restrained/purposeful motion.
+2. **Animations** — ✅ **Keep the mesh-gradient background + hero ring as the signature**, made consistent across pages.
+3. **Dark mode** — ✅ First-class everywhere (implied by minimal/editorial + existing modern pages).
+4. **Scope** — ✅ **Full plan, in order** (all phases including the full Claude skill + polish).
+5. **Password gates** — ✅ **Keep case studies gated**; share password with recruiters.
+
+### Still open (resolve during the relevant phase)
+- **Reference sites** — optional: Matt can share 1–3 admired sites to sharpen taste rules.
+- **Nav/footer sharing** — default to JS include unless Matt prefers inline.
+- **Case studies** — how many total, and which 1–2 come after REST Super (Phase 2).
