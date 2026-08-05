@@ -3,3 +3,7 @@
 
 # Claude Code per-machine local settings — never commit (regenerated locally)
 **/.claude/settings.local.json
+
+# Personal "how to work with Claude" guide — kept local (this repo is public)
+Portfolio-Resume-Guide.pdf
+resume-guide.html

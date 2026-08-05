@@ -6,6 +6,26 @@
 
 ---
 
+## ▶ Current status / Next up (updated 2026-08 — read this first)
+
+**Where we are:** Phases 0 & 1 done. Site is on one design system, deployed live at mattleete.github.io, and the repo has been reorganised (see `HOUSEKEEPING.md`). Everything is committed and pushed; working tree clean.
+
+**Live & done:**
+- Design system (`docs/assets/design-system.css` + `theme.js`) + `portfolio-design` skill.
+- Home, About (real content, anonymised KPMG clients), Contact, CV (+ PDF) — all on-system, light+dark, responsive.
+- **Case studies:** REST Super (gated) · AI accelerator (gated, **scaffold** — placeholders await Matt's details) · **Occypicks (public, complete** — combined version with video, mobile shots, mascot section, and 2026-season stats).
+- Nav wired across all pages; git-sync discipline documented in `CLAUDE.md`.
+
+**Next up (pick any):**
+1. **Work card 3** — "Making formidable fun" (gaming) still links nowhere → add a "coming soon" state or build it out.
+2. **AI accelerator case study** — fill the bracketed placeholders with Matt's real project details (gated; don't share password until filled).
+3. **Phase 3 polish** — OG/share images + favicon, accessibility + performance pass, dedupe the duplicated case-study CSS across the 3 case-study files.
+4. **Phase 4 ship-tidy** — already largely live; confirm custom domain/DNS if wanted.
+
+**Watch-outs:** repo is edited from >1 place — **`git fetch` first**. Repo is public — keep personal notes out of it.
+
+---
+
 ## Current state (audit)
 
 | Page | Tokens (CSS vars) | Dark mode | Responsive | Shared nav/footer | Notes |
