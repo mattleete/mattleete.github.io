@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matt Leete — Occypicks: Designing & Building a Live Fantasy World Cup Game</title>
-<meta name="description" content="Case study: how I designed and built Occypicks — a live, real-time fantasy World Cup game — end to end, solo. React, Supabase, and a season played by 23 friends.">
+<title>Matt Leete — OccyPicks</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -499,7 +498,7 @@
 
   /* ─── PRINCIPLES ─── */
   .cs-principles {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
     background: var(--grey-5); border: 1px solid var(--grey-5);
   }
   .principle-cell { background: var(--bg); padding: 32px; }
@@ -647,6 +646,22 @@
     }
     .footer-links { gap: 8px; flex-wrap: wrap; }
   }
+
+  /* ─── OCCYPICKS MEDIA ─── */
+  .cs-hero-image { height: auto; background: var(--grey-6); padding: 28px 24px; }
+  .cs-hero-media { display:block; width:100%; max-width:1000px; margin:0 auto; height:auto;
+    border:1px solid var(--grey-5); border-radius:12px; background:#faf9f6; }
+  .cs-image-full { height:auto; padding:0; overflow:hidden; background:var(--grey-6); }
+  .cs-shot { display:block; width:100%; height:600px; object-fit:cover; object-position:top center; }
+  .cs-image-full.tall .cs-shot { height:820px; }
+  .cs-image-half { height:auto; background:var(--grey-6); padding:24px; }
+  .cs-phone { display:block; width:100%; max-width:300px; margin:0 auto; height:auto;
+    border:1px solid var(--grey-5); border-radius:20px; }
+  @media (max-width: 768px) {
+    .cs-shot { height:400px; }
+    .cs-image-full.tall .cs-shot { height:520px; }
+    .cs-image-half-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -692,6 +707,32 @@
   #pw-gate button:hover { opacity: 0.75; }
   #pw-error { font-size: 12px; color: #c00; display: none; }
 </style>
+<div id="pw-gate">
+  <label for="pw-input">Enter password to view this case study</label>
+  <input id="pw-input" type="password" placeholder="Password" autofocus/>
+  <button onclick="checkPassword()">Enter</button>
+  <span id="pw-error">Incorrect password</span>
+</div>
+<script>
+  (function () {
+    if (sessionStorage.getItem('cs-unlocked') === 'yes') {
+      document.getElementById('pw-gate').style.display = 'none';
+    }
+    document.getElementById('pw-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+  })();
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    if (val === 'MattLeete') {
+      sessionStorage.setItem('cs-unlocked', 'yes');
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+    }
+  }
+</script>
 
 <div class="site-wrapper">
 
@@ -718,56 +759,57 @@
   <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-  <nav class="nav-links">
-    <a class="nav-link" href="index.html#work">Work</a>
-    <a class="nav-link" href="index.html#fun">Fun</a>
-    <a class="nav-link" href="portfolio-about.html">About</a>
-    <a class="nav-link" href="portfolio-contact.html">Contact</a>
-  </nav>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Work</a>
+    <a class="nav-link" href="#">About</a>
+    <a class="nav-link" href="mailto:matt.c.leete@gmail.com">Contact</a>
+  </div>
 </nav>
 
-  <!-- HERO -->
+    <!-- HERO -->
   <div class="cs-hero">
-    <div class="cs-breadcrumb">Fun &rarr; Product</div>
+    <div class="cs-breadcrumb">Fun → OccyPicks</div>
     <div class="cs-hero-inner">
       <div>
         <div class="cs-tags">
           <span class="tag tag-accent">Product Design</span>
-          <span class="tag tag-default">Full-Stack Build</span>
-          <span class="tag tag-default">React</span>
-          <span class="tag tag-default">Supabase</span>
+          <span class="tag tag-default">Game Design</span>
+          <span class="tag tag-default">Creative Coding</span>
+          <span class="tag tag-default">Solo</span>
         </div>
-        <h1 class="cs-title">Occypicks</h1>
-        <p class="cs-subtitle">Designing and building a live fantasy World Cup game &mdash; end to end, solo.</p>
+        <h1 class="cs-title">A fantasy World Cup where every pick counts</h1>
+        <p class="cs-subtitle">OccyPicks — self-initiated product, game and experience design for a season-long fantasy draft, played by 23 friends across the 2026 FIFA World Cup. Live at <a href="https://occypicks.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">occypicks.com</a>.</p>
       </div>
       <div class="cs-meta-grid">
         <div>
           <div class="cs-meta-label">My Role</div>
-          <div class="cs-meta-value">Designer &amp; Developer (solo)</div>
+          <div class="cs-meta-value">Design, game system &amp; build</div>
         </div>
         <div>
           <div class="cs-meta-label">Type</div>
-          <div class="cs-meta-value">Personal product &middot; Live</div>
+          <div class="cs-meta-value">Self-initiated side project</div>
         </div>
         <div>
-          <div class="cs-meta-label">Timeline</div>
-          <div class="cs-meta-value">2025&ndash;2026</div>
+          <div class="cs-meta-label">Duration</div>
+          <div class="cs-meta-value">Feb – Jul 2026</div>
         </div>
         <div>
-          <div class="cs-meta-label">Stack</div>
-          <div class="cs-meta-value">React &middot; Supabase<br>Tailwind &middot; Realtime</div>
+          <div class="cs-meta-label">Built for</div>
+          <div class="cs-meta-value">23 friends (the KSO group)</div>
         </div>
         <div>
-          <div class="cs-meta-label">Live at</div>
-          <div class="cs-meta-value"><a href="https://occypicks.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">occypicks.com &rarr;</a></div>
+          <div class="cs-meta-label">Deliverables</div>
+          <div class="cs-meta-value">Game &amp; scoring system<br>Design system &amp; brand<br>Live web app<br>Post-season analytics</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- HERO IMAGE -->
-  <div class="cs-hero-image" style="height:auto;">
-    <img src="assets/occypicks/hero-leaderboard.png" alt="The Occypicks live leaderboard — players ranked by points across the 2026 World Cup" style="width:100%;height:auto;display:block;">
+  <div class="cs-hero-image">
+    <video class="cs-hero-media" autoplay muted loop playsinline poster="images/occypicks/occy-poster.png">
+      <source src="images/occypicks/occy.mp4" type="video/mp4">
+    </video>
   </div>
 
   <div class="cs-content">
@@ -777,177 +819,276 @@
       <div class="cs-overview" style="border:none; border-bottom:none; margin:0;">
         <div class="overview-cell">
           <div class="overview-cell-label">The Challenge</div>
-          <div class="overview-cell-text">Every World Cup, a group of friends wanted a fun way to compete over the tournament &mdash; but traditional fantasy games are player-by-player, high-effort, and overwhelming.</div>
+          <div class="overview-cell-text">Twenty-three friends wanted a shared, season-long way into the 2026 World Cup. But fantasy formats are fiddly and player-by-player — and once your team is knocked out, you're watching the rest of the tournament with nothing at stake.</div>
         </div>
         <div class="overview-cell">
           <div class="overview-cell-label">The Approach</div>
-          <div class="overview-cell-text">Design and build something simpler and more social: a live snake draft of all 48 teams and a tiered scoring engine that keeps every match meaningful &mdash; shipped as a real product.</div>
+          <div class="overview-cell-text">I designed a simple team-draft game with a scoring system that deliberately rewards weaker teams, built it as a live web app with a real-time draft, gave it a character — Occy — and ran it for real across the whole tournament.</div>
         </div>
         <div class="overview-cell">
           <div class="overview-cell-label">The Outcome</div>
-          <div class="overview-cell-text">23 friends played through the entire 2026 World Cup at occypicks.com &mdash; a live draft, a season-long leaderboard, and a champion decided on the final kicks.</div>
+          <div class="overview-cell-text">A product genuinely used by 23 people for a month. The scoring landed near-perfect balance across team strengths, the draft became a group event, and the season closed with its own analytics pack.</div>
         </div>
       </div>
     </div>
 
-    <!-- 01 THE IDEA -->
+    <!-- 01 THE PROBLEM -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">01</div>
-        <h2 class="cs-section-heading">The Idea</h2>
+        <h2 class="cs-section-heading">The Problem</h2>
       </div>
       <div class="cs-section-body">
-        <p class="cs-body-text">Every four years my friends want in on the World Cup &mdash; but the usual fantasy formats ask you to manage a squad of individual players, track line-ups, and make weekly transfers. It&rsquo;s a lot of admin for a bit of fun, and it rewards whoever has the most time rather than the most nerve.</p>
-        <p class="cs-body-text">Occypicks started from a simpler idea: <strong>draft whole teams, not players.</strong> Everyone drafts a couple of nations, then lives and dies by how far they go. One decision, made once, that pays out over a month of football &mdash; low effort to play, high stakes to watch.</p>
+        <p class="cs-body-text">Every four years my friend group — a couple of dozen people spread across cities and time zones — looks for a way to make a month-long tournament feel like a shared event rather than a series of games we each half-watch alone. Off-the-shelf fantasy football is built for domestic leagues: you manage a squad of individual players week to week. For a one-month World Cup with a casual, social group, that's the wrong shape entirely.</p>
+        <p class="cs-body-text">I set out to design something purpose-built for this exact situation. Three problems defined the brief:</p>
+        <div class="cs-stats">
+          <div class="stat-box">
+            <div class="stat-box-title">The dead-rubber problem</div>
+            <div class="stat-label">In most formats, once the teams or players you backed are eliminated, you have nothing left to care about — often with two weeks of tournament still to play. Engagement falls off a cliff at exactly the moment the football gets best.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-title">The favourite tax</div>
+            <div class="stat-label">Everyone wants the same handful of strong teams. If you draft nations and simply count wins, whoever lands Argentina or France runs away with it, and the person left holding a minnow is out of contention before a ball is kicked.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-title">It has to be social</div>
+            <div class="stat-label">The point isn't the app — it's the group. The product had to create shared moments (a draft night, a live table to argue over) and demand almost nothing from casual players who wouldn't tolerate friction or admin.</div>
+          </div>
+        </div>
+        <p class="cs-body-text">So this was really two design problems stacked on top of each other: a <strong>game-design</strong> problem — invent rules that keep everyone in it and every pick meaningful — and a <strong>product-design</strong> problem — wrap those rules in something so low-friction and enjoyable that 23 busy people would actually use it for a month.</p>
       </div>
     </div>
 
-    <!-- 02 MY ROLE -->
+    <!-- 02 GOALS & CONSTRAINTS -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">02</div>
-        <h2 class="cs-section-heading">My Role</h2>
+        <h2 class="cs-section-heading">Goals &amp; Constraints</h2>
       </div>
       <div class="cs-section-body">
-        <p class="cs-body-text">I designed and built the whole thing myself &mdash; a deliberate exercise in owning the entire stack, and in proving that a designer who can build can take an idea all the way to a live, used product.</p>
-        <div class="cs-role-grid">
-          <div class="role-cell">
-            <div class="role-title">Design</div>
-            <div class="role-body">Product and interaction design, visual design, and the playful Occy brand &mdash; from the core game mechanic down to the empty states.</div>
+        <p class="cs-body-text">Before designing anything, I set four goals to hold the whole thing to. They became the lens I used to make every subsequent decision — from the scoring maths to the size of a tap target.</p>
+        <div class="cs-principles">
+          <div class="principle-cell">
+            <div class="principle-name">Fair</div>
+            <div class="principle-body">Someone who ends up with weak teams must still have a genuine, believable shot at winning. No dead picks.</div>
           </div>
-          <div class="role-cell">
-            <div class="role-title">Build</div>
-            <div class="role-body">The React front-end, a Supabase back-end (Postgres, Auth, Realtime), and the scoring engine that powers the live leaderboard.</div>
+          <div class="principle-cell">
+            <div class="principle-name">Effortless</div>
+            <div class="principle-body">A casual player should be able to draft, then check in occasionally, with zero admin and no manual scoring. It has to run itself.</div>
           </div>
-          <div class="role-cell">
-            <div class="role-title">Ship &amp; run</div>
-            <div class="role-body">Deployment on a custom domain, a live match-data pipeline, and running the 2026 season as administrator.</div>
+          <div class="principle-cell">
+            <div class="principle-name">Social</div>
+            <div class="principle-body">Create shared, live moments — a draft everyone joins at once, a table that updates as games finish and gives people something to talk about.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Legible</div>
+            <div class="principle-body">At any moment you should understand exactly where you stand and why, without reading a rulebook. The scoring has to be explainable in one breath.</div>
           </div>
         </div>
+        <p class="cs-body-text">The constraints were fixed and unusually concrete. Forty-eight teams and twenty-three players meant roughly two teams each. The calendar was set by FIFA — I was designing around a real tournament with real kick-off times, played by people in different time zones, mostly on their phones. And it had to be free, instant to join, and impossible to break.</p>
       </div>
     </div>
 
-    <!-- 03 DESIGNING THE GAME -->
+    <!-- 03 MY ROLE -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">03</div>
-        <h2 class="cs-section-heading">Designing the Game</h2>
+        <h2 class="cs-section-heading">My Role</h2>
       </div>
       <div class="cs-section-body">
-        <p class="cs-body-text">The design problem wasn&rsquo;t really the interface &mdash; it was the <strong>rules of the game</strong>. A good format had to be effortless to join, fair for everyone regardless of football knowledge, and gripping right up to the final whistle. Four principles shaped every decision:</p>
-        <div class="cs-principles">
-          <div class="principle-cell">
-            <div class="principle-name">Teams, not players</div>
-            <div class="principle-body">Draft nations, not squads. One decision that pays out over a month &mdash; minimal admin, maximum investment.</div>
+        <p class="cs-body-text">This was a solo project end to end. I moved between three hats, often within a single evening.</p>
+        <div class="cs-role-grid">
+          <div class="role-cell">
+            <div class="role-title">Game Designer</div>
+            <div class="role-body">Invented and balanced the rules — the tiered scoring system, the snake draft, the tie-breaks and edge cases (penalty shootouts, auto-assigned teams). The scoring maths was the single highest-leverage design decision in the project.</div>
           </div>
-          <div class="principle-cell">
-            <div class="principle-name">Every match matters</div>
-            <div class="principle-body">A tiered multiplier (&times;1 to &times;4) means underdogs score more per point than favourites, so a minnow&rsquo;s run is worth as much as a giant&rsquo;s.</div>
+          <div class="role-cell">
+            <div class="role-title">Product &amp; Experience Designer</div>
+            <div class="role-body">Designed every screen and flow — onboarding, the live draft, the leaderboard, fixtures and results — plus the design system, the brand, and Occy the mascot. Prototyped in Figma, then designed directly in code.</div>
           </div>
-          <div class="principle-cell">
-            <div class="principle-name">The draft is the event</div>
-            <div class="principle-body">The live, real-time draft room is the social centrepiece &mdash; everyone in the same room, picks landing instantly, banter guaranteed.</div>
-          </div>
-          <div class="principle-cell">
-            <div class="principle-name">Zero friction to play</div>
-            <div class="principle-body">Magic-link login (no passwords), a clean set of tabs, and sensible defaults, so anyone can join in a couple of taps.</div>
+          <div class="role-cell">
+            <div class="role-title">Engineer &amp; Operator</div>
+            <div class="role-body">Built and shipped the app (React, Supabase, real-time), stood it up on a custom domain, and ran the live season — entering edge-case results, keeping scores honest, and supporting 23 real users for a month.</div>
           </div>
         </div>
-        <div class="cs-image-full" style="height:auto;background:var(--white);"><img src="assets/occypicks/scoring-rules.png" alt="Occypicks scoring rules — points per match and the tiered multiplier system, times-1 to times-4" style="width:100%;height:auto;display:block;"></div>
-        <div class="cs-image-caption">The scoring model &mdash; a tiered multiplier (&times;1 to &times;4) makes underdog wins worth more, keeping every match meaningful.</div>
       </div>
     </div>
 
-    <!-- 04 BUILDING IT -->
+    <!-- 04 DESIGNING THE GAME -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">04</div>
-        <h2 class="cs-section-heading">Building It</h2>
+        <h2 class="cs-section-heading">Designing the Game</h2>
       </div>
       <div class="cs-section-body">
-        <p class="cs-body-text">A live multiplayer draft is deceptively hard. Getting it right meant solving three problems most fantasy tools don&rsquo;t: making it feel instant, making it impossible to cheat, and making sure it never stalls.</p>
-        <div class="cs-principles">
-          <div class="principle-cell">
-            <div class="principle-name">Instant, everywhere</div>
-            <div class="principle-body">In the draft room, every pick appears on everyone&rsquo;s screen within a few hundred milliseconds over WebSockets &mdash; so a remote draft feels like being in the same room.</div>
+        <p class="cs-body-text">The heart of the product isn't a screen — it's a rule. If you draft national teams and simply score three points for a win, the game is decided at the draft: whoever grabs the strongest teams wins, and half the group is eliminated before kick-off. That fails the very first goal. So the central design problem was: <strong>how do you make a minnow worth drafting?</strong></p>
+        <p class="cs-body-text">My answer was a <strong>tier multiplier</strong>. I split all 48 teams into four tiers of twelve by FIFA ranking, then <em>inverted</em> the reward: the weaker the team, the more each result is worth.</p>
+        <div class="cs-table-wrap">
+          <table class="cs-table">
+            <thead>
+              <tr><th>Tier</th><th>FIFA rank</th><th>Multiplier</th><th>Design intent</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="td-meta">Top</td><td>1–12</td><td class="td-highlight">×1</td><td>Strong teams win often, so each win is worth less.</td></tr>
+              <tr><td class="td-meta">Upper</td><td>13–24</td><td class="td-highlight">×2</td><td>Solid teams; a fair middle.</td></tr>
+              <tr><td class="td-meta">Lower</td><td>25–36</td><td class="td-highlight">×3</td><td>Underdogs; every result matters more.</td></tr>
+              <tr><td class="td-meta">Bottom</td><td>37–48</td><td class="td-highlight">×4</td><td>Minnows win rarely, so when they do it pays off big.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="cs-body-text">The base scoring stays dead simple — <strong>win 3, draw 1, plus a bonus point for winning by two or more</strong> — and the whole total is multiplied by the team's tier. A crucial detail: I score the <em>advancing</em> team in a knockout as a win even when the game goes to penalties, so a shootout is never an anticlimactic draw. Two more mechanics complete the design:</p>
+        <div class="cs-stats">
+          <div class="stat-box">
+            <div class="stat-box-title">The snake draft</div>
+            <div class="stat-label">Pick order reverses every round, so whoever picks last in round one picks first in round two. It's the fairness lever for the draft itself — nobody's slot is a disadvantage. Order is randomised, with a "scramble" so it can't be gamed.</div>
           </div>
-          <div class="principle-cell">
-            <div class="principle-name">Fair by construction</div>
-            <div class="principle-body">Turn order and &ldquo;you can&rsquo;t take a team someone already has&rdquo; are enforced on the server, not the client &mdash; so the game can&rsquo;t be gamed, even by someone poking at the code.</div>
-          </div>
-          <div class="principle-cell">
-            <div class="principle-name">Never stalls</div>
-            <div class="principle-body">Miss your turn and a drag-and-drop preference list lets the system auto-pick your highest-ranked available team, keeping the draft moving.</div>
-          </div>
-          <div class="principle-cell">
-            <div class="principle-name">A living scoreboard</div>
-            <div class="principle-body">A scoring engine merges a live match-results feed with manual overrides. When the data API&rsquo;s tight rate limit threatened to break at scale, I moved fetching to a scheduled job that caches results &mdash; so it works for one viewer or a hundred.</div>
+          <div class="stat-box">
+            <div class="stat-box-title">One rule you can say out loud</div>
+            <div class="stat-label">"Win three, draw one, extra for a thrashing — times how much of an underdog your team is." That's the entire game. Legibility was a hard requirement: if I had to write a paragraph to explain scoring, the design had failed.</div>
           </div>
         </div>
+        <div class="cs-image-full"><img class="cs-shot" src="images/occypicks/rules.png" alt="The OccyPicks rules screen explaining the scoring system"></div>
+        <div class="cs-image-caption">The rules screen — the entire game stated in a handful of plain sentences</div>
+        <p class="cs-body-text">The real test came after the tournament, when I could check whether the multiplier had actually done its job. It had — almost exactly. Across a full World Cup, the average points scored per team in each of the four tiers landed within <strong>3.8 points of each other</strong> (×1: 14.8, ×2: 13.3, ×3: 11.0, ×4: 12.0). In other words, on average it made no meaningful difference whether you drafted a giant or a minnow — which is precisely what the system was designed to achieve.</p>
         <div class="cs-quote">
-          <div class="cs-quote-text">The hard part was never the football &mdash; it was making a multiplayer system feel instant and impossible to cheat, with one person building all of it.</div>
-          <div class="cs-quote-attr">Project reflection</div>
+          <div class="cs-quote-text">The champion's two teams were both knocked out by the round of 16 — she still won. A weak team on a deep run was worth more than a favourite lifting the trophy. The multiplier didn't just balance the game; it authored the result.</div>
+          <div class="cs-quote-attr">From the post-season analysis</div>
         </div>
       </div>
     </div>
 
-    <!-- 05 THE 2026 SEASON -->
+    <!-- 05 PROCESS -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">05</div>
-        <h2 class="cs-section-heading">The 2026 Season</h2>
+        <h2 class="cs-section-heading">Process</h2>
       </div>
       <div class="cs-section-body">
-        <p class="cs-body-text">The real test was the tournament itself. 23 friends drafted 48 teams and followed a live leaderboard for a month of football.</p>
-        <div class="cs-stats">
-          <div class="stat-box">
-            <div class="stat-num">23</div>
-            <div class="stat-label">players drafted through a full season</div>
+        <p class="cs-body-text">I ran the project in five phases, from rules on paper through to operating a live season.</p>
+        <div class="cs-phases">
+          <div class="phase-item">
+            <div class="phase-num">1</div>
+            <div class="phase-content">
+              <div class="phase-title">Rules &amp; balance</div>
+              <div class="phase-body">I designed the game before designing a single screen — the tiers, the multiplier, the draft format — and pressure-tested the scoring against past tournaments to make sure a weak-team roster could realistically win. The rules were the product's foundation; everything visual came after.</div>
+            </div>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">48</div>
-            <div class="stat-label">World Cup teams in a live snake draft</div>
+          <div class="phase-item">
+            <div class="phase-num">2</div>
+            <div class="phase-content">
+              <div class="phase-title">Design language &amp; brand</div>
+              <div class="phase-body">I chose a deliberately un-sporty aesthetic — minimal, editorial, near-monochrome, with huge tight-tracked headlines and national-flag emoji as the only real colour. It's the opposite of a cluttered betting app, and it made the data feel calm and legible. This is also where Occy was born.</div>
+            </div>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">104</div>
-            <div class="stat-label">matches scored across the tournament</div>
+          <div class="phase-item">
+            <div class="phase-num">3</div>
+            <div class="phase-content">
+              <div class="phase-title">The live draft</div>
+              <div class="phase-body">The hardest UX in the project: a real-time room where up to two dozen people pick in turn, on a timer, from any device, all seeing the same board update instantly. I designed the waiting room, the snake order, per-pick countdowns, commissioner controls (pause, undo, pick-on-behalf, auto-draft) and a drag-to-rank preference list that auto-drafts for anyone who's offline on their turn.</div>
+            </div>
           </div>
-          <div class="stat-box">
-            <div class="stat-num">2 pts</div>
-            <div class="stat-label">the winning margin, settled on the final weekend</div>
+          <div class="phase-item">
+            <div class="phase-num">4</div>
+            <div class="phase-content">
+              <div class="phase-title">Build &amp; ship</div>
+              <div class="phase-body">I built the app in React with Supabase for auth, data and real-time, chose passwordless magic-link sign-in to strip out friction, and shipped it on its own domain. Live scores come from a cached feed so the app stays fast no matter how many people are watching.</div>
+            </div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-num">5</div>
+            <div class="phase-content">
+              <div class="phase-title">Run a real season</div>
+              <div class="phase-body">The product went live for the whole tournament — and I kept designing while it ran, adding a post-season "analysis" view once the final whistle blew so the story didn't just stop. Operating it taught me things no prototype could (see the reflection).</div>
+            </div>
           </div>
         </div>
-        <p class="cs-body-text">The title came down to the wire: the champion took it on 57 points &mdash; despite both her teams being knocked out by the Round of 16 &mdash; edging me into second by a single penalty-shootout result at the &times;4 multiplier. Crucially, the scoring design held up: average points per team came out remarkably even across all four multiplier tiers &mdash; exactly the competitive balance I&rsquo;d been designing for.</p>
-        <div class="cs-image-full" style="height:auto;background:var(--white);"><img src="assets/occypicks/postseason-analysis.png" alt="Occypicks post-season analysis — final standings, top-scoring teams, and tier performance" style="width:100%;height:auto;display:block;"></div>
-        <div class="cs-image-caption">Post-season analysis &mdash; a full breakdown of the final standings, top teams, and how each multiplier tier performed.</div>
+        <div class="cs-image-full"><img class="cs-shot" src="images/occypicks/draft.png" alt="The live draft room, mid-draft"></div>
+        <div class="cs-image-caption">The live draft room — pick order down the left, the available teams (with tiers) on the right, updating in real time for everyone at once</div>
       </div>
     </div>
 
-    <!-- 06 REFLECTION -->
+    <!-- 06 THE PRODUCT -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">06</div>
+        <h2 class="cs-section-heading">The Product</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">Day to day, the app lives on its leaderboard. I designed it as a calm, scannable table where every player's card shows their teams, form and points at a glance — and expands to a full per-match breakdown for anyone who wants to argue the details. Your own card inverts to solid black so you always find yourself instantly. It refreshes itself as games finish, so the table people are arguing about in the group chat is always live.</p>
+        <div class="cs-image-full tall"><img class="cs-shot" src="images/occypicks/leaderboard.png" alt="The OccyPicks live leaderboard"></div>
+        <div class="cs-image-caption">The live standings — your own row inverts to black; tap any card for a per-match breakdown</div>
+        <p class="cs-body-text">Around the leaderboard sit fixtures, results and real group tables, each with a "your teams" filter so a casual player can cut straight to what they care about. Progressive disclosure runs throughout — expandable cards and collapsible sections keep dense data skimmable instead of overwhelming. And when the tournament ended, I added a Post Season Analysis view: the final table, top-scoring teams, tier performance, best and worst draft-value picks, and an animated race of the whole season.</p>
+        <p class="cs-body-text">Everything is responsive and built mobile-first — most people only ever opened it on a phone — with genuine accessibility care: full keyboard support, ARIA labelling, and a <em>prefers-reduced-motion</em> path that stills the animated mascot for anyone who needs it.</p>
+        <div class="cs-image-half-grid">
+          <div class="cs-image-half"><img class="cs-phone" src="images/occypicks/m-landing.png" alt="OccyPicks on mobile — landing"></div>
+          <div class="cs-image-half"><img class="cs-phone" src="images/occypicks/m-leaderboard.png" alt="OccyPicks on mobile — leaderboard"></div>
+        </div>
+        <div class="cs-image-caption">Mobile — where the game was actually played. Left: the landing. Right: the leaderboard.</div>
+      </div>
+    </div>
+
+    <!-- 07 OCCY -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">07</div>
+        <h2 class="cs-section-heading">Occy — Giving It a Face</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">A social product needs a personality. "Occy" is Australian slang for an octopus — and the name of the game is a pun on it — so the mascot picked itself. But I didn't want a static logo sitting in a corner. The landing page, in the weeks before kick-off, would otherwise be an empty countdown. So I turned it into a playground.</p>
+        <p class="cs-body-text">Occy is a hand-drawn octopus that lives on the landing page and behaves like a small creature. National-flag emoji drift around the screen; Occy chases them, catches them, and — the part I'm most fond of — <strong>recolours itself from whatever flag it just ate</strong>. Eat the Brazil flag and Occy turns green and yellow; eat Japan and it goes red and white. It's built from three pieces of creative coding:</p>
+        <div class="cs-stats">
+          <div class="stat-box">
+            <div class="stat-box-title">A creature with moods</div>
+            <div class="stat-label">Occy wanders autonomously with a physics of its own — velocity, drift, a "breathing" speed that ebbs and flows, and an eased energy level that periodically re-rolls, so it speeds up and slows down like something alive rather than looping a canned animation.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-title">Tentacles that actually hang</div>
+            <div class="stat-label">Each of the eight tentacles is a verlet-physics chain with its own personality — a travelling wave, curl and sway — that trails behind as Occy moves and reaches toward a nearby flag. Nothing is keyframed; it's simulated every frame.</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-title">Generative colour</div>
+            <div class="stat-label">On catching a flag, I sample the emoji's pixels, cluster them into its handful of real colours, and repaint Occy's body and each tentacle from that palette — so the mascot is endlessly, genuinely regenerating itself from the teams in play.</div>
+          </div>
+        </div>
+        <div class="cs-image-full"><img class="cs-shot" src="images/occypicks/landing.png" alt="Occy the octopus mascot on the landing page, recoloured from a flag"></div>
+        <div class="cs-image-caption">The landing page — Occy mid-roam, recoloured from a flag it has just caught</div>
+        <div class="cs-quote">
+          <div class="cs-quote-text">Occy did real work. It turned a dead countdown page into something people opened just to watch, gave the product a face people recognised, and became the thing they screenshotted and sent to the group. Delight was a feature, not a decoration.</div>
+          <div class="cs-quote-attr">On why it mattered</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 REFLECTION -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">08</div>
         <h2 class="cs-section-heading">Reflection</h2>
       </div>
       <div class="cs-section-body">
         <div class="cs-reflection-list">
           <div class="reflection-item">
-            <div class="reflection-heading">Shipping solo means owning every decision.</div>
-            <div class="reflection-body">Designing and building it myself meant no handoffs and nowhere to hide &mdash; every rough edge was mine to fix. The product was better for the tight loop between design intent and implementation; I could feel a bad interaction and fix it in the same sitting.</div>
+            <div class="reflection-heading">The most important design decision wasn't a screen — it was a rule.</div>
+            <div class="reflection-body">Every visual choice mattered, but the tier multiplier is what made the whole thing work. Getting weak teams to score more is a systems-design decision, and the post-tournament data showed it balanced the game to within a few points across every tier. It's a reminder that in a product like this, the mechanics <em>are</em> the experience.</div>
           </div>
           <div class="reflection-item">
-            <div class="reflection-heading">The most interesting design problem was trust, not pixels.</div>
-            <div class="reflection-body">People needed to believe the draft couldn&rsquo;t be rigged. That fairness requirement pushed real rules onto the server and shaped the whole architecture &mdash; a reminder that some of the most important design decisions live well below the surface of the UI.</div>
+            <div class="reflection-heading">Fairness and drama pull against each other.</div>
+            <div class="reflection-body">Analysing the season afterwards, I found the multiplier was fair <em>on average</em>, but with only two teams each the outcome still swung on a lot of luck — one hot team could decide your month. Truly levelling that would mean giving everyone more teams. But that variance is also where the fun lives: a minnow's improbable run is the best part. Knowing which knob does what — and choosing not to turn it all the way — is the design judgement.</div>
           </div>
           <div class="reflection-item">
-            <div class="reflection-heading">The best usability test is people who care.</div>
-            <div class="reflection-body">Watching 23 friends actually use it &mdash; argue over picks, check the table daily, celebrate a minnow&rsquo;s upset &mdash; taught me more than any lab session, because the stakes were real to them.</div>
+            <div class="reflection-heading">Delight earns its place when it does a job.</div>
+            <div class="reflection-body">Occy could read as indulgence, but it solved a real problem — a lifeless pre-tournament page — and drove word of mouth. The lesson I took: whimsy is worth the effort when it's load-bearing, and self-indulgent when it isn't. I made myself justify Occy against a goal before building it.</div>
+          </div>
+          <div class="reflection-item" style="border-bottom:none;">
+            <div class="reflection-heading">Shipping and operating it taught me more than any mockup.</div>
+            <div class="reflection-body">Running a real season for real people surfaced problems no Figma file would have — an API rate limit that broke live scores, a penalty-shootout scoring rule I'd got subtly wrong, time-zone edge cases, onboarding friction. Designing something and then living with the consequences is the fastest feedback loop I know, and it's why I keep building the things I design.</div>
           </div>
         </div>
       </div>
     </div>
 
   </div><!-- /cs-content -->
+
 
   <!-- NEXT PROJECT -->
   <div class="cs-next">
@@ -956,8 +1097,8 @@
       <div class="cs-next-title">Reducing Churn at the Moment of Value</div>
     </div>
     <div style="display:flex;gap:16px;">
-      <a class="btn-primary" href="portfolio-case-study-rest-super.html">View Project &rarr;</a>
-      <a class="btn-secondary" href="index.html">&larr; All Work</a>
+      <a class="btn-primary" href="portfolio-case-study-rest-super.html">View Project →</a>
+      <a class="btn-secondary" href="index.html">← All Work</a>
     </div>
   </div>
 
