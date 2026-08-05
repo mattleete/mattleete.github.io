@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figma Auto-Layout Naming Guide — Atomic Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  .page { width: 1440px; padding: 0 64px; }
+
+  /* Intro */
+  .page-intro {
+    padding: 80px 0 80px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 80px;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 64px;
+    align-items: end;
+  }
+  .intro-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 24px;
+  }
+  .intro-title {
+    font-size: 72px; font-weight: 600; line-height: 100%;
+    letter-spacing: -0.04em; color: #0a0a0a;
+  }
+  .intro-body {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a; padding-bottom: 6px;
+  }
+
+  /* Section */
+  .section { margin-bottom: 80px; }
+  .section-header {
+    display: flex; align-items: baseline; gap: 24px;
+    margin-bottom: 32px; padding-bottom: 20px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .section-num {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #d0d0d0;
+  }
+  .section-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: #0a0a0a;
+  }
+  .section-def {
+    font-size: 14px; font-weight: 400; line-height: 170%;
+    color: #4a4a4a; margin-bottom: 32px; max-width: 760px;
+  }
+
+  /* Level layout */
+  .level-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+    margin-bottom: 24px;
+  }
+  .level-cell {
+    background: #ffffff;
+    padding: 32px;
+  }
+  .level-cell-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a;
+    margin-bottom: 20px; padding-bottom: 16px;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  /* Code block */
+  .code-block {
+    background: #f7f7f7;
+    border: 1px solid #ebebeb;
+    padding: 24px;
+    font-family: 'SF Mono', 'Fira Mono', 'Menlo', monospace;
+    font-size: 12px;
+    line-height: 200%;
+    color: #0a0a0a;
+  }
+  .code-block .comment {
+    color: #d0d0d0;
+  }
+  .code-block .name {
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+  .code-block .arrow {
+    color: #8a8a8a;
+  }
+
+  /* Rules list */
+  .rules-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-icon {
+    width: 20px; height: 20px; background: #0a0a0a;
+    color: #ffffff; font-size: 10px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .rule-text {
+    font-size: 13px; font-weight: 400; line-height: 160%; color: #4a4a4a;
+    flex: 1;
+  }
+  .rule-text strong { font-weight: 600; color: #0a0a0a; }
+
+  /* Tree diagram */
+  .tree {
+    background: #f7f7f7;
+    border: 1px solid #ebebeb;
+    padding: 32px;
+    font-family: 'SF Mono', 'Fira Mono', 'Menlo', monospace;
+    font-size: 12px;
+    line-height: 220%;
+  }
+  .tree-root { font-weight: 600; color: #0a0a0a; }
+  .tree-l1 { padding-left: 20px; color: #4a4a4a; }
+  .tree-l2 { padding-left: 40px; color: #8a8a8a; }
+  .tree-l3 { padding-left: 60px; color: #d0d0d0; }
+  .tree-branch { color: #d0d0d0; }
+
+  /* Summary table */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+  }
+  .summary-table th {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a;
+    padding: 12px 20px; background: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+    text-align: left;
+  }
+  .summary-table th:last-child { border-right: none; }
+  .summary-table td {
+    font-size: 13px; font-weight: 400; color: #4a4a4a;
+    padding: 14px 20px;
+    border-bottom: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
+    vertical-align: top;
+  }
+  .summary-table td:last-child { border-right: none; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table .td-level {
+    font-size: 14px; font-weight: 600; color: #0a0a0a;
+  }
+  .summary-table .td-code {
+    font-family: 'SF Mono', 'Fira Mono', 'Menlo', monospace;
+    font-size: 11px; color: #0a0a0a;
+  }
+  .summary-table .td-yes {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #0a0a0a;
+  }
+  .summary-table .td-sometimes {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #8a8a8a;
+  }
+
+  /* Do / Don't */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .do-block { border: 1px solid #ebebeb; border-top: 3px solid #0a0a0a; padding: 28px; }
+  .dont-block { border: 1px solid #ebebeb; border-top: 3px solid #ebebeb; padding: 28px; }
+  .do-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #0a0a0a; margin-bottom: 20px;
+  }
+  .dont-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 20px;
+  }
+  .do-dont-item {
+    font-family: 'SF Mono', 'Fira Mono', 'Menlo', monospace;
+    font-size: 12px; line-height: 200%;
+    padding: 12px 16px; margin-bottom: 8px;
+  }
+  .do-dont-item:last-child { margin-bottom: 0; }
+  .do-item { background: #f7f7f7; color: #0a0a0a; }
+  .dont-item { background: #f7f7f7; color: #d0d0d0; text-decoration: line-through; text-decoration-color: #d0d0d0; }
+
+  /* Rule callout */
+  .rule-callout {
+    border: 1px solid #0a0a0a;
+    padding: 32px 40px;
+    margin: 32px 0;
+  }
+  .rule-callout-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8a8a8a; margin-bottom: 12px;
+  }
+  .rule-callout-text {
+    font-size: 24px; font-weight: 600; line-height: 110%;
+    letter-spacing: -0.02em; color: #0a0a0a;
+  }
+
+  /* Tag */
+  .tag {
+    display: inline-flex; align-items: center; padding: 4px 10px;
+    font-family: 'Instrument Sans', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #4a4a4a; border: 1px solid #d0d0d0;
+  }
+  .tag-accent { color: #1a56ff; border-color: #1a56ff; }
+
+  /* Bottom padding */
+  .page-end { height: 128px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="page-intro">
+    <div>
+      <div class="intro-label">Portfolio Design System — Figma Guide</div>
+      <h1 class="intro-title">Auto-Layout Naming</h1>
+    </div>
+    <p class="intro-body">How to name every frame in Figma so that the designs translate cleanly into code. Organised by Atomic Design level — from the smallest element up to a full page.</p>
+  </div>
+
+  <!-- ATOMS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Level 01</span>
+      <h2 class="section-title">Atoms</h2>
+    </div>
+    <p class="section-def">The smallest possible element. Cannot be broken down further. These are the raw ingredients — a single button, a tag, a link, a label. When they have auto-layout (e.g. a tag with padding), name them by what they <em>are</em>.</p>
+
+    <div class="level-layout">
+      <div class="level-cell">
+        <div class="level-cell-label">Examples from this portfolio</div>
+        <div class="code-block">
+          <span class="name">tag</span><br>
+          <span class="name">button-primary</span><br>
+          <span class="name">button-secondary</span><br>
+          <span class="name">button-text</span><br>
+          <span class="name">nav-link</span><br>
+          <span class="name">eyebrow</span><br>
+          <span class="name">divider</span><br>
+          <span class="name">image-placeholder</span><br>
+          <span class="name">avatar-placeholder</span>
+        </div>
+      </div>
+      <div class="level-cell">
+        <div class="level-cell-label">Rules</div>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-icon">1</div>
+            <div class="rule-text"><strong>What it is, not what it looks like.</strong> Not <code>blue-rectangle</code> or <code>rounded-pill</code> — those describe appearance. <code>tag</code> describes meaning.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">2</div>
+            <div class="rule-text"><strong>Singular, lowercase, hyphenated.</strong> <code>nav-link</code> not <code>Nav Links</code> or <code>navlink</code>.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">3</div>
+            <div class="rule-text"><strong>Atoms don't always need auto-layout.</strong> A standalone text layer named <code>eyebrow</code> is still an atom — the name is what matters here, not the frame type.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOLECULES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Level 02</span>
+      <h2 class="section-title">Molecules</h2>
+    </div>
+    <p class="section-def">A small group of atoms that does one job together. This is the first level where auto-layout becomes essential — every molecule must be an auto-layout frame. A molecule is a unit you would describe in two words: what it is and what it contains.</p>
+
+    <div class="level-layout">
+      <div class="level-cell">
+        <div class="level-cell-label">Examples from this portfolio</div>
+        <div class="code-block">
+          <span class="name">card-footer</span>     <span class="arrow">→</span> <span class="comment">tags + arrow · horizontal</span><br>
+          <span class="name">card-meta</span>        <span class="arrow">→</span> <span class="comment">eyebrow + title + desc · vertical</span><br>
+          <span class="name">nav-actions</span>      <span class="arrow">→</span> <span class="comment">nav-link × 3 + button · horizontal</span><br>
+          <span class="name">hero-actions</span>     <span class="arrow">→</span> <span class="comment">button-primary + button-text · horizontal</span><br>
+          <span class="name">section-header</span>   <span class="arrow">→</span> <span class="comment">heading + section-link · space-between</span><br>
+          <span class="name">stat-item</span>        <span class="arrow">→</span> <span class="comment">stat-number + stat-label · vertical</span><br>
+          <span class="name">phase-item</span>       <span class="arrow">→</span> <span class="comment">phase-num + phase-content · horizontal</span><br>
+          <span class="name">concept-header</span>   <span class="arrow">→</span> <span class="comment">concept-title + priority-tag · horizontal</span><br>
+          <span class="name">discipline-item</span>  <span class="arrow">→</span> <span class="comment">discipline-name + meta · space-between</span>
+        </div>
+      </div>
+      <div class="level-cell">
+        <div class="level-cell-label">Rules</div>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-icon">1</div>
+            <div class="rule-text"><strong>Always auto-layout.</strong> If it groups two or more atoms, it must be an auto-layout frame with explicit direction, gap, and padding set.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">2</div>
+            <div class="rule-text"><strong>Name by what it does, not what it looks like.</strong> <code>card-meta</code> not <code>text-stack-left</code>.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">3</div>
+            <div class="rule-text"><strong>A molecule only does one job.</strong> If you find yourself naming it <code>header-and-description-and-tags-and-button</code>, it's an organism, not a molecule.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">4</div>
+            <div class="rule-text"><strong>Set the spacing in Figma, not by eye.</strong> The gap value in auto-layout becomes <code>gap</code> in CSS. Use the spacing scale tokens: 4, 8, 16, 32, 64px.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORGANISMS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Level 03</span>
+      <h2 class="section-title">Organisms</h2>
+    </div>
+    <p class="section-def">A complete, self-contained UI section. An organism is the main building block of a page — it could be dropped onto any page and would make sense in isolation. Every organism must be a Figma component.</p>
+
+    <div class="level-layout">
+      <div class="level-cell">
+        <div class="level-cell-label">Examples from this portfolio</div>
+        <div class="code-block">
+          <span class="name">nav</span>              <span class="arrow">→</span> <span class="comment">logo + nav-actions · full width</span><br>
+          <span class="name">hero</span>             <span class="arrow">→</span> <span class="comment">hero-left + hero-right · grid</span><br>
+          <span class="name">project-card</span>     <span class="arrow">→</span> <span class="comment">card-image + card-body</span><br>
+          <span class="name">cards-grid</span>       <span class="arrow">→</span> <span class="comment">3× project-card · horizontal</span><br>
+          <span class="name">stats-strip</span>      <span class="arrow">→</span> <span class="comment">3× stat-item · equal columns</span><br>
+          <span class="name">about-strip</span>      <span class="arrow">→</span> <span class="comment">about-left + discipline-list</span><br>
+          <span class="name">case-study-hero</span>  <span class="arrow">→</span> <span class="comment">breadcrumb + title + meta-grid</span><br>
+          <span class="name">journey-map</span>      <span class="arrow">→</span> <span class="comment">3× journey-cell · horizontal</span><br>
+          <span class="name">concepts-grid</span>    <span class="arrow">→</span> <span class="comment">6× concept-cell · 2-column</span><br>
+          <span class="name">footer</span>           <span class="arrow">→</span> <span class="comment">footer-name + footer-links</span>
+        </div>
+      </div>
+      <div class="level-cell">
+        <div class="level-cell-label">Rules</div>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-icon">1</div>
+            <div class="rule-text"><strong>Make it a Figma component.</strong> Press <code>⌥⌘K</code>. Every organism should be a component so that edits propagate to all instances across pages.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">2</div>
+            <div class="rule-text"><strong>Name it what you'd call it out loud.</strong> Not <code>section-3</code>. If you'd say "the cards grid" in a meeting, name it <code>cards-grid</code>.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">3</div>
+            <div class="rule-text"><strong>Full-width organisms span 1440px</strong> and use horizontal padding internally (64px on this system). Never use margin to push content in — use padding on the organism frame itself.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">4</div>
+            <div class="rule-text"><strong>Variants for states.</strong> If an organism has a hover or active state (e.g. <code>project-card</code>), add it as a variant — not a separate frame.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEMPLATES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Level 04</span>
+      <h2 class="section-title">Templates</h2>
+    </div>
+    <p class="section-def">A full-page layout — the skeleton. A template is a vertical auto-layout frame at 1440px wide that stacks organisms in order. Think of it as the table of contents for a page. Templates contain placeholder content, not real copy.</p>
+
+    <div class="level-layout">
+      <div class="level-cell">
+        <div class="level-cell-label">Naming</div>
+        <div class="code-block">
+          <span class="name">template-home</span><br>
+          <span class="name">template-about</span><br>
+          <span class="name">template-case-study</span><br>
+          <span class="name">template-contact</span>
+        </div>
+        <div style="height:24px;"></div>
+        <div class="level-cell-label">Layer structure example — template-home</div>
+        <div class="tree">
+          <div class="tree-root">template-home</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>nav</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>hero</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>cards-grid</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>stats-strip</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>about-strip</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>footer</div>
+        </div>
+      </div>
+      <div class="level-cell">
+        <div class="level-cell-label">Rules</div>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-icon">1</div>
+            <div class="rule-text"><strong>Vertical auto-layout, gap = 0.</strong> Spacing between sections is handled by each organism's internal padding — the template frame itself has no gap.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">2</div>
+            <div class="rule-text"><strong>Width = 1440px, height = hug.</strong> Never set a fixed height on a template frame — it should grow with its content.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">3</div>
+            <div class="rule-text"><strong>Organisms only — no raw atoms or molecules at this level.</strong> If you're placing a text layer directly inside a template, it belongs in an organism first.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">4</div>
+            <div class="rule-text"><strong>One template per page type.</strong> The case study template is reused for both Spix and Rest Super — only the content changes, not the structure.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Level 05</span>
+      <h2 class="section-title">Pages</h2>
+    </div>
+    <p class="section-def">A template filled with real content. The distinction from a template is content, not structure. In Figma, a page is simply your template renamed to reflect the specific instance — particularly useful when one template is used for multiple pages.</p>
+
+    <div class="level-layout">
+      <div class="level-cell">
+        <div class="level-cell-label">Naming</div>
+        <div class="code-block">
+          <span class="name">page-home</span><br>
+          <span class="name">page-about</span><br>
+          <span class="name">page-case-study-spix</span><br>
+          <span class="name">page-case-study-rest-super</span><br>
+          <span class="name">page-contact</span>
+        </div>
+        <div style="height:24px;"></div>
+        <div class="level-cell-label">Full layer structure example — page-case-study-rest-super</div>
+        <div class="tree">
+          <div class="tree-root">page-case-study-rest-super</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>nav</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>case-study-hero</div>
+          <div class="tree-l2"><span class="tree-branch">└── </span>breadcrumb</div>
+          <div class="tree-l2"><span class="tree-branch">└── </span>hero-inner</div>
+          <div class="tree-l3"><span class="tree-branch">└── </span>cs-title</div>
+          <div class="tree-l3"><span class="tree-branch">└── </span>meta-grid</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>hero-image</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>overview-strip</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>cs-section (× 8)</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>concepts-grid</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>next-project-strip</div>
+          <div class="tree-l1"><span class="tree-branch">└── </span>footer</div>
+        </div>
+      </div>
+      <div class="level-cell">
+        <div class="level-cell-label">Rules</div>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-icon">1</div>
+            <div class="rule-text"><strong>Real content only.</strong> Replace every placeholder with actual copy, images, and data before handing back for development.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">2</div>
+            <div class="rule-text"><strong>Don't break the template structure.</strong> If you need a new section that doesn't exist in the template, add it as a new organism — don't patch it in with ungrouped layers.</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-icon">3</div>
+            <div class="rule-text"><strong>Image layers named for export.</strong> Name every image layer with a descriptive export name: <code>thumbnail-rest-super</code>, <code>photo-matt</code>. This becomes the filename.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Reference</span>
+      <h2 class="section-title">Quick Reference</h2>
+    </div>
+
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Example name</th>
+          <th>Auto-layout?</th>
+          <th>Figma component?</th>
+          <th>Contains</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-level">Atom</td>
+          <td class="td-code">tag<br>button-primary<br>nav-link</td>
+          <td class="td-sometimes">Sometimes</td>
+          <td class="td-yes">Yes</td>
+          <td>Text, icon, single shape</td>
+        </tr>
+        <tr>
+          <td class="td-level">Molecule</td>
+          <td class="td-code">card-meta<br>hero-actions<br>stat-item</td>
+          <td class="td-yes">Always</td>
+          <td class="td-yes">Yes</td>
+          <td>2–4 atoms</td>
+        </tr>
+        <tr>
+          <td class="td-level">Organism</td>
+          <td class="td-code">project-card<br>cards-grid<br>nav</td>
+          <td class="td-yes">Always</td>
+          <td class="td-yes">Yes</td>
+          <td>2–4 molecules</td>
+        </tr>
+        <tr>
+          <td class="td-level">Template</td>
+          <td class="td-code">template-home<br>template-case-study</td>
+          <td class="td-yes">Always — vertical</td>
+          <td class="td-sometimes">Optional</td>
+          <td>Organisms in page order</td>
+        </tr>
+        <tr>
+          <td class="td-level">Page</td>
+          <td class="td-code">page-home<br>page-case-study-spix</td>
+          <td class="td-yes">Always — vertical</td>
+          <td class="td-sometimes">Optional</td>
+          <td>Template + real content</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">Checklist</span>
+      <h2 class="section-title">Do & Don't</h2>
+    </div>
+
+    <div class="do-dont">
+      <div class="do-block">
+        <div class="do-label">Do — name it this</div>
+        <div class="do-dont-item do-item">tag</div>
+        <div class="do-dont-item do-item">card-meta</div>
+        <div class="do-dont-item do-item">project-card</div>
+        <div class="do-dont-item do-item">cards-grid</div>
+        <div class="do-dont-item do-item">template-home</div>
+        <div class="do-dont-item do-item">page-case-study-rest-super</div>
+      </div>
+      <div class="dont-block">
+        <div class="dont-label">Don't — not this</div>
+        <div class="do-dont-item dont-item">rounded-pill-blue</div>
+        <div class="do-dont-item dont-item">text-stack-left</div>
+        <div class="do-dont-item dont-item">Frame 47</div>
+        <div class="do-dont-item dont-item">Group 203</div>
+        <div class="do-dont-item dont-item">section-3</div>
+        <div class="do-dont-item dont-item">Rectangle</div>
+      </div>
+    </div>
+
+    <div class="rule-callout">
+      <div class="rule-callout-label">The one rule</div>
+      <div class="rule-callout-text">"If you can describe what it <em>is</em> in two words, that's the name." — Every layer name becomes a CSS class or component name in code. Name it what a developer would call it.</div>
+    </div>
+  </div>
+
+  <div class="page-end"></div>
+</div>
+</body>
+</html>

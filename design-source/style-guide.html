@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Design System — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Palette */
+    --palette-black:   #0a0a0a;
+    --palette-grey-1:  #1a1a1a;
+    --palette-grey-2:  #4a4a4a;
+    --palette-grey-3:  #8a8a8a;
+    --palette-grey-4:  #d0d0d0;
+    --palette-grey-5:  #ebebeb;
+    --palette-grey-6:  #f7f7f7;
+    --palette-white:   #ffffff;
+    --palette-accent:  #1a56ff;
+    /* Semantic */
+    --colour-text-primary:    #0a0a0a;
+    --colour-text-secondary:  #4a4a4a;
+    --colour-text-tertiary:   #8a8a8a;
+    --colour-text-disabled:   #d0d0d0;
+    --colour-surface-page:    #ffffff;
+    --colour-surface-subtle:  #f7f7f7;
+    --colour-border-default:  #ebebeb;
+    --colour-border-strong:   #d0d0d0;
+    --colour-accent-default:  #1a56ff;
+    --colour-accent-hover:    #0040e0;
+    /* Space */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 32px;
+    --space-5: 64px;
+    --space-6: 128px;
+    --space-7: 224px;
+  }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  .page {
+    width: 1440px;
+    padding: 0 64px;
+  }
+
+  /* Section spacing */
+  .section { margin-bottom: 128px; }
+  .section:first-child { padding-top: 80px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+    margin-bottom: 40px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  /* ─── COLOUR SECTION ─────────────────────── */
+  .colour-group { margin-bottom: 40px; }
+  .colour-group-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 16px;
+  }
+  .swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .swatch-box {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ebebeb;
+  }
+  .swatch-name {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+  .swatch-hex {
+    font-size: 10px;
+    font-weight: 400;
+    color: #d0d0d0;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── TYPE SECTION ───────────────────────── */
+  .type-row {
+    display: flex;
+    align-items: baseline;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .type-meta {
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .type-style-name {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+    margin-bottom: 4px;
+  }
+  .type-specs {
+    font-size: 10px;
+    font-weight: 400;
+    color: #8a8a8a;
+    line-height: 1.6;
+  }
+  .type-sample { flex: 1; }
+
+  .display    { font-size: 72px; font-weight: 600; line-height: 100%; letter-spacing: -0.04em; }
+  .heading-1  { font-size: 40px; font-weight: 600; line-height: 105%; letter-spacing: -0.03em; }
+  .heading-2  { font-size: 24px; font-weight: 600; line-height: 110%; letter-spacing: -0.02em; }
+  .heading-3  { font-size: 16px; font-weight: 600; line-height: 130%; letter-spacing: -0.01em; }
+  .body-style { font-size: 14px; font-weight: 400; line-height: 170%; letter-spacing: 0; }
+  .small      { font-size: 12px; font-weight: 400; line-height: 160%; letter-spacing: 0; }
+  .label      { font-size: 11px; font-weight: 500; line-height: 150%; letter-spacing: 0.08em; text-transform: uppercase; }
+  .micro      { font-size: 10px; font-weight: 500; line-height: 150%; letter-spacing: 0.10em; text-transform: uppercase; }
+
+  /* ─── SPACING SECTION ────────────────────── */
+  .spacing-rows { display: flex; flex-direction: column; gap: 16px; }
+  .spacing-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .spacing-token {
+    width: 80px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    flex-shrink: 0;
+  }
+  .spacing-bar {
+    height: 24px;
+    background: #0a0a0a;
+    flex-shrink: 0;
+  }
+  .spacing-value {
+    font-size: 10px;
+    font-weight: 400;
+    color: #d0d0d0;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── COMPONENTS SECTION ─────────────────── */
+  .component-group { margin-bottom: 56px; }
+  .component-group-title {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 24px;
+  }
+  .component-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .component-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .component-variant-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 150%;
+    cursor: pointer;
+    border-radius: 0;
+  }
+  .btn-primary         { background: #1a56ff; color: #ffffff; border: none; }
+  .btn-primary-hover   { background: #0040e0; color: #ffffff; border: none; }
+  .btn-secondary       { background: transparent; color: #0a0a0a; border: 1px solid #d0d0d0; }
+  .btn-secondary-hover { background: transparent; color: #0a0a0a; border: 1px solid #0a0a0a; }
+  .btn-text            { background: transparent; color: #4a4a4a; border: none; padding: 0; }
+  .btn-text-hover      { background: transparent; color: #0a0a0a; border: none; padding: 0; }
+
+  /* Tags */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    line-height: 150%;
+    border-radius: 0;
+  }
+  .tag-default { background: transparent; color: #4a4a4a; border: 1px solid #d0d0d0; }
+  .tag-accent  { background: transparent; color: #1a56ff; border: 1px solid #1a56ff; }
+  .tag-filled  { background: #0a0a0a;     color: #ffffff;  border: none; }
+
+  /* Project Card */
+  .project-card {
+    width: 320px;
+    border: 1px solid #ebebeb;
+  }
+  .project-card-image {
+    width: 320px;
+    height: 200px;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .project-card-image-placeholder {
+    width: 48px;
+    height: 48px;
+    background: #ebebeb;
+    border: 1px solid #d0d0d0;
+  }
+  .project-card-body {
+    padding: 16px;
+    border-top: 1px solid #ebebeb;
+  }
+  .card-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: -0.01em;
+    color: #0a0a0a;
+    margin-top: 8px;
+  }
+  .card-description {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #8a8a8a;
+    margin-top: 8px;
+  }
+  .project-card-hover {
+    width: 320px;
+    border: 1px solid #8a8a8a;
+  }
+
+  /* Grid overlay hint */
+  .grid-note {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+    padding: 16px;
+    border: 1px dashed #ebebeb;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — COLOUR
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">01 — Colour</div>
+
+    <div class="colour-group">
+      <div class="colour-group-title">Palette</div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-box" style="background:#0a0a0a;"></div><div class="swatch-name">Black</div><div class="swatch-hex">#0a0a0a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#1a1a1a;"></div><div class="swatch-name">Grey-1</div><div class="swatch-hex">#1a1a1a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#4a4a4a;"></div><div class="swatch-name">Grey-2</div><div class="swatch-hex">#4a4a4a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#8a8a8a;"></div><div class="swatch-name">Grey-3</div><div class="swatch-hex">#8a8a8a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#d0d0d0;"></div><div class="swatch-name">Grey-4</div><div class="swatch-hex">#d0d0d0</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#ebebeb;"></div><div class="swatch-name">Grey-5</div><div class="swatch-hex">#ebebeb</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#f7f7f7;"></div><div class="swatch-name">Grey-6</div><div class="swatch-hex">#f7f7f7</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#ffffff; border:1px solid #ebebeb;"></div><div class="swatch-name">White</div><div class="swatch-hex">#ffffff</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#1a56ff;"></div><div class="swatch-name">Accent</div><div class="swatch-hex">#1a56ff</div></div>
+      </div>
+    </div>
+
+    <div class="colour-group">
+      <div class="colour-group-title">Colour / Text</div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-box" style="background:#0a0a0a;"></div><div class="swatch-name">Primary</div><div class="swatch-hex">#0a0a0a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#4a4a4a;"></div><div class="swatch-name">Secondary</div><div class="swatch-hex">#4a4a4a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#8a8a8a;"></div><div class="swatch-name">Tertiary</div><div class="swatch-hex">#8a8a8a</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#d0d0d0;"></div><div class="swatch-name">Disabled</div><div class="swatch-hex">#d0d0d0</div></div>
+      </div>
+    </div>
+
+    <div class="colour-group">
+      <div class="colour-group-title">Colour / Surface</div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-box" style="background:#ffffff; border:1px solid #ebebeb;"></div><div class="swatch-name">Page</div><div class="swatch-hex">#ffffff</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#f7f7f7;"></div><div class="swatch-name">Subtle</div><div class="swatch-hex">#f7f7f7</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#ffffff; border:1px solid #ebebeb;"></div><div class="swatch-name">Raised</div><div class="swatch-hex">#ffffff</div></div>
+      </div>
+    </div>
+
+    <div class="colour-group">
+      <div class="colour-group-title">Colour / Border</div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-box" style="background:#ebebeb;"></div><div class="swatch-name">Default</div><div class="swatch-hex">#ebebeb</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#d0d0d0;"></div><div class="swatch-name">Strong</div><div class="swatch-hex">#d0d0d0</div></div>
+      </div>
+    </div>
+
+    <div class="colour-group">
+      <div class="colour-group-title">Colour / Accent</div>
+      <div class="swatches">
+        <div class="swatch"><div class="swatch-box" style="background:#1a56ff;"></div><div class="swatch-name">Default</div><div class="swatch-hex">#1a56ff</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#0040e0;"></div><div class="swatch-name">Hover</div><div class="swatch-hex">#0040e0</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — TYPE SCALE
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">02 — Type Scale</div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Display</div>
+        <div class="type-specs">72px / 600<br>100% lh / −4% ls</div>
+      </div>
+      <div class="type-sample display">Portfolio</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Heading-1</div>
+        <div class="type-specs">40px / 600<br>105% lh / −3% ls</div>
+      </div>
+      <div class="type-sample heading-1">Selected Work</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Heading-2</div>
+        <div class="type-specs">24px / 600<br>110% lh / −2% ls</div>
+      </div>
+      <div class="type-sample heading-2">Case Study</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Heading-3</div>
+        <div class="type-specs">16px / 600<br>130% lh / −1% ls</div>
+      </div>
+      <div class="type-sample heading-3">Project Title</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Body</div>
+        <div class="type-specs">14px / 400<br>170% lh / 0% ls</div>
+      </div>
+      <div class="type-sample body-style">The quick brown fox jumps over the lazy dog. Design systems create consistency across products and teams.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Small</div>
+        <div class="type-specs">12px / 400<br>160% lh / 0% ls</div>
+      </div>
+      <div class="type-sample small">The quick brown fox jumps over the lazy dog. Used for secondary information and captions.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Label</div>
+        <div class="type-specs">11px / 500<br>150% lh / +8% ls<br>Uppercase</div>
+      </div>
+      <div class="type-sample label">View Project</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">
+        <div class="type-style-name">Micro</div>
+        <div class="type-specs">10px / 500<br>150% lh / +10% ls<br>Uppercase</div>
+      </div>
+      <div class="type-sample micro">Design System</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — SPACING SCALE
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">03 — Spacing Scale</div>
+
+    <div class="spacing-rows">
+      <div class="spacing-row">
+        <div class="spacing-token">space-1</div>
+        <div class="spacing-bar" style="width:4px;"></div>
+        <div class="spacing-value">4px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-token">space-2</div>
+        <div class="spacing-bar" style="width:8px;"></div>
+        <div class="spacing-value">8px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-token">space-3</div>
+        <div class="spacing-bar" style="width:16px;"></div>
+        <div class="spacing-value">16px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-token">space-4</div>
+        <div class="spacing-bar" style="width:32px;"></div>
+        <div class="spacing-value">32px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-token">space-5</div>
+        <div class="spacing-bar" style="width:64px;"></div>
+        <div class="spacing-value">64px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-token">space-6</div>
+        <div class="spacing-bar" style="width:128px;"></div>
+        <div class="spacing-value">128px</div>
+      </div>
+      <div class="spacing-row">
+        <div class="spacing-token">space-7</div>
+        <div class="spacing-bar" style="width:224px;"></div>
+        <div class="spacing-value">224px</div>
+      </div>
+    </div>
+
+    <div class="grid-note">
+      Layout grid: 12 columns · 8px gutter · 64px margin · 1200px max-width
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — COMPONENTS
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">04 — Components</div>
+
+    <!-- Buttons -->
+    <div class="component-group">
+      <div class="component-group-title">Button / Primary</div>
+      <div class="component-row">
+        <div class="component-item">
+          <div class="component-variant-label">Default</div>
+          <button class="btn btn-primary">Label</button>
+        </div>
+        <div class="component-item">
+          <div class="component-variant-label">Hover</div>
+          <button class="btn btn-primary-hover">Label</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-group">
+      <div class="component-group-title">Button / Secondary</div>
+      <div class="component-row">
+        <div class="component-item">
+          <div class="component-variant-label">Default</div>
+          <button class="btn btn-secondary">Label</button>
+        </div>
+        <div class="component-item">
+          <div class="component-variant-label">Hover</div>
+          <button class="btn btn-secondary-hover">Label</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="component-group">
+      <div class="component-group-title">Button / Text</div>
+      <div class="component-row">
+        <div class="component-item">
+          <div class="component-variant-label">Default</div>
+          <button class="btn btn-text">Label ↗</button>
+        </div>
+        <div class="component-item">
+          <div class="component-variant-label">Hover</div>
+          <button class="btn btn-text-hover">Label ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="component-group">
+      <div class="component-group-title">Tag</div>
+      <div class="component-row">
+        <div class="component-item">
+          <div class="component-variant-label">Default</div>
+          <span class="tag tag-default">Design</span>
+        </div>
+        <div class="component-item">
+          <div class="component-variant-label">Accent</div>
+          <span class="tag tag-accent">Design</span>
+        </div>
+        <div class="component-item">
+          <div class="component-variant-label">Filled</div>
+          <span class="tag tag-filled">Design</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Cards -->
+    <div class="component-group">
+      <div class="component-group-title">Project Card</div>
+      <div class="component-row">
+        <div class="component-item">
+          <div class="component-variant-label">Default</div>
+          <div class="project-card">
+            <div class="project-card-image">
+              <div class="project-card-image-placeholder"></div>
+            </div>
+            <div class="project-card-body">
+              <div class="card-eyebrow">UX Design · 2024</div>
+              <div class="card-title">Project Title</div>
+              <div class="card-description">A short description of the project goes here. Keep it concise.</div>
+            </div>
+          </div>
+        </div>
+        <div class="component-item">
+          <div class="component-variant-label">Hover</div>
+          <div class="project-card project-card-hover">
+            <div class="project-card-image">
+              <div class="project-card-image-placeholder"></div>
+            </div>
+            <div class="project-card-body">
+              <div class="card-eyebrow">UX Design · 2024</div>
+              <div class="card-title">Project Title</div>
+              <div class="card-description">A short description of the project goes here. Keep it concise.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- bottom padding -->
+  <div style="height:80px;"></div>
+</div>
+</body>
+</html>

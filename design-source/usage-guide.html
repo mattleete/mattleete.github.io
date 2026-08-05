@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Design System — Usage Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: #ffffff;
+    color: #0a0a0a;
+    width: 1440px;
+  }
+
+  .page {
+    width: 1440px;
+    padding: 0 64px;
+  }
+
+  /* Section spacing */
+  .section { margin-bottom: 128px; }
+  .section:first-child { padding-top: 80px; }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+    margin-bottom: 40px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  /* Page intro */
+  .page-intro {
+    padding: 80px 0 128px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 128px;
+  }
+  .page-intro-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 24px;
+  }
+  .page-intro-title {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 105%;
+    letter-spacing: -0.03em;
+    color: #0a0a0a;
+    max-width: 640px;
+    margin-bottom: 24px;
+  }
+  .page-intro-body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 170%;
+    color: #4a4a4a;
+    max-width: 560px;
+  }
+
+  /* ─── USAGE TABLE LAYOUT ─────────────────── */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+    margin-bottom: 40px;
+  }
+  .usage-cell {
+    background: #ffffff;
+    padding: 24px;
+  }
+  .usage-cell-header {
+    background: #f7f7f7;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .usage-cell-header-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+  }
+
+  /* Full-width row */
+  .usage-row {
+    display: grid;
+    grid-template-columns: 280px 1fr 1fr;
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+    margin-bottom: 1px;
+  }
+  .usage-row:last-child { margin-bottom: 0; }
+  .usage-table {
+    border: 1px solid #ebebeb;
+    margin-bottom: 40px;
+  }
+  .usage-table-row {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .usage-table-row:last-child { border-bottom: none; }
+  .usage-table-header {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr;
+    background: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .usage-table-cell {
+    padding: 16px 20px;
+    border-right: 1px solid #ebebeb;
+  }
+  .usage-table-cell:last-child { border-right: none; }
+  .usage-table-cell-header {
+    padding: 10px 20px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    border-right: 1px solid #ebebeb;
+  }
+  .usage-table-cell-header:last-child { border-right: none; }
+
+  /* Token preview */
+  .token-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .colour-dot {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ebebeb;
+    flex-shrink: 0;
+  }
+  .token-name {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #0a0a0a;
+  }
+  .token-value {
+    font-size: 10px;
+    font-weight: 400;
+    color: #8a8a8a;
+    margin-top: 2px;
+  }
+
+  /* Usage text */
+  .usage-text {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #4a4a4a;
+  }
+
+  /* Do / Don't */
+  .do-dont-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .do-block, .dont-block {
+    padding: 24px;
+    border: 1px solid #ebebeb;
+  }
+  .do-block { border-top: 3px solid #0a0a0a; }
+  .dont-block { border-top: 3px solid #d0d0d0; }
+  .do-dont-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .do-label { color: #0a0a0a; }
+  .dont-label { color: #8a8a8a; }
+  .do-dont-example {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .do-dont-example:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .do-dont-example-text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #4a4a4a;
+  }
+
+  /* Type specimen inline */
+  .type-usage-row {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr;
+    border-bottom: 1px solid #ebebeb;
+    align-items: start;
+  }
+  .type-usage-row:last-child { border-bottom: none; }
+  .type-usage-cell {
+    padding: 20px;
+    border-right: 1px solid #ebebeb;
+  }
+  .type-usage-cell:last-child { border-right: none; }
+
+  /* Component usage cards */
+  .component-usage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+  }
+  .component-usage-card {
+    background: #ffffff;
+    padding: 24px;
+  }
+  .component-name {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    margin-bottom: 8px;
+  }
+  .component-preview {
+    padding: 24px 0;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+  }
+  .component-use-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 6px;
+  }
+  .component-use-text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #4a4a4a;
+    margin-bottom: 16px;
+  }
+  .component-avoid-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #d0d0d0;
+    margin-bottom: 6px;
+  }
+  .component-avoid-text {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 160%;
+    color: #8a8a8a;
+  }
+
+  /* Inline elements */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 0;
+    cursor: default;
+  }
+  .btn-primary   { background: #1a56ff; color: #ffffff; border: none; }
+  .btn-secondary { background: transparent; color: #0a0a0a; border: 1px solid #d0d0d0; }
+  .btn-text-el   { background: transparent; color: #4a4a4a; border: none; padding: 0;
+                   font-family: 'Instrument Sans', sans-serif; font-size: 11px;
+                   font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+  .tag-default { background: transparent; color: #4a4a4a; border: 1px solid #d0d0d0; }
+  .tag-accent  { background: transparent; color: #1a56ff; border: 1px solid #1a56ff; }
+  .tag-filled  { background: #0a0a0a; color: #ffffff; border: none; }
+
+  /* Hierarchy diagram */
+  .hierarchy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hierarchy-level {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border: 1px solid #ebebeb;
+  }
+  .hierarchy-rank {
+    width: 24px;
+    height: 24px;
+    background: #0a0a0a;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .hierarchy-info { flex: 1; }
+  .hierarchy-style-name {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 2px;
+  }
+  .hierarchy-example {
+    color: #0a0a0a;
+  }
+  .hierarchy-usage {
+    font-size: 12px;
+    font-weight: 400;
+    color: #8a8a8a;
+    width: 320px;
+    flex-shrink: 0;
+    line-height: 160%;
+  }
+
+  /* Spacing usage */
+  .spacing-usage-row {
+    display: grid;
+    grid-template-columns: 120px 80px 1fr 1fr;
+    border-bottom: 1px solid #ebebeb;
+    align-items: center;
+  }
+  .spacing-usage-row:last-child { border-bottom: none; }
+  .spacing-usage-cell {
+    padding: 14px 20px;
+    border-right: 1px solid #ebebeb;
+  }
+  .spacing-usage-cell:last-child { border-right: none; }
+  .spacing-bar-small {
+    height: 8px;
+    background: #0a0a0a;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════
+       INTRO
+  ══════════════════════════════════════════════ -->
+  <div class="page-intro">
+    <div class="page-intro-label">Portfolio Design System — v1</div>
+    <div class="page-intro-title">Usage Guidelines</div>
+    <div class="page-intro-body">This document defines how and where to use each element of the design system. Following these guidelines keeps the portfolio consistent, legible, and intentional across every page and state.</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — COLOUR USAGE
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">01 — Colour Usage</div>
+
+    <!-- Text colours -->
+    <div style="margin-bottom: 48px;">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#0a0a0a;margin-bottom:16px;">Text colours</div>
+      <div class="usage-table">
+        <div class="usage-table-header">
+          <div class="usage-table-cell-header">Token</div>
+          <div class="usage-table-cell-header">Use for</div>
+          <div class="usage-table-cell-header">Avoid</div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#0a0a0a;"></div>
+              <div><div class="token-name">Colour/Text/Primary</div><div class="token-value">#0a0a0a</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Page titles, headings, body copy, labels, navigation, all default readable text.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Decorative or secondary information — risks flattening the visual hierarchy.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#4a4a4a;"></div>
+              <div><div class="token-name">Colour/Text/Secondary</div><div class="token-value">#4a4a4a</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Supporting text, descriptions, subheadings, card body copy, metadata.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Primary actions or anything requiring immediate attention.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#8a8a8a;"></div>
+              <div><div class="token-name">Colour/Text/Tertiary</div><div class="token-value">#8a8a8a</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Eyebrows, captions, timestamps, placeholder text, style annotation labels.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Body copy or anything longer than a few words — fails WCAG AA at small sizes.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#d0d0d0;"></div>
+              <div><div class="token-name">Colour/Text/Disabled</div><div class="token-value">#d0d0d0</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Disabled states only — conveys unavailability. Style annotation meta on white backgrounds.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Any active or interactive text.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Surface colours -->
+    <div style="margin-bottom: 48px;">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#0a0a0a;margin-bottom:16px;">Surface colours</div>
+      <div class="usage-table">
+        <div class="usage-table-header">
+          <div class="usage-table-cell-header">Token</div>
+          <div class="usage-table-cell-header">Use for</div>
+          <div class="usage-table-cell-header">Avoid</div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#ffffff; border:1px solid #d0d0d0;"></div>
+              <div><div class="token-name">Colour/Surface/Page</div><div class="token-value">#ffffff</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">The main page background. Every page starts here.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Cards or raised elements — creates no separation from the page.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#f7f7f7;"></div>
+              <div><div class="token-name">Colour/Surface/Subtle</div><div class="token-value">#f7f7f7</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Image placeholders, code blocks, input backgrounds, alternating row tints, section dividers.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Large background areas — the difference from white is too subtle for sections.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#ffffff; border:1px solid #d0d0d0;"></div>
+              <div><div class="token-name">Colour/Surface/Raised</div><div class="token-value">#ffffff</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Cards and overlays. Elevation is indicated by border, not fill — this token pairs with Colour/Border/Default.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Using without a border — it will be invisible against the page surface.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Border & Accent colours -->
+    <div style="margin-bottom: 48px;">
+      <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#0a0a0a;margin-bottom:16px;">Border & Accent colours</div>
+      <div class="usage-table">
+        <div class="usage-table-header">
+          <div class="usage-table-cell-header">Token</div>
+          <div class="usage-table-cell-header">Use for</div>
+          <div class="usage-table-cell-header">Avoid</div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#ebebeb;"></div>
+              <div><div class="token-name">Colour/Border/Default</div><div class="token-value">#ebebeb</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Card borders, dividers, input outlines, table row separators. The default resting state for all bordered elements.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Hover or focus states — too subtle to communicate change.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#d0d0d0;"></div>
+              <div><div class="token-name">Colour/Border/Strong</div><div class="token-value">#d0d0d0</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Hover states on bordered components (secondary button hover, card hover), focus rings, active inputs.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Default resting states — over-emphasises inactive elements.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#1a56ff;"></div>
+              <div><div class="token-name">Colour/Accent/Default</div><div class="token-value">#1a56ff</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Primary CTA buttons, accent tags, active link underlines, focus indicators. One prominent accent per view.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Decorative backgrounds, large fills, or more than one prominent use per screen.</div></div>
+        </div>
+        <div class="usage-table-row">
+          <div class="usage-table-cell">
+            <div class="token-preview">
+              <div class="colour-dot" style="background:#0040e0;"></div>
+              <div><div class="token-name">Colour/Accent/Hover</div><div class="token-value">#0040e0</div></div>
+            </div>
+          </div>
+          <div class="usage-table-cell"><div class="usage-text">Hover state of primary button only. Never used as a static colour.</div></div>
+          <div class="usage-table-cell"><div class="usage-text">Any static usage — this token only communicates interactivity change.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Do / Don't -->
+    <div class="do-dont-grid">
+      <div class="do-block">
+        <div class="do-dont-label do-label">Do</div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Use Primary text for headings and body copy, Secondary for supporting descriptions, Tertiary for metadata and eyebrows.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Pair Surface/Raised with Border/Default to create cards that sit above the page.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Reserve Accent/Default for a single prominent action per view.</div>
+        </div>
+      </div>
+      <div class="dont-block">
+        <div class="do-dont-label dont-label">Don't</div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't use Tertiary text for body copy — it fails contrast requirements at 14px.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't use Accent/Default for backgrounds, illustrations, or decorative fills.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't mix Border/Default and Border/Strong on the same component in its resting state.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — TYPOGRAPHY USAGE
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">02 — Typography Usage</div>
+
+    <!-- Hierarchy -->
+    <div style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#0a0a0a;margin-bottom:16px;">Visual hierarchy</div>
+    <div class="hierarchy" style="margin-bottom:48px;">
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">1</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Display — 72px / 600</div>
+          <div class="hierarchy-example" style="font-size:36px;font-weight:600;line-height:100%;letter-spacing:-0.04em;">Portfolio</div>
+        </div>
+        <div class="hierarchy-usage">Hero section headline only. One instance per page maximum. Never use for subheadings or section titles.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">2</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Heading-1 — 40px / 600</div>
+          <div class="hierarchy-example" style="font-size:32px;font-weight:600;line-height:105%;letter-spacing:-0.03em;">Selected Work</div>
+        </div>
+        <div class="hierarchy-usage">Primary page sections and case study titles. One per logical section. Introduces a major content area.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">3</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Heading-2 — 24px / 600</div>
+          <div class="hierarchy-example" style="font-size:24px;font-weight:600;line-height:110%;letter-spacing:-0.02em;">About the Project</div>
+        </div>
+        <div class="hierarchy-usage">Subsection headings within a page section. Modal and drawer titles. Card group headers.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">4</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Heading-3 — 16px / 600</div>
+          <div class="hierarchy-example" style="font-size:16px;font-weight:600;line-height:130%;letter-spacing:-0.01em;">Project Title</div>
+        </div>
+        <div class="hierarchy-usage">Card titles, list item headings, sidebar section titles, inline content labels.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">5</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Body — 14px / 400</div>
+          <div class="hierarchy-example" style="font-size:14px;font-weight:400;line-height:170%;">The default reading size for all long-form content.</div>
+        </div>
+        <div class="hierarchy-usage">Paragraphs, case study body copy, about section text, any prose longer than two sentences.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">6</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Small — 12px / 400</div>
+          <div class="hierarchy-example" style="font-size:12px;font-weight:400;line-height:160%;">Supporting detail and secondary descriptions.</div>
+        </div>
+        <div class="hierarchy-usage">Card descriptions, captions, tooltips, helper text below inputs, footnotes.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">7</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Label — 11px / 500 / Uppercase</div>
+          <div class="hierarchy-example" style="font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;">View Project</div>
+        </div>
+        <div class="hierarchy-usage">Button labels, navigation links, tab labels, form field labels. All interactive text that requires a call to action.</div>
+      </div>
+      <div class="hierarchy-level">
+        <div class="hierarchy-rank">8</div>
+        <div class="hierarchy-info">
+          <div class="hierarchy-style-name">Type/Micro — 10px / 500 / Uppercase</div>
+          <div class="hierarchy-example" style="font-size:10px;font-weight:500;letter-spacing:0.10em;text-transform:uppercase;">UX Design · 2024</div>
+        </div>
+        <div class="hierarchy-usage">Eyebrows, tag labels, style annotation names, timestamp metadata, category chips. Never use for prose.</div>
+      </div>
+    </div>
+
+    <!-- Do / Don't -->
+    <div class="do-dont-grid">
+      <div class="do-block">
+        <div class="do-dont-label do-label">Do</div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Follow the hierarchy in order — skip levels intentionally to create contrast (e.g. Heading-1 directly to Body).</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Use Label and Micro for all uppercase text — never apply text-transform manually to Body or Small.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Pair Micro with Colour/Text/Tertiary for eyebrows to signal secondary importance.</div>
+        </div>
+      </div>
+      <div class="dont-block">
+        <div class="do-dont-label dont-label">Don't</div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't use Display outside the hero. Don't use two Display instances on one page.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't use Micro for body copy or descriptions — it's too small for comfortable reading.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't mix heading levels non-sequentially without purpose — e.g. Heading-1 followed immediately by Heading-3.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — SPACING USAGE
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">03 — Spacing Usage</div>
+
+    <div class="usage-table" style="margin-bottom:40px;">
+      <div class="usage-table-header" style="grid-template-columns:120px 80px 1fr 1fr;">
+        <div class="usage-table-cell-header">Token</div>
+        <div class="usage-table-cell-header">Value</div>
+        <div class="usage-table-cell-header">Use for</div>
+        <div class="usage-table-cell-header">Examples</div>
+      </div>
+
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-1</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:4px;height:4px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">4px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Micro gaps between tightly related elements.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Icon-to-label gap, badge offset, list item indicator gap.</div></div>
+      </div>
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-2</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:8px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">8px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Tight internal spacing within components.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Gap between eyebrow and title, tag-to-tag gap, inline icon spacing.</div></div>
+      </div>
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-3</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:16px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">16px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Default component padding and grouped element spacing.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Card body padding, form group spacing, list item padding, modal padding.</div></div>
+      </div>
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-4</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:32px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">32px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Spacing between distinct components and sub-sections.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Gap between card grid rows, spacing between form sections, vertical rhythm between paragraphs and headings.</div></div>
+      </div>
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-5</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:64px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">64px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Page margin and major layout gaps.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Horizontal page margins (mobile), spacing between major content blocks, navbar height.</div></div>
+      </div>
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-6</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:80px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">128px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Between major page sections.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Section-to-section vertical spacing on desktop, hero bottom padding, footer top padding.</div></div>
+      </div>
+      <div class="spacing-usage-row">
+        <div class="spacing-usage-cell"><div class="token-name">space-7</div></div>
+        <div class="spacing-usage-cell"><div class="spacing-bar-small" style="width:80px;margin:auto 0;"></div><span style="font-size:10px;color:#8a8a8a;margin-left:8px;">224px</span></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Hero and large breakout sections.</div></div>
+        <div class="spacing-usage-cell"><div class="usage-text">Hero section vertical padding, full-bleed section height, large visual breathing room between unrelated content.</div></div>
+      </div>
+    </div>
+
+    <div class="do-dont-grid">
+      <div class="do-block">
+        <div class="do-dont-label do-label">Do</div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Use only tokens from the scale. Never use arbitrary values like 20px or 48px.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Step up two levels between content groups (e.g. space-3 inside a card, space-5 between cards).</div>
+        </div>
+      </div>
+      <div class="dont-block">
+        <div class="do-dont-label dont-label">Don't</div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't use space-1 or space-2 as section padding — it reads as cramped.</div>
+        </div>
+        <div class="do-dont-example">
+          <div class="do-dont-example-text">Don't use space-6 or space-7 inside components — they are layout-level tokens only.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — COMPONENT USAGE
+  ══════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">04 — Component Usage</div>
+
+    <div class="component-usage-grid">
+
+      <!-- Button Primary -->
+      <div class="component-usage-card">
+        <div class="component-name">Button / Primary</div>
+        <div class="component-preview"><button class="btn btn-primary">Label</button></div>
+        <div class="component-use-label">Use for</div>
+        <div class="component-use-text">The single most important action on a view. "View project", "Download CV", "Send message". One primary button per screen section maximum.</div>
+        <div class="component-avoid-label">Avoid</div>
+        <div class="component-avoid-text">Multiple primary buttons side-by-side. Destructive or low-priority actions. Navigation that is better served by a text button.</div>
+      </div>
+
+      <!-- Button Secondary -->
+      <div class="component-usage-card">
+        <div class="component-name">Button / Secondary</div>
+        <div class="component-preview"><button class="btn btn-secondary">Label</button></div>
+        <div class="component-use-label">Use for</div>
+        <div class="component-use-text">Supporting actions alongside a primary button. "Cancel", "Go back", "View all". Can appear multiple times if actions are equivalent in weight.</div>
+        <div class="component-avoid-label">Avoid</div>
+        <div class="component-avoid-text">Using as the sole button when a primary would be clearer. Pairing two secondary buttons where one action is clearly more important.</div>
+      </div>
+
+      <!-- Button Text -->
+      <div class="component-usage-card">
+        <div class="component-name">Button / Text</div>
+        <div class="component-preview"><button class="btn-text-el">Label ↗</button></div>
+        <div class="component-use-label">Use for</div>
+        <div class="component-use-text">Inline navigation and low-emphasis links. "View case study ↗", "See all projects", contextual links inside body text or card footers.</div>
+        <div class="component-avoid-label">Avoid</div>
+        <div class="component-avoid-text">Primary or form-submission actions. Anywhere the action needs to be immediately obvious without reading surrounding context.</div>
+      </div>
+
+      <!-- Tag Default -->
+      <div class="component-usage-card">
+        <div class="component-name">Tag / Default</div>
+        <div class="component-preview"><span class="tag tag-default">Design</span></div>
+        <div class="component-use-label">Use for</div>
+        <div class="component-use-text">Neutral categorisation and filtering. Skills, disciplines, project categories in their resting/unselected state.</div>
+        <div class="component-avoid-label">Avoid</div>
+        <div class="component-avoid-text">Status indicators or anything requiring urgency. Using more than 4–5 tags in a single cluster — use a comma-separated list instead.</div>
+      </div>
+
+      <!-- Tag Accent -->
+      <div class="component-usage-card">
+        <div class="component-name">Tag / Accent</div>
+        <div class="component-preview"><span class="tag tag-accent">Featured</span></div>
+        <div class="component-use-label">Use for</div>
+        <div class="component-use-text">Selected or active filter state. Highlighted categories, "Featured" or "Current" labels. One or two accent tags per view maximum.</div>
+        <div class="component-avoid-label">Avoid</div>
+        <div class="component-avoid-text">Applying to every tag — dilutes the emphasis. Using alongside a primary button if both compete for the same accent colour.</div>
+      </div>
+
+      <!-- Tag Filled -->
+      <div class="component-usage-card">
+        <div class="component-name">Tag / Filled</div>
+        <div class="component-preview"><span class="tag tag-filled">New</span></span></div>
+        <div class="component-use-label">Use for</div>
+        <div class="component-use-text">High-contrast labels that must be noticed first: "New", "Live", "Case Study". Works well over image thumbnails or on dark backgrounds.</div>
+        <div class="component-avoid-label">Avoid</div>
+        <div class="component-avoid-text">Generic category labels — the filled weight implies significance. Using more than one or two per screen.</div>
+      </div>
+
+      <!-- Project Card (spans full row visually described) -->
+      <div class="component-usage-card" style="grid-column: span 3;">
+        <div class="component-name">Project Card</div>
+        <div style="display:flex;gap:32px;padding:24px 0;border-bottom:1px solid #ebebeb;margin-bottom:16px;">
+          <!-- Mini card preview -->
+          <div style="width:200px;border:1px solid #ebebeb;flex-shrink:0;">
+            <div style="width:200px;height:120px;background:#f7f7f7;display:flex;align-items:center;justify-content:center;">
+              <div style="width:32px;height:32px;background:#ebebeb;border:1px solid #d0d0d0;"></div>
+            </div>
+            <div style="padding:12px;border-top:1px solid #ebebeb;">
+              <div style="font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a8a;">UX Design · 2024</div>
+              <div style="font-size:13px;font-weight:600;color:#0a0a0a;margin-top:6px;">Project Title</div>
+              <div style="font-size:11px;color:#8a8a8a;margin-top:6px;line-height:1.5;">Short project description.</div>
+            </div>
+          </div>
+          <div style="flex:1;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+              <div>
+                <div class="component-use-label">Use for</div>
+                <div class="component-use-text">Listing portfolio projects in a grid. Each card represents one project. Use eyebrow for discipline and year, Heading-3 for title, Small for description. Always link the entire card.</div>
+              </div>
+              <div>
+                <div class="component-avoid-label">Avoid</div>
+                <div class="component-avoid-text">Mixing card sizes in the same grid. Using cards for non-project content like blog posts or testimonials — the visual language implies portfolio work.</div>
+              </div>
+              <div>
+                <div class="component-use-label">Anatomy</div>
+                <div class="component-use-text">
+                  <strong style="color:#0a0a0a;">Image area</strong> — 320×200px placeholder. Replace with project thumbnail, ideally 16:10 ratio.<br><br>
+                  <strong style="color:#0a0a0a;">Eyebrow</strong> — Type/Micro, Colour/Text/Tertiary. Format: "Discipline · Year".<br><br>
+                  <strong style="color:#0a0a0a;">Title</strong> — Type/Heading-3, Colour/Text/Primary. Keep to one line where possible.<br><br>
+                  <strong style="color:#0a0a0a;">Description</strong> — Type/Small, Colour/Text/Tertiary. Max 2 lines.
+                </div>
+              </div>
+              <div>
+                <div class="component-use-label">Hover behaviour</div>
+                <div class="component-use-text">Border transitions from Colour/Border/Default (#ebebeb) to Colour/Text/Tertiary (#8a8a8a). No shadow, no scale transform — keep motion minimal and intentional.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- bottom padding -->
+  <div style="height:80px;"></div>
+</div>
+</body>
+</html>
