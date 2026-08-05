@@ -707,33 +707,6 @@
   #pw-gate button:hover { opacity: 0.75; }
   #pw-error { font-size: 12px; color: #c00; display: none; }
 </style>
-<div id="pw-gate">
-  <label for="pw-input">Enter password to view this case study</label>
-  <input id="pw-input" type="password" placeholder="Password" autofocus/>
-  <button onclick="checkPassword()">Enter</button>
-  <span id="pw-error">Incorrect password</span>
-</div>
-<script>
-  (function () {
-    if (sessionStorage.getItem('cs-unlocked') === 'yes') {
-      document.getElementById('pw-gate').style.display = 'none';
-    }
-    document.getElementById('pw-input').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') checkPassword();
-    });
-  })();
-  function checkPassword() {
-    const val = document.getElementById('pw-input').value;
-    if (val === 'MattLeete') {
-      sessionStorage.setItem('cs-unlocked', 'yes');
-      document.getElementById('pw-gate').style.display = 'none';
-    } else {
-      document.getElementById('pw-error').style.display = 'block';
-      document.getElementById('pw-input').value = '';
-    }
-  }
-</script>
-
 <div class="site-wrapper">
 
 <!-- NAV -->
@@ -759,11 +732,12 @@
   <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
-  <div class="nav-links">
-    <a class="nav-link" href="index.html">Work</a>
-    <a class="nav-link" href="#">About</a>
-    <a class="nav-link" href="mailto:matt.c.leete@gmail.com">Contact</a>
-  </div>
+  <nav class="nav-links">
+    <a class="nav-link" href="index.html#work">Work</a>
+    <a class="nav-link" href="index.html#fun">Fun</a>
+    <a class="nav-link" href="portfolio-about.html">About</a>
+    <a class="nav-link" href="portfolio-contact.html">Contact</a>
+  </nav>
 </nav>
 
     <!-- HERO -->
@@ -1059,10 +1033,29 @@
       </div>
     </div>
 
-    <!-- 08 REFLECTION -->
+    <!-- 08 THE 2026 SEASON -->
     <div class="cs-section">
       <div class="cs-section-aside">
         <div class="cs-section-label">08</div>
+        <h2 class="cs-section-heading">The 2026 Season</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">The real test was the tournament itself. 23 friends drafted 48 teams and followed a live leaderboard for a month of football.</p>
+        <div class="cs-stats">
+          <div class="stat-box"><div class="stat-num">23</div><div class="stat-label">players drafted through a full season</div></div>
+          <div class="stat-box"><div class="stat-num">104</div><div class="stat-label">matches scored across the tournament</div></div>
+          <div class="stat-box"><div class="stat-num">2 pts</div><div class="stat-label">the winning margin, settled on the final weekend</div></div>
+        </div>
+        <p class="cs-body-text">The title came down to the wire: the champion took it on 57 points &mdash; despite both her teams being knocked out by the Round of 16 &mdash; edging me into second by a single penalty-shootout result at the &times;4 multiplier. It was exactly the kind of finish the scoring was designed to produce.</p>
+        <div class="cs-image-full"><img class="cs-shot" src="assets/occypicks/postseason-analysis.png" alt="Occypicks post-season analysis — the final standings, with the champion crowned on 57 points"></div>
+        <div class="cs-image-caption">Post-season analysis &mdash; final standings, top teams, and how each multiplier tier performed.</div>
+      </div>
+    </div>
+
+    <!-- 09 REFLECTION -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">09</div>
         <h2 class="cs-section-heading">Reflection</h2>
       </div>
       <div class="cs-section-body">
