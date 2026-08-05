@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matt Leete — Occypicks: Designing & Building a Live Fantasy World Cup Game</title>
+<meta name="description" content="Case study: how I designed and built Occypicks — a live, real-time fantasy World Cup game — end to end, solo. React, Supabase, and a season played by 23 friends.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #0a0a0a;
+    --grey-2:  #4a4a4a;
+    --grey-3:  #8a8a8a;
+    --grey-4:  #d0d0d0;
+    --grey-5:  #ebebeb;
+    --grey-6:  #f7f7f7;
+    --white:   #ffffff;
+    --accent:  #1a56ff;
+    --bg:      #ffffff;
+  }
+  [data-theme="dark"] {
+    --black:   #e0e0e0;
+    --grey-2:  #c0c0c0;
+    --grey-3:  #8a8a8a;
+    --grey-4:  #3a3a3a;
+    --grey-5:  #222222;
+    --grey-6:  #161616;
+    --white:   #0a0a0a;
+    --bg:      #000000;
+  }
+
+  /* ─── THEME TOGGLE ─── */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .theme-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .theme-btn:hover { opacity: 1; }
+  .theme-btn svg { width: 16px; height: 16px; }
+  .icon-sun  { display: none; }
+  .icon-moon { display: block; }
+  [data-theme="dark"] .icon-sun  { display: block; }
+  [data-theme="dark"] .icon-moon { display: none; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--black);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* ─── LIGHT MODE: MESH GRADIENT ─── */
+  .mesh {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  [data-theme="dark"] .mesh { display: none; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(90px); }
+  .blob-1 { width: 1400px; height: 1400px; top: -20%; left: -15%;    background: radial-gradient(circle, rgba(26, 86, 255, 0.32) 0%, transparent 65%); }
+  .blob-2 { width: 1100px; height: 1100px; top: -10%; right: -10%;   background: radial-gradient(circle, rgba(120, 0, 255, 0.22) 0%, transparent 65%); }
+  .blob-3 { width: 1500px; height: 1500px; bottom: 0%; right: -15%;  background: radial-gradient(circle, rgba(0, 210, 240, 0.26) 0%, transparent 65%); }
+  .blob-4 { width: 1000px; height: 1000px; bottom: -10%; left: -10%; background: radial-gradient(circle, rgba(0, 120, 255, 0.20) 0%, transparent 65%); }
+  .blob-5 { width: 1600px; height: 1600px; top: 30%; left: 20%;      background: radial-gradient(circle, rgba(100, 180, 255, 0.16) 0%, transparent 65%); }
+
+  /* ─── DARK MODE: AURORA ─── */
+  .aurora {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    display: none;
+  }
+  [data-theme="dark"] .aurora { display: block; }
+  .aurora-inner {
+    position: absolute;
+    inset: -10px;
+    opacity: 0.5;
+    will-change: transform;
+    background-image:
+      repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%),
+      repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+    filter: blur(10px);
+    mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 10%, transparent 70%);
+    animation: aurora 60s linear infinite;
+  }
+  .aurora-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(100deg, #000 0%, #000 7%, transparent 10%, transparent 12%, #000 16%),
+      repeating-linear-gradient(100deg, #3b82f6 10%, #a5b4fc 15%, #93c5fd 20%, #ddd6fe 25%, #60a5fa 30%);
+    background-size: 200%, 100%;
+    background-attachment: fixed;
+    mix-blend-mode: difference;
+    animation: aurora 60s linear infinite;
+  }
+  @keyframes aurora {
+    from { background-position: 50% 50%, 50% 50%; }
+    to   { background-position: 350% 50%, 350% 50%; }
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    background: transparent;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--grey-5);
+  }
+  .nav-logo {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--black);
+    text-decoration: none;
+    padding: 8px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+  .nav-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .nav-link:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  /* ─── HAMBURGER ─── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--black);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ─── HERO ─── */
+  .cs-hero {
+    padding: 80px 64px 0;
+    border-bottom: 1px solid var(--grey-5);
+  }
+  .cs-breadcrumb {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 48px;
+  }
+  .cs-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
+    align-items: end;
+    padding-bottom: 64px;
+  }
+  .cs-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .tag {
+    display: inline-flex; align-items: center; padding: 4px 10px;
+    font-family: 'Instrument Sans', sans-serif; font-size: 10px; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .tag-default { color: var(--grey-2); border: 1px solid var(--grey-4); }
+  .tag-accent  { color: var(--accent); border: 1px solid var(--accent); }
+  .tag-filled  { background: var(--black); color: var(--bg); border: none; }
+  .cs-title {
+    font-size: 72px; font-weight: 600; line-height: 100%;
+    letter-spacing: -0.04em; color: var(--black);
+  }
+  .cs-subtitle {
+    font-size: 16px; font-weight: 400; line-height: 140%;
+    color: var(--grey-2); margin-top: 20px; max-width: 600px;
+  }
+  .cs-meta-grid { display: flex; flex-direction: column; gap: 20px; padding-bottom: 8px; }
+  .cs-meta-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 4px;
+  }
+  .cs-meta-value { font-size: 13px; font-weight: 400; color: var(--black); line-height: 150%; }
+
+  /* ─── HERO IMAGE ─── */
+  .cs-hero-image {
+    width: 100%; height: 640px; background: var(--grey-6);
+    border-top: 1px solid var(--grey-5);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .img-ph-lg { width: 80px; height: 80px; background: var(--grey-5); border: 1px solid var(--grey-4); }
+  .img-ph-sm { width: 40px; height: 40px; background: var(--grey-5); border: 1px solid var(--grey-4); }
+
+  /* ─── CONTENT WRAPPER ─── */
+  .cs-content { padding: 0 64px; }
+
+  /* ─── SECTION SHARED ─── */
+  .cs-section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--grey-5);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 80px;
+  }
+  .cs-section-aside {}
+  .cs-section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 12px;
+  }
+  .cs-section-heading {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: var(--black);
+  }
+  .cs-section-body { display: flex; flex-direction: column; gap: 20px; }
+  .cs-body-text {
+    font-size: 14px; font-weight: 400; line-height: 170%; color: var(--grey-2);
+  }
+  .cs-body-text strong { font-weight: 600; color: var(--black); }
+
+  /* ─── OVERVIEW STRIP ─── */
+  .cs-overview {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--grey-5);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--grey-5);
+    border: 1px solid var(--grey-5);
+    margin-top: 0;
+  }
+  .overview-cell {
+    background: var(--bg);
+    padding: 40px;
+  }
+  .overview-cell-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 16px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--grey-5);
+  }
+  .overview-cell-text {
+    font-size: 14px; font-weight: 400; line-height: 170%; color: var(--grey-2);
+  }
+
+  /* ─── STAT BOXES ─── */
+  .cs-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--grey-5); border: 1px solid var(--grey-5); margin-bottom: 0;
+  }
+  .stat-box { background: var(--bg); padding: 28px; }
+  .stat-num {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: var(--accent); margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; font-weight: 400; line-height: 160%; color: var(--grey-3); }
+
+  /* ─── STAT BOX TITLE ─── */
+  .stat-box-title {
+    font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 8px;
+  }
+
+  /* ─── TABLE ─── */
+  .cs-table-wrap { overflow-x: auto; }
+  .cs-table { width: 100%; border-collapse: collapse; border: 1px solid var(--grey-5); }
+  .cs-table th {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--grey-3); padding: 12px 20px; background: var(--grey-6);
+    border-bottom: 1px solid var(--grey-5); border-right: 1px solid var(--grey-5);
+    text-align: left;
+  }
+  .cs-table th:last-child { border-right: none; }
+  .cs-table td {
+    font-size: 13px; font-weight: 400; color: var(--black);
+    padding: 14px 20px; border-bottom: 1px solid var(--grey-5);
+    border-right: 1px solid var(--grey-5);
+  }
+  .cs-table td:last-child { border-right: none; }
+  .cs-table tr:last-child td { border-bottom: none; }
+  .cs-table .td-meta { color: var(--grey-3); }
+  .cs-table .td-highlight { font-weight: 600; color: var(--black); }
+
+  /* ─── ROLE GRID ─── */
+  .cs-role-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--grey-5); border: 1px solid var(--grey-5);
+  }
+  .role-cell { background: var(--bg); padding: 32px; }
+  .role-title {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: var(--black);
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--grey-5);
+  }
+  .role-body { font-size: 13px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── PHASE ─── */
+  .cs-phases { display: flex; flex-direction: column; }
+  .phase-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--grey-5);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .phase-item:first-child { padding-top: 0; }
+  .phase-num {
+    width: 32px; height: 32px; background: var(--black);
+    color: var(--bg); font-size: 11px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 3px;
+  }
+  .phase-content {}
+  .phase-title {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: var(--black); margin-bottom: 10px;
+  }
+  .phase-body { font-size: 13px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── JOURNEY STAGES ─── */
+  .cs-journey {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--grey-5); border: 1px solid var(--grey-5); margin-top: 0;
+  }
+  .journey-cell { background: var(--bg); padding: 32px; }
+  .journey-num {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-4); margin-bottom: 12px;
+  }
+  .journey-title {
+    font-size: 14px; font-weight: 600; color: var(--black);
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--grey-5);
+  }
+  .journey-problem-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 8px;
+  }
+  .journey-problem-text { font-size: 12px; font-weight: 400; line-height: 160%; color: var(--grey-2); margin-bottom: 16px; }
+  .journey-goal-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+  }
+  .journey-goal-text { font-size: 12px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── QUOTE ─── */
+  .cs-quote {
+    padding: 40px; border-left: 2px solid var(--black); background: var(--grey-6);
+  }
+  .cs-quote-text {
+    font-size: 20px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.02em; color: var(--black); margin-bottom: 12px;
+  }
+  .cs-quote-attr {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3);
+  }
+
+  /* ─── IMAGE BLOCKS ─── */
+  .cs-image-full {
+    width: 100%; height: 400px; background: var(--grey-6);
+    border: 1px solid var(--grey-5); display: flex;
+    align-items: center; justify-content: center;
+  }
+  .cs-image-half-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .cs-image-half {
+    height: 280px; background: var(--grey-6);
+    border: 1px solid var(--grey-5); display: flex;
+    align-items: center; justify-content: center;
+  }
+  .cs-image-caption {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-4); margin-top: 10px;
+  }
+
+  /* ─── DELIVERABLE BOXES ─── */
+  .deliverable-box {
+    border: 1px solid var(--grey-5); padding: 32px; margin-bottom: 16px;
+  }
+  .deliverable-box-title {
+    font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--grey-5);
+  }
+
+  /* ─── CONCEPTS SECTION ─── */
+  .cs-concepts-section {
+    display: block; padding: 80px 0; border-bottom: 1px solid var(--grey-5);
+  }
+  .cs-concepts-header {
+    display: grid; grid-template-columns: 280px 1fr; gap: 80px; margin-bottom: 40px;
+  }
+
+  /* ─── CONCEPTS ─── */
+  .cs-concepts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--grey-5); border: 1px solid var(--grey-5);
+  }
+  .concept-cell { background: var(--bg); padding: 32px; }
+  .concept-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--grey-5);
+    gap: 16px;
+  }
+  .concept-title { font-size: 14px; font-weight: 600; color: var(--black); flex: 1; }
+  .concept-priority {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); flex-shrink: 0;
+    border: 1px solid var(--accent); padding: 3px 8px;
+  }
+  .concept-num {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-4); margin-bottom: 8px;
+  }
+  .concept-insight-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 6px;
+  }
+  .concept-insight {
+    font-size: 12px; font-weight: 400; font-style: italic;
+    line-height: 160%; color: var(--grey-2); margin-bottom: 14px;
+    padding: 12px; background: var(--grey-6);
+  }
+  .concept-body { font-size: 13px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── REFLECTION ─── */
+  .cs-reflection-list { display: flex; flex-direction: column; gap: 0; }
+  .reflection-item {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--grey-5);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: start;
+  }
+  .reflection-item:first-child { padding-top: 0; }
+  .reflection-heading {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: var(--black);
+  }
+  .reflection-body { font-size: 13px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── PERSONA ─── */
+  .cs-persona {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--grey-5); border: 1px solid var(--grey-5);
+  }
+  .persona-stage { background: var(--bg); padding: 32px; }
+  .persona-age {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 8px;
+  }
+  .persona-title {
+    font-size: 16px; font-weight: 600; line-height: 130%;
+    letter-spacing: -0.01em; color: var(--black);
+    margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--grey-5);
+  }
+  .persona-body { font-size: 13px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── PRINCIPLES ─── */
+  .cs-principles {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+    background: var(--grey-5); border: 1px solid var(--grey-5);
+  }
+  .principle-cell { background: var(--bg); padding: 32px; }
+  .principle-name {
+    font-size: 14px; font-weight: 600; color: var(--black);
+    margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--grey-5);
+  }
+  .principle-body { font-size: 13px; font-weight: 400; line-height: 160%; color: var(--grey-2); }
+
+  /* ─── NEXT PROJECT ─── */
+  .cs-next {
+    padding: 80px 64px;
+    border-top: 1px solid var(--grey-5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cs-next-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 12px;
+  }
+  .cs-next-title {
+    font-size: 40px; font-weight: 600; line-height: 105%;
+    letter-spacing: -0.03em; color: var(--black);
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: var(--accent); color: var(--white); font-family: 'Instrument Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none; border: none;
+    white-space: nowrap;
+  }
+  .btn-secondary {
+    display: inline-flex; align-items: center; padding: 10px 22px;
+    background: transparent; color: var(--black); border: 1px solid var(--grey-4);
+    font-family: 'Instrument Sans', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: transparent;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 64px;
+    border-top: 1px solid var(--grey-5);
+  }
+  .footer-name { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-3); }
+  .footer-links { display: flex; gap: 48px; align-items: center; }
+  .footer-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .footer-link:hover {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .divider { border: none; border-top: 1px solid var(--grey-5); margin: 0; }
+  .gap-s { height: 20px; }
+  .gap-m { height: 32px; }
+
+  .site-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav {
+      padding: 0 24px;
+      height: 56px;
+      overflow: visible;
+      position: relative;
+    }
+    .nav-hamburger { display: flex; }
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 8px 24px 16px;
+      z-index: 999;
+      background: var(--bg);
+      border-bottom: 1px solid var(--grey-5);
+    }
+    .nav-links.open { display: flex; }
+
+    .cs-hero { padding: 48px 24px 0; }
+    .cs-hero-inner { grid-template-columns: 1fr; }
+    .cs-title { font-size: 40px; }
+    .cs-hero-image { height: 280px; }
+
+    .cs-content { padding: 0 24px; }
+
+    .cs-section {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding: 48px 0;
+    }
+    .cs-section-heading { font-size: 28px; }
+
+    .cs-overview { grid-template-columns: 1fr; }
+    .cs-stats { grid-template-columns: 1fr; }
+    .cs-role-grid { grid-template-columns: 1fr; }
+    .cs-journey { grid-template-columns: 1fr; }
+    .cs-concepts { grid-template-columns: 1fr; }
+    .cs-persona { grid-template-columns: 1fr; }
+    .cs-principles { grid-template-columns: 1fr; }
+
+    .cs-concepts-header { grid-template-columns: 1fr; gap: 16px; }
+
+    .reflection-item { grid-template-columns: 1fr; gap: 12px; }
+
+    .cs-image-full { height: 220px; }
+    .cs-image-half-grid { grid-template-columns: 1fr; }
+
+    .cs-next {
+      padding: 48px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .cs-next-title { font-size: 28px; }
+
+    footer {
+      flex-direction: column;
+      height: auto;
+      padding: 24px;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .footer-links { gap: 8px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LIGHT MODE: MESH GRADIENT -->
+<div class="mesh" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+  <div class="blob blob-5"></div>
+</div>
+<!-- DARK MODE: AURORA -->
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-inner"></div>
+</div>
+
+<!-- PASSWORD GATE -->
+<style>
+  #pw-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px; font-family: 'Instrument Sans', sans-serif;
+  }
+  #pw-gate label { font-size: 14px; color: var(--black); }
+  #pw-gate input {
+    font-family: inherit; font-size: 14px;
+    border: 1px solid var(--grey-5); padding: 10px 16px;
+    outline: none; width: 240px;
+    transition: border-color 0.2s;
+    background: var(--bg); color: var(--black);
+  }
+  #pw-gate input:focus { border-color: var(--black); }
+  #pw-gate button {
+    font-family: inherit; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--black); color: var(--bg);
+    border: none; padding: 10px 24px; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  #pw-gate button:hover { opacity: 0.75; }
+  #pw-error { font-size: 12px; color: #c00; display: none; }
+</style>
+
+<div class="site-wrapper">
+
+<!-- NAV -->
+<nav>
+  <div class="theme-toggle">
+    <button class="theme-btn" aria-label="Toggle dark mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M10.4,6.2 L12,1 L13.6,6.2Z"/>
+        <path d="M15.5,7.1 L20.6,5.1 L17.5,9.7Z"/>
+        <path d="M18.0,11.7 L22.7,14.5 L17.2,14.9Z"/>
+        <path d="M16.0,16.5 L16.8,21.9 L13.0,17.9Z"/>
+        <path d="M11.0,17.9 L7.2,21.9 L8.0,16.5Z"/>
+        <path d="M6.8,14.9 L1.3,14.5 L6.0,11.7Z"/>
+        <path d="M6.5,9.7 L3.4,5.1 L8.5,7.1Z"/>
+      </svg>
+    </button>
+    <a class="nav-logo" href="index.html">Matt Leete</a>
+  </div>
+  <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav-links">
+    <a class="nav-link" href="index.html#work">Work</a>
+    <a class="nav-link" href="index.html#fun">Fun</a>
+    <a class="nav-link" href="portfolio-about.html">About</a>
+    <a class="nav-link" href="portfolio-contact.html">Contact</a>
+  </nav>
+</nav>
+
+  <!-- HERO -->
+  <div class="cs-hero">
+    <div class="cs-breadcrumb">Fun &rarr; Product</div>
+    <div class="cs-hero-inner">
+      <div>
+        <div class="cs-tags">
+          <span class="tag tag-accent">Product Design</span>
+          <span class="tag tag-default">Full-Stack Build</span>
+          <span class="tag tag-default">React</span>
+          <span class="tag tag-default">Supabase</span>
+        </div>
+        <h1 class="cs-title">Occypicks</h1>
+        <p class="cs-subtitle">Designing and building a live fantasy World Cup game &mdash; end to end, solo.</p>
+      </div>
+      <div class="cs-meta-grid">
+        <div>
+          <div class="cs-meta-label">My Role</div>
+          <div class="cs-meta-value">Designer &amp; Developer (solo)</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Type</div>
+          <div class="cs-meta-value">Personal product &middot; Live</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Timeline</div>
+          <div class="cs-meta-value">2025&ndash;2026</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Stack</div>
+          <div class="cs-meta-value">React &middot; Supabase<br>Tailwind &middot; Realtime</div>
+        </div>
+        <div>
+          <div class="cs-meta-label">Live at</div>
+          <div class="cs-meta-value"><a href="https://occypicks.com" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">occypicks.com &rarr;</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <div class="cs-hero-image" style="height:auto;">
+    <img src="assets/occypicks/hero-leaderboard.png" alt="The Occypicks live leaderboard — players ranked by points across the 2026 World Cup" style="width:100%;height:auto;display:block;">
+  </div>
+
+  <div class="cs-content">
+
+    <!-- OVERVIEW STRIP -->
+    <div style="border-bottom: 1px solid var(--grey-5);">
+      <div class="cs-overview" style="border:none; border-bottom:none; margin:0;">
+        <div class="overview-cell">
+          <div class="overview-cell-label">The Challenge</div>
+          <div class="overview-cell-text">Every World Cup, a group of friends wanted a fun way to compete over the tournament &mdash; but traditional fantasy games are player-by-player, high-effort, and overwhelming.</div>
+        </div>
+        <div class="overview-cell">
+          <div class="overview-cell-label">The Approach</div>
+          <div class="overview-cell-text">Design and build something simpler and more social: a live snake draft of all 48 teams and a tiered scoring engine that keeps every match meaningful &mdash; shipped as a real product.</div>
+        </div>
+        <div class="overview-cell">
+          <div class="overview-cell-label">The Outcome</div>
+          <div class="overview-cell-text">23 friends played through the entire 2026 World Cup at occypicks.com &mdash; a live draft, a season-long leaderboard, and a champion decided on the final kicks.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 01 THE IDEA -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">01</div>
+        <h2 class="cs-section-heading">The Idea</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">Every four years my friends want in on the World Cup &mdash; but the usual fantasy formats ask you to manage a squad of individual players, track line-ups, and make weekly transfers. It&rsquo;s a lot of admin for a bit of fun, and it rewards whoever has the most time rather than the most nerve.</p>
+        <p class="cs-body-text">Occypicks started from a simpler idea: <strong>draft whole teams, not players.</strong> Everyone drafts a couple of nations, then lives and dies by how far they go. One decision, made once, that pays out over a month of football &mdash; low effort to play, high stakes to watch.</p>
+      </div>
+    </div>
+
+    <!-- 02 MY ROLE -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">02</div>
+        <h2 class="cs-section-heading">My Role</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">I designed and built the whole thing myself &mdash; a deliberate exercise in owning the entire stack, and in proving that a designer who can build can take an idea all the way to a live, used product.</p>
+        <div class="cs-role-grid">
+          <div class="role-cell">
+            <div class="role-title">Design</div>
+            <div class="role-body">Product and interaction design, visual design, and the playful Occy brand &mdash; from the core game mechanic down to the empty states.</div>
+          </div>
+          <div class="role-cell">
+            <div class="role-title">Build</div>
+            <div class="role-body">The React front-end, a Supabase back-end (Postgres, Auth, Realtime), and the scoring engine that powers the live leaderboard.</div>
+          </div>
+          <div class="role-cell">
+            <div class="role-title">Ship &amp; run</div>
+            <div class="role-body">Deployment on a custom domain, a live match-data pipeline, and running the 2026 season as administrator.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 DESIGNING THE GAME -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">03</div>
+        <h2 class="cs-section-heading">Designing the Game</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">The design problem wasn&rsquo;t really the interface &mdash; it was the <strong>rules of the game</strong>. A good format had to be effortless to join, fair for everyone regardless of football knowledge, and gripping right up to the final whistle. Four principles shaped every decision:</p>
+        <div class="cs-principles">
+          <div class="principle-cell">
+            <div class="principle-name">Teams, not players</div>
+            <div class="principle-body">Draft nations, not squads. One decision that pays out over a month &mdash; minimal admin, maximum investment.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Every match matters</div>
+            <div class="principle-body">A tiered multiplier (&times;1 to &times;4) means underdogs score more per point than favourites, so a minnow&rsquo;s run is worth as much as a giant&rsquo;s.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">The draft is the event</div>
+            <div class="principle-body">The live, real-time draft room is the social centrepiece &mdash; everyone in the same room, picks landing instantly, banter guaranteed.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Zero friction to play</div>
+            <div class="principle-body">Magic-link login (no passwords), a clean set of tabs, and sensible defaults, so anyone can join in a couple of taps.</div>
+          </div>
+        </div>
+        <div class="cs-image-full" style="height:auto;background:var(--white);"><img src="assets/occypicks/scoring-rules.png" alt="Occypicks scoring rules — points per match and the tiered multiplier system, times-1 to times-4" style="width:100%;height:auto;display:block;"></div>
+        <div class="cs-image-caption">The scoring model &mdash; a tiered multiplier (&times;1 to &times;4) makes underdog wins worth more, keeping every match meaningful.</div>
+      </div>
+    </div>
+
+    <!-- 04 BUILDING IT -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">04</div>
+        <h2 class="cs-section-heading">Building It</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">A live multiplayer draft is deceptively hard. Getting it right meant solving three problems most fantasy tools don&rsquo;t: making it feel instant, making it impossible to cheat, and making sure it never stalls.</p>
+        <div class="cs-principles">
+          <div class="principle-cell">
+            <div class="principle-name">Instant, everywhere</div>
+            <div class="principle-body">In the draft room, every pick appears on everyone&rsquo;s screen within a few hundred milliseconds over WebSockets &mdash; so a remote draft feels like being in the same room.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Fair by construction</div>
+            <div class="principle-body">Turn order and &ldquo;you can&rsquo;t take a team someone already has&rdquo; are enforced on the server, not the client &mdash; so the game can&rsquo;t be gamed, even by someone poking at the code.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">Never stalls</div>
+            <div class="principle-body">Miss your turn and a drag-and-drop preference list lets the system auto-pick your highest-ranked available team, keeping the draft moving.</div>
+          </div>
+          <div class="principle-cell">
+            <div class="principle-name">A living scoreboard</div>
+            <div class="principle-body">A scoring engine merges a live match-results feed with manual overrides. When the data API&rsquo;s tight rate limit threatened to break at scale, I moved fetching to a scheduled job that caches results &mdash; so it works for one viewer or a hundred.</div>
+          </div>
+        </div>
+        <div class="cs-quote">
+          <div class="cs-quote-text">The hard part was never the football &mdash; it was making a multiplayer system feel instant and impossible to cheat, with one person building all of it.</div>
+          <div class="cs-quote-attr">Project reflection</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 THE 2026 SEASON -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">05</div>
+        <h2 class="cs-section-heading">The 2026 Season</h2>
+      </div>
+      <div class="cs-section-body">
+        <p class="cs-body-text">The real test was the tournament itself. 23 friends drafted 48 teams and followed a live leaderboard for a month of football.</p>
+        <div class="cs-stats">
+          <div class="stat-box">
+            <div class="stat-num">23</div>
+            <div class="stat-label">players drafted through a full season</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">48</div>
+            <div class="stat-label">World Cup teams in a live snake draft</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">104</div>
+            <div class="stat-label">matches scored across the tournament</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">2 pts</div>
+            <div class="stat-label">the winning margin, settled on the final weekend</div>
+          </div>
+        </div>
+        <p class="cs-body-text">The title came down to the wire: the champion took it on 57 points &mdash; despite both her teams being knocked out by the Round of 16 &mdash; edging me into second by a single penalty-shootout result at the &times;4 multiplier. Crucially, the scoring design held up: average points per team came out remarkably even across all four multiplier tiers &mdash; exactly the competitive balance I&rsquo;d been designing for.</p>
+        <div class="cs-image-full" style="height:auto;background:var(--white);"><img src="assets/occypicks/postseason-analysis.png" alt="Occypicks post-season analysis — final standings, top-scoring teams, and tier performance" style="width:100%;height:auto;display:block;"></div>
+        <div class="cs-image-caption">Post-season analysis &mdash; a full breakdown of the final standings, top teams, and how each multiplier tier performed.</div>
+      </div>
+    </div>
+
+    <!-- 06 REFLECTION -->
+    <div class="cs-section">
+      <div class="cs-section-aside">
+        <div class="cs-section-label">06</div>
+        <h2 class="cs-section-heading">Reflection</h2>
+      </div>
+      <div class="cs-section-body">
+        <div class="cs-reflection-list">
+          <div class="reflection-item">
+            <div class="reflection-heading">Shipping solo means owning every decision.</div>
+            <div class="reflection-body">Designing and building it myself meant no handoffs and nowhere to hide &mdash; every rough edge was mine to fix. The product was better for the tight loop between design intent and implementation; I could feel a bad interaction and fix it in the same sitting.</div>
+          </div>
+          <div class="reflection-item">
+            <div class="reflection-heading">The most interesting design problem was trust, not pixels.</div>
+            <div class="reflection-body">People needed to believe the draft couldn&rsquo;t be rigged. That fairness requirement pushed real rules onto the server and shaped the whole architecture &mdash; a reminder that some of the most important design decisions live well below the surface of the UI.</div>
+          </div>
+          <div class="reflection-item">
+            <div class="reflection-heading">The best usability test is people who care.</div>
+            <div class="reflection-body">Watching 23 friends actually use it &mdash; argue over picks, check the table daily, celebrate a minnow&rsquo;s upset &mdash; taught me more than any lab session, because the stakes were real to them.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /cs-content -->
+
+  <!-- NEXT PROJECT -->
+  <div class="cs-next">
+    <div>
+      <div class="cs-next-label">Next Project</div>
+      <div class="cs-next-title">Reducing Churn at the Moment of Value</div>
+    </div>
+    <div style="display:flex;gap:16px;">
+      <a class="btn-primary" href="portfolio-case-study-rest-super.html">View Project &rarr;</a>
+      <a class="btn-secondary" href="index.html">&larr; All Work</a>
+    </div>
+  </div>
+
+<footer>
+  <div class="footer-name">Matt Leete © 2026</div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://www.linkedin.com/in/matthewleete/" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="footer-link" href="cv.html">CV</a>
+    <a class="footer-link" href="mailto:matt.c.leete@gmail.com">matt.c.leete@gmail.com</a>
+  </div>
+</footer>
+
+</div><!-- /site-wrapper -->
+
+<script>
+  // ─── THEME TOGGLE ───
+  (function () {
+    const html = document.documentElement;
+    const btn  = document.querySelector('.theme-btn');
+    const saved = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', saved);
+    btn.addEventListener('click', () => {
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  })();
+
+  // ─── HAMBURGER ───
+  (function () {
+    const btn   = document.querySelector('.nav-hamburger');
+    const links = document.querySelector('.nav-links');
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    });
+    links.addEventListener('click', e => {
+      if (e.target.classList.contains('nav-link')) {
+        links.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', false);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
