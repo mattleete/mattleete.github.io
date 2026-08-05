@@ -95,7 +95,7 @@ Case studies are **password-gated** (share password with recruiters) — keep th
 
 ## Pointers
 
-- Tokens (Figma source): `Portfolio design system/tokens.json`
+- Tokens (source of truth): `design-source/tokens.json`
 - Shared CSS: `docs/assets/design-system.css`
 - Reference page (most modern): `docs/index.html`
 - Reference case study: `docs/portfolio-case-study-rest-super.html`
