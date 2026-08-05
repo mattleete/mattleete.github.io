@@ -139,7 +139,13 @@ If time is tight, the minimum shippable cut is: **Phase 0.2 (shared CSS) + Phase
 4. **Scope** — ✅ **Full plan, in order** (all phases including the full Claude skill + polish).
 5. **Password gates** — ✅ **Keep case studies gated**; share password with recruiters.
 
+6. **Site architecture** — ✅ **Multi-page**: dedicated About + Contact pages wired into the nav (nav links become page links, not just home-section anchors). Work/Fun remain home sections.
+7. **Nav/footer sharing** — ✅ Canonical **inline** markup (not JS-injected) + shared `design-system.css` / `theme.js`. Better SEO / no FOUC / no JS dependency.
+8. **Orphan drafts** — ✅ **Keep** `portfolio-about.html`, `portfolio-contact.html`, `portfolio-case-study.html`; **retrofit later**, paired with their Phase 2 content build so nav never points at an unstyled page.
+
+### Phase 1 scope (revised)
+Only `cv.html` is a live old-generation page today (linked from the home footer), so Phase 1 = retrofit `cv.html` + verify REST Super stays consistent. About/Contact page retrofit + nav rewiring moves into Phase 2 (built with their content).
+
 ### Still open (resolve during the relevant phase)
 - **Reference sites** — optional: Matt can share 1–3 admired sites to sharpen taste rules.
-- **Nav/footer sharing** — default to JS include unless Matt prefers inline.
 - **Case studies** — how many total, and which 1–2 come after REST Super (Phase 2).

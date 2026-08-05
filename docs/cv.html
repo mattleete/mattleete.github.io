@@ -1,194 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matt Leete — CV</title>
+<meta name="description" content="Curriculum vitae of Matt Leete, Product Designer — experience and education.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/design-system.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Instrument Sans', sans-serif;
-    background: #ffffff;
-    color: #0a0a0a;
-    min-height: 100vh;
-  }
-
-  /* ─── NAV ─── */
-  nav {
-    height: 64px;
-    border-bottom: 1px solid #ebebeb;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 64px;
-  }
-  .nav-back {
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: #8a8a8a; text-decoration: none;
-  }
-  .nav-back:hover { color: #0a0a0a; }
-  .nav-logo {
-    font-size: 14px; font-weight: 600;
-    letter-spacing: -0.01em; color: #0a0a0a;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; align-items: center; gap: 40px; }
-  .nav-link {
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: #4a4a4a; text-decoration: none;
-  }
-  .nav-link:hover { color: #0a0a0a; }
-  .nav-link-cta {
-    color: #ffffff; background: #0a0a0a;
-    padding: 8px 18px;
-  }
-  .nav-link-cta:hover { background: #1a1a1a; color: #ffffff; }
-
-  /* ─── PAGE WRAPPER ─── */
+  /* ─── CV DOCUMENT (page-specific) ─── */
   .page {
     max-width: 880px;
     margin: 0 auto;
     padding: 80px 64px 128px;
   }
 
-  /* ─── HEADER ─── */
   .cv-header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+    gap: 24px;
     padding-bottom: 40px;
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: 1px solid var(--border-default);
     margin-bottom: 64px;
   }
   .cv-name {
-    font-size: 40px; font-weight: 600;
-    letter-spacing: -0.03em; line-height: 100%;
-    color: #0a0a0a;
+    font-size: var(--size-h1); font-weight: 600;
+    letter-spacing: -0.03em; line-height: 1;
+    color: var(--text-primary);
   }
   .cv-role {
-    font-size: 16px; font-weight: 400;
-    color: #4a4a4a; margin-top: 8px;
+    font-size: var(--size-h3); font-weight: 400;
+    color: var(--text-secondary); margin-top: 8px;
   }
-  .btn-download {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: #0a0a0a; color: #ffffff;
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    text-decoration: none;
-    padding: 12px 20px;
-    border: none; cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s;
-  }
-  .btn-download:hover { background: #1a1a1a; }
 
-  /* ─── SECTIONS ─── */
   .cv-section { margin-bottom: 56px; }
-
   .cv-section-label {
-    font-size: 10px; font-weight: 500;
+    font-size: var(--size-micro); font-weight: 500;
     letter-spacing: 0.12em; text-transform: uppercase;
-    color: #8a8a8a;
+    color: var(--text-tertiary);
     margin-bottom: 24px;
   }
 
-  /* ─── EXPERIENCE ROWS ─── */
   .cv-row {
     display: grid;
     grid-template-columns: 1fr 180px;
     gap: 16px;
     padding: 20px 0;
-    border-top: 1px solid #ebebeb;
+    border-top: 1px solid var(--border-default);
     align-items: baseline;
   }
-  .cv-row:last-child { border-bottom: 1px solid #ebebeb; }
-
+  .cv-row:last-child { border-bottom: 1px solid var(--border-default); }
   .cv-org {
-    font-size: 14px; font-weight: 600;
-    color: #0a0a0a;
+    font-size: var(--size-body); font-weight: 600;
+    color: var(--text-primary);
   }
   .cv-position {
-    font-size: 14px; font-weight: 400;
-    color: #4a4a4a; margin-top: 2px;
+    font-size: var(--size-body); font-weight: 400;
+    color: var(--text-secondary); margin-top: 2px;
   }
   .cv-dates {
-    font-size: 12px; font-weight: 400;
-    color: #8a8a8a; text-align: right;
+    font-size: var(--size-small); font-weight: 400;
+    color: var(--text-tertiary); text-align: right;
     white-space: nowrap;
   }
 
-  /* ─── FOOTER ─── */
-  footer {
-    border-top: 1px solid #ebebeb;
-    padding: 24px 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f7f7f7;
-  }
-  .footer-name {
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: #8a8a8a;
-  }
-  .footer-links { display: flex; gap: 32px; }
-  .footer-link {
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: #4a4a4a; text-decoration: none;
-  }
-  .footer-link:hover { color: #0a0a0a; }
-
   /* ─── PRINT ─── */
   @media print {
-    nav, footer, .btn-download { display: none; }
+    nav, footer, .btn, .mesh, .aurora { display: none !important; }
     .page { padding: 40px; max-width: 100%; }
     .cv-header { padding-bottom: 24px; margin-bottom: 40px; }
-    body { color: #000; }
+    body { color: #000; background: #fff; }
   }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 640px) {
-    nav { padding: 0 24px; }
     .page { padding: 48px 24px 80px; }
     .cv-header { flex-direction: column; align-items: flex-start; gap: 24px; }
     .cv-row { grid-template-columns: 1fr; gap: 4px; }
     .cv-dates { text-align: left; }
-    footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
-    .nav-links { display: none; }
   }
 </style>
 </head>
 <body>
 
+  <!-- LIGHT MODE: MESH GRADIENT -->
+  <div class="mesh" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+  </div>
+
+  <!-- DARK MODE: AURORA -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-inner"></div>
+  </div>
+
+<div class="site-wrapper">
+
   <!-- NAV -->
   <nav>
-    <a class="nav-back" href="index.html">← Home</a>
-    <a class="nav-logo" href="index.html">Matt Leete</a>
-    <div class="nav-links">
-      <a class="nav-link" href="index.html">Work</a>
-      <a class="nav-link" href="#">About</a>
-      <a class="nav-link nav-link-cta" href="mailto:matt.c.leete@gmail.com">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M10.4,6.2 L12,1 L13.6,6.2Z"/>
+          <path d="M15.5,7.1 L20.6,5.1 L17.5,9.7Z"/>
+          <path d="M18.0,11.7 L22.7,14.5 L17.2,14.9Z"/>
+          <path d="M16.0,16.5 L16.8,21.9 L13.0,17.9Z"/>
+          <path d="M11.0,17.9 L7.2,21.9 L8.0,16.5Z"/>
+          <path d="M6.8,14.9 L1.3,14.5 L6.0,11.7Z"/>
+          <path d="M6.5,9.7 L3.4,5.1 L8.5,7.1Z"/>
+        </svg>
+      </button>
+      <a class="nav-logo" href="index.html">Matt Leete</a>
     </div>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html#work">Work</a>
+      <a class="nav-link" href="index.html#fun">Fun</a>
+      <a class="nav-link" href="portfolio-about.html">About</a>
+      <a class="nav-link" href="portfolio-contact.html">Contact</a>
+    </nav>
   </nav>
 
   <!-- CV CONTENT -->
   <div class="page">
 
-    <!-- Header -->
     <div class="cv-header">
       <div>
         <div class="cv-name">Matt Leete</div>
         <div class="cv-role">Product Designer</div>
       </div>
-      <a class="btn-download" href="matt-leete-cv.pdf" download>Download PDF ↓</a>
+      <a class="btn" href="matt-leete-cv.pdf" download>Download PDF ↓</a>
     </div>
 
     <!-- Experience -->
@@ -270,14 +223,26 @@
   </div><!-- /page -->
 
   <!-- FOOTER -->
-  <footer>
-    <div class="footer-name">Matt Leete © 2026</div>
+  <footer id="contact">
+    <div class="footer-left">
+      <span class="footer-static">Contact me here</span>
+      <div class="footer-arrows-wrap">
+        <div class="footer-arrows-track">
+          <span class="footer-arrows-item">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+          <span class="footer-arrows-item">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+        </div>
+      </div>
+    </div>
+    <span class="footer-mobile-label">Contact:</span>
     <div class="footer-links">
-      <a class="footer-link" href="https://www.linkedin.com/in/matthewleete/" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a class="footer-link" href="#" target="_blank" rel="noopener">CV ↗</a>
-      <a class="footer-link" href="mailto:matt.c.leete@gmail.com">matt.c.leete@gmail.com</a>
+      <a class="footer-link" href="https://www.linkedin.com/in/matthewleete/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="cv.html">CV</a>
+      <a class="footer-link" href="mailto:matt.c.leete@gmail.com">Matt.c.leete@gmail.com</a>
     </div>
   </footer>
 
+</div><!-- /site-wrapper -->
+
+  <script src="assets/theme.js"></script>
 </body>
 </html>

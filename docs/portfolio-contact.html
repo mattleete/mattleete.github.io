@@ -1,334 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matt Leete — Contact</title>
+<meta name="description" content="Get in touch with Matt Leete — product designer based in Sydney, open to new opportunities.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<link rel="stylesheet" href="assets/design-system.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Instrument Sans', sans-serif;
-    background: #ffffff;
-    color: #0a0a0a;
-    width: 1440px;
-  }
+  /* ─── CONTACT (page-specific) ─── */
+  .contact-wrap { padding: 0 64px; }
 
-  nav {
-    width: 1440px; height: 64px; border-bottom: 1px solid #ebebeb;
-    display: flex; align-items: center; justify-content: space-between; padding: 0 64px;
-  }
-  .nav-logo { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; }
-  .nav-links { display: flex; align-items: center; gap: 40px; }
-  .nav-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #4a4a4a; text-decoration: none; }
-  .nav-link-active { color: #0a0a0a; }
-  .nav-link-cta { color: #ffffff; background: #0a0a0a; padding: 8px 18px; }
-
-  /* HERO */
-  .contact-hero {
-    padding: 128px 64px;
-    border-bottom: 1px solid #ebebeb;
-    display: grid;
-    grid-template-columns: 1fr 480px;
-    gap: 64px;
-    align-items: end;
-  }
+  .contact-hero { padding: 96px 0 40px; max-width: 760px; }
   .contact-eyebrow {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #8a8a8a; margin-bottom: 32px;
+    font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 24px;
   }
   .contact-title {
-    font-size: 72px; font-weight: 600; line-height: 100%;
-    letter-spacing: -0.04em; color: #0a0a0a;
+    font-size: 56px; font-weight: 600; line-height: 1.02;
+    letter-spacing: -0.03em; color: var(--text-primary); margin-bottom: 24px;
   }
-  .contact-right { padding-bottom: 6px; }
-  .contact-body {
-    font-size: 14px; font-weight: 400; line-height: 170%;
-    color: #4a4a4a; margin-bottom: 40px;
+  .contact-intro {
+    font-size: var(--size-h3); font-weight: 400; line-height: 1.7;
+    color: var(--text-secondary);
   }
 
-  /* EMAIL CTA */
-  .email-cta {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 24px;
+  /* Email block */
+  .email-block {
+    padding: 48px 0; border-top: 1px solid var(--border-default);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; flex-wrap: wrap;
   }
   .email-address {
-    font-size: 14px; font-weight: 400; color: #0a0a0a;
-    padding: 12px 20px; border: 1px solid #ebebeb;
-    border-right: none; flex: 1;
+    font-size: 32px; font-weight: 600; letter-spacing: -0.02em;
+    color: var(--text-primary); word-break: break-all;
   }
-  .btn-primary {
-    display: inline-flex; align-items: center; padding: 12px 22px;
-    background: #1a56ff; color: #ffffff; font-family: 'Instrument Sans', sans-serif;
-    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none; border: none;
-    white-space: nowrap;
+  .email-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .copied-note {
+    font-size: var(--size-small); color: var(--accent);
+    opacity: 0; transition: opacity 0.2s;
   }
-  .availability-note {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #8a8a8a;
+  .copied-note.show { opacity: 1; }
+
+  /* Channels */
+  .channels {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border-default);
+    border-top: 1px solid var(--border-default);
+    border-bottom: 1px solid var(--border-default);
+  }
+  .channel {
+    background: var(--bg); padding: 36px 32px;
+    display: flex; flex-direction: column; gap: 8px;
+    text-decoration: none; transition: background 0.2s;
+    min-height: 160px;
+  }
+  .channel:hover { background: var(--surface-subtle); }
+  .channel-platform {
+    font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--text-tertiary);
+  }
+  .channel-value {
+    font-size: var(--size-h2); font-weight: 600; letter-spacing: -0.02em;
+    color: var(--text-primary); margin-top: auto;
+  }
+  .channel-sub { font-size: var(--size-small); color: var(--text-secondary); }
+  .channel-arrow { color: var(--text-tertiary); transition: transform 0.2s, color 0.2s; display: inline-block; }
+  .channel:hover .channel-arrow { color: var(--text-primary); transform: translateX(2px); }
+
+  .availability {
+    padding: 48px 0 96px;
+    display: flex; align-items: center; gap: 12px;
   }
   .availability-dot {
-    display: inline-block; width: 6px; height: 6px;
-    background: #0a0a0a; border-radius: 50%; margin-right: 8px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+  .availability-text {
+    font-size: var(--size-body); color: var(--text-secondary);
   }
 
-  /* CHANNELS */
-  .channels-section {
-    padding: 80px 64px;
-    border-bottom: 1px solid #ebebeb;
+  @media (max-width: 900px) {
+    .channels { grid-template-columns: 1fr; }
   }
-  .channels-label {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #8a8a8a;
-    margin-bottom: 32px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #ebebeb;
+  @media (max-width: 768px) {
+    .contact-wrap { padding: 0 24px; }
+    .contact-hero { padding: 56px 0 32px; }
+    .contact-title { font-size: 38px; }
+    .email-address { font-size: 24px; }
   }
-  .channels-list { display: flex; flex-direction: column; }
-  .channel-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 0;
-    border-bottom: 1px solid #ebebeb;
-    text-decoration: none;
-  }
-  .channel-left { display: flex; align-items: center; gap: 24px; }
-  .channel-platform {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: #8a8a8a; width: 120px;
-  }
-  .channel-handle {
-    font-size: 16px; font-weight: 600; line-height: 130%;
-    letter-spacing: -0.01em; color: #0a0a0a;
-  }
-  .channel-desc {
-    font-size: 12px; font-weight: 400; color: #8a8a8a;
-  }
-  .channel-arrow {
-    font-size: 14px; color: #d0d0d0;
-  }
-
-  /* AVAILABILITY -->
-  .availability-section {
-    padding: 128px 64px;
-    border-bottom: 1px solid #ebebeb;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 128px;
-    align-items: start;
-  }
-  .avail-heading {
-    font-size: 40px; font-weight: 600; line-height: 105%;
-    letter-spacing: -0.03em; color: #0a0a0a; margin-bottom: 24px;
-  }
-  .avail-body {
-    font-size: 14px; font-weight: 400; line-height: 170%;
-    color: #4a4a4a;
-  }
-  .avail-list { display: flex; flex-direction: column; }
-  .avail-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
-    border-bottom: 1px solid #ebebeb;
-  }
-  .avail-item:first-child { border-top: 1px solid #ebebeb; }
-  .avail-type {
-    font-size: 14px; font-weight: 400; color: #0a0a0a;
-  }
-  .avail-status {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .avail-open { color: #0a0a0a; }
-  .avail-limited { color: #8a8a8a; }
-  .avail-closed { color: #d0d0d0; }
-
-  /* FAQ */
-  .faq-section {
-    padding: 128px 64px;
-    border-bottom: 1px solid #ebebeb;
-  }
-  .faq-header {
-    margin-bottom: 48px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid #ebebeb;
-  }
-  .faq-title {
-    font-size: 40px; font-weight: 600; line-height: 105%;
-    letter-spacing: -0.03em; color: #0a0a0a;
-  }
-  .faq-list { display: flex; flex-direction: column; }
-  .faq-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    padding: 32px 0;
-    border-bottom: 1px solid #ebebeb;
-    align-items: start;
-  }
-  .faq-q {
-    font-size: 16px; font-weight: 600; line-height: 130%;
-    letter-spacing: -0.01em; color: #0a0a0a;
-  }
-  .faq-a {
-    font-size: 14px; font-weight: 400; line-height: 170%; color: #4a4a4a;
-  }
-
-  footer {
-    padding: 40px 64px; border-top: 1px solid #ebebeb;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .footer-name { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
-  .footer-links { display: flex; gap: 32px; }
-  .footer-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; text-decoration: none; }
 </style>
 </head>
 <body>
 
+  <!-- LIGHT MODE: MESH GRADIENT -->
+  <div class="mesh" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+  </div>
+
+  <!-- DARK MODE: AURORA -->
+  <div class="aurora" aria-hidden="true">
+    <div class="aurora-inner"></div>
+  </div>
+
+<div class="site-wrapper">
+
+  <!-- NAV -->
   <nav>
-    <div class="nav-logo">Matt Leete</div>
-    <div class="nav-links">
-      <a class="nav-link" href="#">Work</a>
-      <a class="nav-link" href="#">About</a>
-      <a class="nav-link nav-link-active nav-link-cta" href="#">Contact</a>
+    <div class="theme-toggle">
+      <button class="theme-btn" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M10.4,6.2 L12,1 L13.6,6.2Z"/>
+          <path d="M15.5,7.1 L20.6,5.1 L17.5,9.7Z"/>
+          <path d="M18.0,11.7 L22.7,14.5 L17.2,14.9Z"/>
+          <path d="M16.0,16.5 L16.8,21.9 L13.0,17.9Z"/>
+          <path d="M11.0,17.9 L7.2,21.9 L8.0,16.5Z"/>
+          <path d="M6.8,14.9 L1.3,14.5 L6.0,11.7Z"/>
+          <path d="M6.5,9.7 L3.4,5.1 L8.5,7.1Z"/>
+        </svg>
+      </button>
+      <a class="nav-logo" href="index.html">Matt Leete</a>
     </div>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links">
+      <a class="nav-link" href="index.html#work">Work</a>
+      <a class="nav-link" href="index.html#fun">Fun</a>
+      <a class="nav-link" href="portfolio-about.html">About</a>
+      <a class="nav-link" href="portfolio-contact.html">Contact</a>
+    </nav>
   </nav>
 
-  <!-- HERO -->
-  <section class="contact-hero">
-    <div>
-      <div class="contact-eyebrow">Get in touch</div>
-      <h1 class="contact-title">Let's make something good.</h1>
-    </div>
-    <div class="contact-right">
-      <p class="contact-body">Whether you have a project in mind, want to talk about a role, or just want to say hello — my inbox is open. I'll get back to you within a day or two.</p>
-      <div class="email-cta">
-        <div class="email-address">matt@mattleete.com</div>
-        <a class="btn-primary" href="#">Copy email</a>
-      </div>
-      <div class="availability-note">
-        <span class="availability-dot"></span>Currently available for new projects
-      </div>
-    </div>
-  </section>
+  <div class="contact-wrap">
 
-  <!-- CHANNELS -->
-  <section class="channels-section">
-    <div class="channels-label">Find me on</div>
-    <div class="channels-list">
-      <a class="channel-item" href="#">
-        <div class="channel-left">
-          <span class="channel-platform">LinkedIn</span>
-          <div>
-            <div class="channel-handle">Matt Leete</div>
-            <div class="channel-desc">Professional profile and career history</div>
-          </div>
-        </div>
-        <span class="channel-arrow">↗</span>
-      </a>
-      <a class="channel-item" href="#">
-        <div class="channel-left">
-          <span class="channel-platform">Read.cv</span>
-          <div>
-            <div class="channel-handle">@mattleete</div>
-            <div class="channel-desc">Selected work and detailed case studies</div>
-          </div>
-        </div>
-        <span class="channel-arrow">↗</span>
-      </a>
-      <a class="channel-item" href="#">
-        <div class="channel-left">
-          <span class="channel-platform">GitHub</span>
-          <div>
-            <div class="channel-handle">mattleete</div>
-            <div class="channel-desc">Side projects and front-end experiments</div>
-          </div>
-        </div>
-        <span class="channel-arrow">↗</span>
-      </a>
-      <a class="channel-item" href="#">
-        <div class="channel-left">
-          <span class="channel-platform">Figma</span>
-          <div>
-            <div class="channel-handle">Community Profile</div>
-            <div class="channel-desc">Public design files and community resources</div>
-          </div>
-        </div>
-        <span class="channel-arrow">↗</span>
-      </a>
-    </div>
-  </section>
+    <!-- HERO -->
+    <header class="contact-hero">
+      <div class="contact-eyebrow">Contact</div>
+      <h1 class="contact-title">Let's work together.</h1>
+      <p class="contact-intro">I'm always happy to talk about product design, new opportunities, or an interesting problem. The fastest way to reach me is email — I read everything.</p>
+    </header>
 
-  <!-- AVAILABILITY -->
-  <section class="availability-section">
-    <div>
-      <h2 class="avail-heading">What I'm open to right now.</h2>
-      <p class="avail-body">I take on a small number of projects at a time to make sure I can give each one the attention it deserves. Here's what I'm currently available for.</p>
-    </div>
-    <div class="avail-list">
-      <div class="avail-item">
-        <span class="avail-type">Full-time roles</span>
-        <span class="avail-status avail-open">Open</span>
+    <!-- EMAIL -->
+    <section class="email-block">
+      <div class="email-address">matt.c.leete@gmail.com</div>
+      <div class="email-actions">
+        <a class="btn" href="mailto:matt.c.leete@gmail.com">Email me</a>
+        <button class="btn btn-secondary" id="copyBtn" type="button">Copy email</button>
+        <span class="copied-note" id="copiedNote">Copied</span>
       </div>
-      <div class="avail-item">
-        <span class="avail-type">Contract & freelance</span>
-        <span class="avail-status avail-open">Open</span>
-      </div>
-      <div class="avail-item">
-        <span class="avail-type">Advisory / consulting</span>
-        <span class="avail-status avail-limited">Limited</span>
-      </div>
-      <div class="avail-item">
-        <span class="avail-type">Speaking engagements</span>
-        <span class="avail-status avail-limited">Limited</span>
-      </div>
-      <div class="avail-item">
-        <span class="avail-type">Speculative work</span>
-        <span class="avail-status avail-closed">Closed</span>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FAQ -->
-  <section class="faq-section">
-    <div class="faq-header">
-      <h2 class="faq-title">Common questions</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-q">What does your typical engagement look like?</div>
-        <div class="faq-a">Most projects start with a discovery phase — understanding the problem, the users, and the constraints before any design work begins. From there I work iteratively, keeping stakeholders close to the process rather than presenting finished work.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Do you work with early-stage startups?</div>
-        <div class="faq-a">Yes — a lot of my best work has been at the 0→1 stage where design decisions have the most leverage. I'm comfortable working with ambiguity and helping founders think through product strategy before jumping to execution.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Can you work with an existing design system?</div>
-        <div class="faq-a">Absolutely. I've worked within established systems at larger teams and know how to contribute meaningfully without breaking what's already working. I can also help audit and extend systems that have grown organically.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">How quickly can you start?</div>
-        <div class="faq-a">Typically within 1–2 weeks of an agreement being signed. For urgent engagements get in touch and we can discuss what's possible.</div>
-      </div>
-    </div>
-  </section>
+    <!-- CHANNELS -->
+    <section class="channels">
+      <a class="channel" href="https://www.linkedin.com/in/matthewleete/" target="_blank" rel="noopener">
+        <span class="channel-platform">LinkedIn</span>
+        <span class="channel-value">Connect <span class="channel-arrow">↗</span></span>
+        <span class="channel-sub">Experience &amp; recommendations</span>
+      </a>
+      <a class="channel" href="cv.html">
+        <span class="channel-platform">Curriculum Vitae</span>
+        <span class="channel-value">View CV <span class="channel-arrow">→</span></span>
+        <span class="channel-sub">Full history &amp; PDF download</span>
+      </a>
+      <a class="channel" href="mailto:matt.c.leete@gmail.com">
+        <span class="channel-platform">Email</span>
+        <span class="channel-value">Say hello <span class="channel-arrow">→</span></span>
+        <span class="channel-sub">matt.c.leete@gmail.com</span>
+      </a>
+    </section>
 
-  <footer>
-    <div class="footer-name">Matt Leete © 2026</div>
+    <!-- AVAILABILITY -->
+    <div class="availability">
+      <span class="availability-dot" aria-hidden="true"></span>
+      <span class="availability-text">Based in Sydney, Australia — open to new product design opportunities.</span>
+    </div>
+
+  </div><!-- /contact-wrap -->
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-left">
+      <span class="footer-static">Contact me here</span>
+      <div class="footer-arrows-wrap">
+        <div class="footer-arrows-track">
+          <span class="footer-arrows-item">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+          <span class="footer-arrows-item">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</span>
+        </div>
+      </div>
+    </div>
+    <span class="footer-mobile-label">Contact:</span>
     <div class="footer-links">
-      <a class="footer-link" href="#">LinkedIn ↗</a>
-      <a class="footer-link" href="#">Read.cv ↗</a>
-      <a class="footer-link" href="#">matt@mattleete.com</a>
+      <a class="footer-link" href="https://www.linkedin.com/in/matthewleete/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="footer-link" href="cv.html">CV</a>
+      <a class="footer-link" href="mailto:matt.c.leete@gmail.com">Matt.c.leete@gmail.com</a>
     </div>
   </footer>
 
+</div><!-- /site-wrapper -->
+
+  <script src="assets/theme.js"></script>
+  <script>
+    // Copy-email button
+    (function () {
+      const btn = document.getElementById('copyBtn');
+      const note = document.getElementById('copiedNote');
+      if (!btn) return;
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText('matt.c.leete@gmail.com');
+          note.classList.add('show');
+          setTimeout(() => note.classList.remove('show'), 1800);
+        } catch (e) { /* clipboard unavailable */ }
+      });
+    })();
+  </script>
 </body>
 </html>
