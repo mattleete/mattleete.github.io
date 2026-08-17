@@ -6,9 +6,9 @@
 
 ---
 
-## ▶ Current status / Next up (updated 2026-08 — read this first)
+## ▶ Current status / Next up (updated 2026-08-17 — read this first)
 
-**Where we are:** Phases 0 & 1 done. Site is on one design system, deployed live at mattleete.github.io, and the repo has been reorganised (see `HOUSEKEEPING.md`). Everything is committed and pushed; working tree clean.
+**Where we are:** Phases 0 & 1 done. Site is on one design system, deployed live at mattleete.github.io, and the repo has been reorganised (see `HOUSEKEEPING.md`). Everything below is committed and pushed.
 
 **Live & done:**
 - Design system (`docs/assets/design-system.css` + `theme.js`) + `portfolio-design` skill.
@@ -16,13 +16,58 @@
 - **Case studies:** REST Super (gated) · AI accelerator (gated, **scaffold** — placeholders await Matt's details) · **Occypicks (public, complete** — combined version with video, mobile shots, mascot section, and 2026-season stats).
 - Nav wired across all pages; git-sync discipline documented in `CLAUDE.md`.
 
+### Header / background rework (2026-08-17 session)
+Four commits: `f0c2386` aurora · `89ee68d` wave + nav · `72605f6` mobile menu · `faff3f1` menu colour.
+
+- **Aurora (dark bg)** dialled back and given five tuning variables on `.aurora`
+  (`--aurora-opacity/-shimmer/-blur/-duration/-reach`); originals kept in comments.
+- **Wave divider replaced the scrolling skills marquee** on the home page. Opaque
+  (SVG *mask* + `var(--black)`), tunable via `--wave-height/-period/-opacity`;
+  thickness is the `stroke-width` inside the mask.
+- **Nav** is now sticky, 100% transparent, **overlays** content (negative margin, so
+  content starts at viewport top), and inverts via `mix-blend-mode: difference`
+  so it stays legible on any backdrop.
+- **Wave pins** with its *middle* on the nav's lower edge; once pinned, the area
+  above it fills at the scroll rate (scroll handler in `theme.js`).
+- **Mobile menu:** long-standing bug fixed — `.nav-links` is itself a `<nav>`, so the
+  base `nav { height }` rule squashed the dropdown to the bar's height and links
+  spilled out. Open menu now takes the wave's colour and the wave drops to its
+  lower edge.
+- New **`--nav-height`** token drives bar height, the overlay offset and the wave's
+  pin point (previously three hardcoded 64px/56px pairs).
+
+**Gotchas learned (don't re-break these — all are commented in the CSS):**
+- `body { overflow-x: hidden }` makes body a scroll container and **silently breaks
+  `position: sticky`** → use `overflow-x: clip`.
+- `.nav-links` is a `<nav>`: a bare `nav` selector hits **both** bars. Positional rules
+  are scoped `nav:not(.nav-links)`.
+- **`mix-blend-mode` composites, it does not occlude** — a blended element lets content
+  show through it. Anything that must hide content has to be opaque.
+- Don't transition `top` on a sticky element; it's the pin constraint.
+
 **Next up (pick any):**
 1. **Work card 3** — "Making formidable fun" (gaming) still links nowhere → add a "coming soon" state or build it out.
 2. **AI accelerator case study** — fill the bracketed placeholders with Matt's real project details (gated; don't share password until filled).
-3. **Phase 3 polish** — OG/share images + favicon, accessibility + performance pass, dedupe the duplicated case-study CSS across the 3 case-study files.
+3. **Phase 3 polish** — OG/share images + favicon, accessibility + performance pass, and **dedupe the case-study CSS (now the top priority — see below)**.
 4. **Phase 4 ship-tidy** — already largely live; confirm custom domain/DNS if wanted.
 
-**Watch-outs:** repo is edited from >1 place — **`git fetch` first**. Repo is public — keep personal notes out of it.
+**Optional follow-ups from this session:**
+- Mobile menu joins the wave only once the wave has *pinned*; at the top of the page the
+  panel ends in a straight edge. Giving the panel its own wavy bottom edge (same mask)
+  would join them at every scroll position.
+- Nav text has no backing, so contrast varies with whatever scrolls under it — worth a
+  re-check once real screenshots replace the grey card placeholders.
+
+**Watch-outs:**
+- Repo is edited from >1 place — **`git fetch` first**. Repo is public — keep personal notes out of it.
+- **The 3 case-study pages do NOT link `design-system.css`** — they carry their own inline
+  copies of the nav/aurora/wave CSS. Every fix this session had to be applied 4×, and the
+  case studies still lack the nav inversion. This is why dedup is now the priority.
+- **Mobile is unverified on a real device.** The browser tooling could not resize the
+  viewport, so all mobile work was checked by applying the `max-width: 768px` rules at
+  desktop width. Test on a phone before relying on it.
+- `docs/cv.html` has an uncommitted stray blank line after `<!DOCTYPE html>` (a no-op,
+  deliberately left out of every commit) — revert it to get a clean tree.
 
 ---
 
