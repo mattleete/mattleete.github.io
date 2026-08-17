@@ -78,6 +78,11 @@
 }
 
 /* ─── BASE ─── */
+/* `100vw` counts the scrollbar, so the full-bleed wave overhangs the visible
+   width by a few px. Clipping here absorbs that without creating a scroll
+   container (which `hidden` would — see the note on body below). */
+html { overflow-x: clip; }
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg);
@@ -335,6 +340,16 @@ nav:not(.nav-links):has(.nav-links.open) {
      to pin, so animating it leaves the element stuck at a stale offset if a
      frame is missed — the wave then ignores the mobile menu entirely. The
      menu itself appears instantly, so moving in step with it is consistent. */
+
+  /* Full-bleed: the wave and its fill span the whole viewport, escaping the
+     1440px .site-wrapper, while the nav's own contents stay on the wrapper
+     grid. Done with margins rather than left/transform because `left` on a
+     sticky element is a sticky constraint — it would pin horizontally too.
+     100vw can exceed the visible width by the scrollbar, which is why body
+     carries overflow-x: clip. */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 
   height: var(--wave-height);
   opacity: var(--wave-opacity);
