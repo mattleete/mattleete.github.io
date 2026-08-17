@@ -222,8 +222,11 @@ nav:not(.nav-links) {
    logo would sit on the wave's dark fill block and vanish. */
 nav:not(.nav-links):has(.nav-links.open) {
   mix-blend-mode: normal;
-  color: var(--black);
-  background: var(--surface-page);
+  /* Same colour as the wave, so the bar, the dropdown and the wave read as one
+     block with the wave forming its lower edge. Text takes the opposite token
+     for contrast — both flip with the theme. */
+  background: var(--black);
+  color: var(--white);
 }
 .nav-logo {
   font-size: 16px;
@@ -603,10 +606,9 @@ footer {
     padding: 8px 24px 16px;
     z-index: 999;
     /* Opaque, not translucent: the panel hangs over page content and has to
-       hide it. Pairs with the opaque bar background on the rule above so the
-       two read as a single panel. */
-    background: var(--surface-page);
-    border-bottom: 1px solid var(--border-default);
+       hide it. Uses the wave's own colour so the two join seamlessly — no
+       bottom border, since the wave itself forms the edge. */
+    background: var(--black);
   }
   .nav-links.open { display: flex; }
   .nav-link { padding: 10px 8px; font-size: 13px; }
