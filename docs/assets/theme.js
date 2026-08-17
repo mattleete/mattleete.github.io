@@ -24,6 +24,11 @@
   }
 
   // ─── MOBILE HAMBURGER NAV ───
+  // Assigned by the wave section below; a no-op on pages with no wave. The
+  // click handlers only ever run after this whole script has, so by the time
+  // one fires the real implementation is in place.
+  let syncWavePin = () => {};
+
   const burger = document.querySelector('.nav-hamburger');
   const links  = document.querySelector('.nav-links');
   if (burger && links) {
@@ -31,12 +36,14 @@
       const open = links.classList.toggle('open');
       burger.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', open);
+      syncWavePin();
     });
     links.addEventListener('click', e => {
       if (e.target.classList.contains('nav-link')) {
         links.classList.remove('open');
         burger.classList.remove('open');
         burger.setAttribute('aria-expanded', false);
+        syncWavePin();
       }
     });
   }
@@ -74,9 +81,26 @@
       requestAnimationFrame(() => { update(); ticking = false; });
     };
 
+    // When the mobile menu opens, the wave would otherwise stay pinned at the
+    // nav's edge and be cut across by the dropdown. Push its resting point down
+    // to the bottom of the open menu instead, so it reads as the menu's lower
+    // edge — the same way it underlines the bar when the menu is closed.
+    // Closing removes the override, handing the offset back to the stylesheet.
+    syncWavePin = () => {
+      const navEl = document.querySelector('nav:not(.nav-links)');
+      const menu  = document.querySelector('.nav-links');
+      if (navEl && menu && menu.classList.contains('open')) {
+        wave.style.setProperty('--wave-pin-offset',
+          (navEl.offsetHeight + menu.offsetHeight) + 'px');
+      } else {
+        wave.style.removeProperty('--wave-pin-offset');
+      }
+      update();   // the fill's extent depends on where the wave now rests
+    };
+
     measure();
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => { measure(); update(); });
+    window.addEventListener('resize', () => { measure(); update(); syncWavePin(); });
   }
 })();

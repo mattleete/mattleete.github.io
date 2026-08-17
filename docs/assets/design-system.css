@@ -215,11 +215,15 @@ nav:not(.nav-links) {
   mix-blend-mode: difference;
   color: #ffffff;
 }
-/* With the mobile menu open the dropdown has its own solid panel, which the
-   blend would invert into a negative. Drop back to normal painting there. */
+/* With the mobile menu open, the bar and the dropdown become one opaque panel
+   and painting returns to normal. The opaque background is the important part:
+   under the blend the panel would be see-through (blending composites, it does
+   not occlude, so hero text ghosts through it), and without a background the
+   logo would sit on the wave's dark fill block and vanish. */
 nav:not(.nav-links):has(.nav-links.open) {
   mix-blend-mode: normal;
   color: var(--black);
+  background: var(--surface-page);
 }
 .nav-logo {
   font-size: 16px;
@@ -324,6 +328,10 @@ nav:not(.nav-links):has(.nav-links.open) {
   position: sticky;
   top: calc(var(--wave-pin-offset) - var(--wave-height) / 2);
   z-index: 99;
+  /* Deliberately NOT transitioned. `top` is what sticky uses to decide where
+     to pin, so animating it leaves the element stuck at a stale offset if a
+     frame is missed — the wave then ignores the mobile menu entirely. The
+     menu itself appears instantly, so moving in step with it is consistent. */
 
   height: var(--wave-height);
   opacity: var(--wave-opacity);
@@ -588,14 +596,16 @@ footer {
     top: 100%;
     left: 0;
     right: 0;
+    /* .nav-links is itself a <nav>, so the base `nav` rule was forcing it to
+       the bar's height — the panel covered only the first link and the rest
+       spilled out below it. Size to content instead. */
+    height: auto;
     padding: 8px 24px 16px;
     z-index: 999;
-    /* Needs its own frosted backing: the nav bar's ::before only covers
-       the bar, and the open menu hangs below it over page content. */
+    /* Opaque, not translucent: the panel hangs over page content and has to
+       hide it. Pairs with the opaque bar background on the rule above so the
+       two read as a single panel. */
     background: var(--surface-page);
-    background: color-mix(in srgb, var(--surface-page) 92%, transparent);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    backdrop-filter: blur(14px) saturate(140%);
     border-bottom: 1px solid var(--border-default);
   }
   .nav-links.open { display: flex; }

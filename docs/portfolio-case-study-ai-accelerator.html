@@ -616,6 +616,10 @@
       top: 100%;
       left: 0;
       right: 0;
+      /* .nav-links is itself a <nav>, so the `nav` rule above was forcing it
+         to the bar's height — the panel covered only the first link and the
+         rest spilled out below it. Size to content instead. */
+      height: auto;
       padding: 8px 24px 16px;
       z-index: 999;
       background: var(--bg);
