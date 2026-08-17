@@ -61,7 +61,11 @@
     font-family: 'Instrument Sans', sans-serif;
     background-color: var(--bg);
     color: var(--black);
+    /* `clip` not `hidden`: overflow-x:hidden makes body a scroll
+       container and silently breaks `position: sticky` on the nav.
+       The `hidden` line is a fallback for browsers without `clip`. */
     overflow-x: hidden;
+    overflow-x: clip;
     position: relative;
     min-height: 100vh;
   }
@@ -141,9 +145,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 64px;
-    overflow: hidden;
-    border-bottom: 1px solid var(--grey-5);
   }
+  /* IMPORTANT: the links container is itself a <nav class="nav-links">, so a
+     bare `nav` selector hits BOTH bars. Keep these scoped to the outer nav. */
+  nav:not(.nav-links) {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    /* Overlay, don't reserve: cancels the space the nav takes in the flow so
+       page content starts at the top of the viewport and passes underneath. */
+    margin-bottom: -64px;
+  }
+
   .nav-logo {
     font-size: 16px;
     font-weight: 600;
@@ -591,8 +604,8 @@
       padding: 0 24px;
       height: 56px;
       overflow: visible;
-      position: relative;
     }
+    nav:not(.nav-links) { position: sticky; margin-bottom: -56px; }   /* pinned + overlaying on mobile too */
     .nav-hamburger { display: flex; }
     .nav-links {
       display: none;

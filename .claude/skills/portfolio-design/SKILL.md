@@ -37,7 +37,7 @@ Monochrome greyscale + a single electric-blue accent. Instrument Sans throughout
 
 - `.site-wrapper` — max-width 1440 centred; wrap page content in it.
 - `nav` + `.nav-logo` `.nav-links` `.nav-link` `.nav-hamburger` — the header. Includes the mobile hamburger + `.theme-toggle`/`.theme-btn` with sun/moon icons.
-- `.banner` + `.banner-track` `.banner-item` — the scrolling skills marquee (pauses until hover).
+- `.wave-divider` — thick wavy section divider. Inverts whatever is behind it (`mix-blend-mode: difference`), so it needs no theme colours and works in light + dark automatically. Tune via `--wave-height/-period/-duration/-opacity`; line thickness is the SVG `stroke-width` in the CSS. Replaced the old scrolling skills marquee.
 - `.section` + `.section-inner` `.section-title` `.cards-row` — a content section.
 - `.card` + `.card-image` `.card-title` `.card-desc` `.card-divider` `.card-bottom` `.card-tags` `.tag` `.card-arrow` — the work/fun/about cards (432px wide, horizontal-scroll on mobile).
 - `footer` + `.footer-left` `.footer-static` `.footer-arrows-*` `.footer-links` `.footer-link` `.footer-mobile-label` — the footer.

@@ -59,6 +59,10 @@
   --max-width: 1440px;
   --content-width: 1312px;
   --radius-pill: 9999px;
+  /* Nav height. The nav overlays the page rather than reserving space, so
+     this one value drives its height, the negative margin that pulls content
+     up under it, and where the wave divider comes to rest. */
+  --nav-height: 64px;
 }
 
 /* ─── TOKENS (dark) ─── */
@@ -78,7 +82,12 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg);
   color: var(--black);
+  /* `clip` — NOT `hidden`. overflow-x:hidden makes body a scroll
+     container, which silently breaks `position: sticky` on the nav.
+     `clip` suppresses horizontal overflow without that side effect.
+     The `hidden` line is a fallback for browsers without `clip`. */
   overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
 }
 a { color: inherit; }
@@ -176,18 +185,47 @@ a { color: inherit; }
 /* ─── NAV ─── */
 nav {
   background: transparent;
-  height: 64px;
+  height: var(--nav-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 64px;
-  overflow: hidden;
+  /* NOTE: no `overflow: hidden` here. Now that the nav is positioned it
+     is the containing block for the mobile dropdown, so hiding overflow
+     would clip the open menu. */
+}
+/* Pinned to the top on scroll. The bar is fully transparent by design —
+   no background, blur or border — so page content passes visibly beneath it.
+   IMPORTANT: the links container is itself a <nav class="nav-links">, so a
+   bare `nav` selector hits BOTH bars; keep this scoped to the outer nav. */
+nav:not(.nav-links) {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Overlay, don't reserve: the negative margin cancels the space the nav
+     takes in the flow, so page content starts at the very top of the viewport
+     and passes underneath the bar instead of beginning below it. */
+  margin-bottom: calc(-1 * var(--nav-height));
+  /* The nav inverts against whatever is behind it — page, mesh/aurora, or
+     the wave's fill block — so it stays legible on all of them. The blend
+     MUST sit on the nav itself: its z-index makes it a stacking context,
+     which would isolate (and so cancel) any blending done by its children.
+     Everything inside is white, and difference turns white into the exact
+     inverse of the backdrop. */
+  mix-blend-mode: difference;
+  color: #ffffff;
+}
+/* With the mobile menu open the dropdown has its own solid panel, which the
+   blend would invert into a negative. Drop back to normal painting there. */
+nav:not(.nav-links):has(.nav-links.open) {
+  mix-blend-mode: normal;
+  color: var(--black);
 }
 .nav-logo {
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--black);
+  color: inherit;
   padding: 8px;
   text-decoration: none;
 }
@@ -201,15 +239,18 @@ nav {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--black);
+  color: inherit;
   text-decoration: none;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
   transition: background 0.2s ease, color 0.2s ease;
 }
+/* Under the difference blend, a white pill becomes the inverse of whatever
+   is behind it and black text leaves the backdrop untouched — which reads as
+   the same dark-pill/light-text hover as before, in either theme. */
 .nav-link:hover {
-  background: var(--black);
-  color: var(--white);
+  background: #ffffff;
+  color: #000000;
 }
 
 /* ─── HAMBURGER ─── */
@@ -227,7 +268,7 @@ nav {
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--black);
+  background: currentColor;
   transition: transform 0.3s, opacity 0.3s;
 }
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -248,7 +289,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--black);
+  color: inherit;
   opacity: 0.6;
   transition: opacity 0.2s;
 }
@@ -259,33 +300,70 @@ nav {
 [data-theme="dark"] .icon-sun  { display: block; }
 [data-theme="dark"] .icon-moon { display: none; }
 
-/* ─── MARQUEE BANNER ─── */
-.banner {
-  height: 48px;
-  border-top: 1px solid var(--grey-5);
-  border-bottom: 1px solid var(--grey-5);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+/* ─── WAVE DIVIDER ─── */
+/* A thick wavy line that sits above the page content and hides what passes
+   beneath it. It is drawn OPAQUELY, not blended: a blended wave lets content
+   show through (inverted), which reads as the cards scrolling over the top of
+   it. The colour is var(--black), which flips with the theme, so it still
+   matches what the old inversion produced over the page background.
+   The shape comes from an SVG mask, so the colour can stay a theme token.
+   NOTE: the line's thickness lives in the mask's `stroke-width` below;
+   the knobs here control size, tiling and strength. */
+.wave-divider {
+  --wave-height: 16px;    /* band height                                */
+  --wave-period: 32px;    /* width of one full wave — smaller = tighter */
+  --wave-opacity: 1;      /* lower to let content show through again     */
+  --wave-pin-offset: var(--nav-height); /* where the wave comes to rest */
+
+  /* Pins so the wave's MIDDLE rests on the nav's bottom edge — i.e. it
+     straddles the line where the bar would end if it weren't transparent.
+     Hence the half-height offset, derived from the vars so it stays
+     correct if either the nav height or the band height changes.
+     z-index 99 puts it above all page content (which is static) and below
+     the nav's 100, giving: nav text > wave > everything else. */
+  position: sticky;
+  top: calc(var(--wave-pin-offset) - var(--wave-height) / 2);
+  z-index: 99;
+
+  height: var(--wave-height);
+  opacity: var(--wave-opacity);
+  pointer-events: none;
 }
-.banner-track {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee-scroll 28s linear infinite;
-  animation-play-state: paused;
+/* The wavy line itself. On its own pseudo-element so the mask that cuts the
+   wave shape doesn't also clip the fill block in ::before.
+   The path starts and ends at a wave crest, where the tangent is horizontal —
+   so each repeated tile butts up flush against the next and the join is
+   invisible. Starting mid-slope leaves visible notches. */
+.wave-divider::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--black);
+  --wave-shape: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 64' preserveAspectRatio='none'%3E%3Cpath d='M0,18 C50,18 50,46 100,46 C150,46 150,18 200,18' fill='none' stroke='%23000000' stroke-width='36'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--wave-shape);
+          mask-image: var(--wave-shape);
+  -webkit-mask-repeat: repeat-x;
+          mask-repeat: repeat-x;
+  -webkit-mask-position: 0 50%;
+          mask-position: 0 50%;
+  -webkit-mask-size: var(--wave-period) 100%;
+          mask-size: var(--wave-period) 100%;
 }
-.banner:hover .banner-track { animation-play-state: running; }
-.banner-item {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--black);
-  padding-right: 0;
-}
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+/* Once the wave has pinned, everything above it fills with the same colour,
+   so the top of the page reads as one solid block with a wavy lower edge.
+   --wave-fill is driven by the scroll handler in theme.js and is 0 until the
+   wave pins, so at rest this is invisible and the wave is just a line.
+   The bottom edge sits on the band's midline: a straight edge is enough,
+   because the stroke is thick enough that its top boundary never rises above
+   that midline — so the two always meet with no gap, at crest or trough. */
+.wave-divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--wave-height) / 2);
+  height: var(--wave-fill, 0px);
+  background: var(--black);   /* same opaque colour as the wave */
 }
 
 /* ─── SECTIONS ─── */
@@ -489,14 +567,16 @@ footer {
 
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
+  /* Shorter bar. Height, the overlay offset and the wave's pin point all
+     follow from this one value. */
+  :root { --nav-height: 56px; }
   nav {
     padding: 0 24px;
     justify-content: space-between;
     align-items: center;
-    height: 56px;
     overflow: visible;
-    position: relative;
   }
+  nav:not(.nav-links) { position: sticky; }   /* keep it pinned on mobile too */
   .nav-hamburger { display: flex; }
   .nav-links {
     display: none;
@@ -510,13 +590,18 @@ footer {
     right: 0;
     padding: 8px 24px 16px;
     z-index: 999;
+    /* Needs its own frosted backing: the nav bar's ::before only covers
+       the bar, and the open menu hangs below it over page content. */
+    background: var(--surface-page);
+    background: color-mix(in srgb, var(--surface-page) 92%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    border-bottom: 1px solid var(--border-default);
   }
   .nav-links.open { display: flex; }
   .nav-link { padding: 10px 8px; font-size: 13px; }
 
   .mobile-break { display: block; height: 0; }
-  .banner { height: 40px; }
-  .banner-item { font-size: 13px; }
 
   .section { padding: 64px 24px; }
   .section-inner { width: 100%; }
@@ -552,7 +637,6 @@ footer {
 
 /* Respect reduced-motion preference for the signature animations */
 @media (prefers-reduced-motion: reduce) {
-  .banner-track,
   .footer-arrows-track,
   .aurora-inner,
   .aurora-inner::after { animation: none; }
