@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Brand mark: white M on the one accent colour (#1a56ff).
+       The letterform is a stroked polyline, not text, so it renders
+       identically everywhere without depending on a webfont. -->
+  <rect width="32" height="32" rx="7" fill="#1a56ff"/>
+  <polyline points="7,23 7,9.5 16,18.5 25,9.5 25,23"
+            fill="none" stroke="#ffffff" stroke-width="3.4"
+            stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

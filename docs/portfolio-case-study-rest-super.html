@@ -4,6 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matt Leete — Reducing Churn at the Moment of Value</title>
+<meta name="description" content="Case study: a member-experience strategy and product concepts that make a complex superannuation journey feel simple.">
+
+<!-- Icons -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Social sharing: without these a pasted link renders as a blank grey box. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Matt Leete">
+<meta property="og:url" content="https://mattleete.github.io/portfolio-case-study-rest-super.html">
+<meta property="og:title" content="Reducing Churn at the Moment of Value — Matt Leete">
+<meta property="og:description" content="Case study: a member-experience strategy and product concepts that make a complex superannuation journey feel simple.">
+<meta property="og:image" content="https://mattleete.github.io/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Turn chaos into clarity — Matt Leete, Product Designer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Reducing Churn at the Moment of Value — Matt Leete">
+<meta name="twitter:description" content="Case study: a member-experience strategy and product concepts that make a complex superannuation journey feel simple.">
+<meta name="twitter:image" content="https://mattleete.github.io/images/og-image.jpg">
+<link rel="canonical" href="https://mattleete.github.io/portfolio-case-study-rest-super.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1199,10 +1220,10 @@
   <div class="cs-next">
     <div>
       <div class="cs-next-label">Next Project</div>
-      <div class="cs-next-title">Spix App</div>
+      <div class="cs-next-title">A fantasy World Cup where every pick counts</div>
     </div>
     <div style="display:flex;gap:16px;">
-      <a class="btn-primary" href="#">View Project →</a>
+      <a class="btn-primary" href="portfolio-case-study-occypicks.html">View Project →</a>
       <a class="btn-secondary" href="index.html">← All Work</a>
     </div>
   </div>
@@ -1223,8 +1244,14 @@
   (function () {
     const html = document.documentElement;
     const btn  = document.querySelector('.theme-btn');
-    const saved = localStorage.getItem('theme') || 'light';
+    // Match assets/theme.js exactly: honour the OS preference on a first
+    // visit rather than defaulting to light, or a visitor whose OS is dark
+    // gets a light case study after a dark home page.
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = savedTheme || (prefersDark ? 'dark' : 'light');
     html.setAttribute('data-theme', saved);
+    if (!savedTheme) localStorage.setItem('theme', saved);
     btn.addEventListener('click', () => {
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);

@@ -275,6 +275,12 @@ nav:not(.nav-links):has(.nav-links.open) {
   border: none;
   cursor: pointer;
   padding: 8px;
+  /* Buttons do NOT inherit `color` (the UA sets `color: buttontext`), so the
+     bars' `currentColor` resolved to black. The nav is white on purpose, for
+     `mix-blend-mode: difference` — and difference-blending black is a no-op,
+     so the bars rendered invisibly on every backdrop, in BOTH themes. Don't
+     remove this line: it is the only thing making the menu visible. */
+  color: inherit;
 }
 .nav-hamburger span {
   display: block;
@@ -430,6 +436,7 @@ nav:not(.nav-links):has(.nav-links.open) {
 }
 .card:hover { border-color: var(--grey-4); }
 .card-image {
+  position: relative;   /* anchors .card-badge */
   width: 100%;
   height: 288px;
   background: var(--grey-4);
@@ -489,6 +496,27 @@ nav:not(.nav-links):has(.nav-links.open) {
 .card:hover .card-arrow {
   color: var(--black);
   transform: translateX(2px);
+}
+
+/* Work that isn't published yet. A card with no destination must not offer a
+   pointer cursor, a hover shift or an arrow — all three read as "click me"
+   and land the visitor nowhere. `.card-badge` marks it instead. */
+.card-soon { cursor: default; }
+.card-soon:hover { border-color: var(--grey-5); }
+/* Sits on the image, not in the tag row: the tag row is already full on some
+   cards, and a status word there forces the tags to wrap. */
+.card-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* ─── FOOTER ─── */

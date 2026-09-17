@@ -6,72 +6,121 @@
 
 ---
 
-## ▶ Current status / Next up (updated 2026-08-17 — read this first)
+## ▶ Current status / Next up (updated 2026-09-17 — read this first)
 
-**Where we are:** Phases 0 & 1 done. Site is on one design system, deployed live at mattleete.github.io, and the repo has been reorganised (see `HOUSEKEEPING.md`). Everything below is committed and pushed.
+**Tracker:** the live, tickable version of this list lives in Notion —
+**Portfolio — Job-Ready Plan** (private). Notion is the source of truth for
+what's done; this file carries the *why* and the technical detail.
 
-**Live & done:**
-- Design system (`docs/assets/design-system.css` + `theme.js`) + `portfolio-design` skill.
-- Home, About (real content, anonymised KPMG clients), Contact, CV (+ PDF) — all on-system, light+dark, responsive.
-- **Case studies:** REST Super (gated) · AI accelerator (gated, **scaffold** — placeholders await Matt's details) · **Occypicks (public, complete** — combined version with video, mobile shots, mascot section, and 2026-season stats).
-- Nav wired across all pages; git-sync discipline documented in `CLAUDE.md`.
+**Where we are:** Phases 0 & 1 done; the site is on one design system and live.
+A full review on 2026-09-17 re-prioritised the remaining work around one
+question: *what actually wins interviews?*
 
-### Header / background rework (2026-08-17 session)
-Four commits: `f0c2386` aurora · `89ee68d` wave + nav · `72605f6` mobile menu · `faff3f1` menu colour.
+### Re-prioritisation (2026-09-17)
 
-- **Aurora (dark bg)** dialled back and given five tuning variables on `.aurora`
-  (`--aurora-opacity/-shimmer/-blur/-duration/-reach`); originals kept in comments.
-- **Wave divider replaced the scrolling skills marquee** on the home page. Opaque
-  (SVG *mask* + `var(--black)`), tunable via `--wave-height/-period/-opacity`;
-  thickness is the `stroke-width` inside the mask.
-- **Nav** is now sticky, 100% transparent, **overlays** content (negative margin, so
-  content starts at viewport top), and inverts via `mix-blend-mode: difference`
-  so it stays legible on any backdrop.
-- **Wave pins** with its *middle* on the nav's lower edge; once pinned, the area
-  above it fills at the scroll rate (scroll handler in `theme.js`).
-- **Mobile menu:** long-standing bug fixed — `.nav-links` is itself a `<nav>`, so the
-  base `nav { height }` rule squashed the dropdown to the bar's height and links
-  spilled out. Open menu now takes the wave's colour and the wave drops to its
-  lower edge.
-- New **`--nav-height`** token drives bar height, the overlay offset and the wave's
-  pin point (previously three hardcoded 64px/56px pairs).
+The previous "next up" list had **case-study CSS dedup as the top priority**.
+That was wrong for the goal. It's ~1,900 lines of real duplication and worth
+doing, but it is **invisible to a hiring manager**. It has moved to *Later*.
 
-**Gotchas learned (don't re-break these — all are commented in the CSS):**
-- `body { overflow-x: hidden }` makes body a scroll container and **silently breaks
-  `position: sticky`** → use `overflow-x: clip`.
-- `.nav-links` is a `<nav>`: a bare `nav` selector hits **both** bars. Positional rules
-  are scoped `nav:not(.nav-links)`.
-- **`mix-blend-mode` composites, it does not occlude** — a blended element lets content
-  show through it. Anything that must hide content has to be opaque.
+What the review found instead, in order of hiring impact:
+
+1. **All 9 home-page cards are empty grey boxes** (`<div class="card-image"></div>`).
+   A product designer's portfolio showing zero design work is the single
+   biggest problem on the site. Occypicks is the only page with any imagery —
+   REST Super, the anchor case study, has 5,400 words and **zero images**.
+2. **2 of 3 case studies open to a bare white password box** — no nav, no title,
+   no context, no way to request access, and it ignores dark mode. It reads as
+   broken. Recruiters close the tab rather than email for a password.
+3. **The mobile hamburger was invisible** → no navigation at all on a phone.
+4. **No favicon and no OG tags anywhere** → a pasted link rendered as a blank
+   grey rectangle in LinkedIn DMs, email and application forms.
+
+### Done this session (2026-09-17)
+
+- **Hamburger fix.** Root cause: `.nav-hamburger` is a `<button>`, and buttons
+  don't inherit `color` (the UA sets `color: buttontext`), so the bars'
+  `currentColor` resolved to **black**. The nav is white on purpose for
+  `mix-blend-mode: difference` — and difference-blending black is a **no-op**,
+  so the bars rendered invisibly on every backdrop, in *both* themes. Fixed
+  with `color: inherit` on `.nav-hamburger`. *Only* affected the shared
+  stylesheet; the case studies' nav isn't blend-moded, so their `var(--black)`
+  bars were always correct.
+- **Theme no longer splits mid-visit.** `theme.js` honoured the OS preference
+  but never persisted it, and the case studies' separate inline copy defaulted
+  to `'light'` — so with a dark OS, home rendered dark and case studies
+  rendered light. Both copies now resolve the same way *and* persist on first
+  visit.
+- **Favicon + share image.** `docs/favicon.svg` (white M on `#1a56ff`, drawn as
+  a stroked polyline so it needs no webfont), `docs/apple-touch-icon.png`
+  (180×180), and `docs/images/og-image.jpg` (1200×630, real Instrument Sans,
+  signature wave). Full OG + Twitter + canonical + icon tags on **all 7 pages**;
+  `index.html`, `rest-super` and `occypicks` also gained missing meta
+  descriptions.
+- **Dead link fixed.** REST Super's "Next Project" pointed at **"Spix App"** —
+  a project that doesn't exist anywhere on the site — via `href="#"`. It now
+  chains to Occypicks, which also gives the gated page an exit to a public one.
+- **Work card 3** ("Making formidable fun") links nowhere, so it no longer
+  pretends to: new `.card-soon` variant (no pointer cursor, no hover shift, no
+  arrow) plus an `In progress` badge on the image. The badge sits on the image
+  rather than in the tag row because a status word there forces the tags to wrap.
+
+### Next up
+
+**Do next (highest hiring impact):**
+1. **Images on the home-page cards.** Even 3–4 strong ones beats nine grey
+   boxes. Work cards matter most.
+2. **Replace the naked password wall** with a styled gate: on-brand, nav intact,
+   case-study title + one-line summary + "email me for access" visible *before*
+   the password field. Turns a dead end into a lead.
+3. **Visuals in REST Super.** It's the anchor and it has none.
+
+**Needs Matt (blocked on input):**
+- **AI accelerator placeholders** — team size, deliverables, adoption/impact are
+  still literal `[add …]` text on the page.
+- **Decision: move Occypicks from Fun into Work?** It's the most complete, fully
+  public case study with real imagery and a live product, but it sits in the
+  section that signals "side project".
+- **Decision: ungate REST Super** (possibly anonymised)? Gated content can't be
+  discovered — two-thirds of the work is invisible without the password. Note
+  the gate is plaintext client-side: `MattLeete` is readable in view-source, so
+  it's a courtesy gate, not security.
+
+**Later:** case-study CSS dedup · accessibility + performance pass · 404 page.
+
+**Gotchas learned (don't re-break these — all commented in the CSS):**
+- `body { overflow-x: hidden }` makes body a scroll container and **silently
+  breaks `position: sticky`** → use `overflow-x: clip` (both are present, as a
+  progressive fallback).
+- `.nav-links` is a `<nav>`: a bare `nav` selector hits **both** bars.
+  Positional rules are scoped `nav:not(.nav-links)`.
+- **`mix-blend-mode` composites, it does not occlude** — a blended element lets
+  content show through. Anything that must hide content has to be opaque.
+- **Blend-difference + black = nothing happens.** This is what hid the
+  hamburger for months. Any element inside the blended nav needs a non-black
+  colour, and `<button>`/`<input>` need explicit `color: inherit`.
 - Don't transition `top` on a sticky element; it's the pin constraint.
 
-**Next up (pick any):**
-1. **Work card 3** — "Making formidable fun" (gaming) still links nowhere → add a "coming soon" state or build it out.
-2. **AI accelerator case study** — fill the bracketed placeholders with Matt's real project details (gated; don't share password until filled).
-3. **Phase 3 polish** — OG/share images + favicon, accessibility + performance pass, and **dedupe the case-study CSS (now the top priority — see below)**.
-4. **Phase 4 ship-tidy** — already largely live; confirm custom domain/DNS if wanted.
-
-**Optional follow-ups from this session:**
-- Mobile menu joins the wave only once the wave has *pinned*; at the top of the page the
-  panel ends in a straight edge. Giving the panel its own wavy bottom edge (same mask)
-  would join them at every scroll position.
-- Nav text has no backing, so contrast varies with whatever scrolls under it — worth a
-  re-check once real screenshots replace the grey card placeholders.
-
 **Watch-outs:**
-- Repo is edited from >1 place — **`git fetch` first**. Repo is public — keep personal notes out of it.
-- **The 3 case-study pages do NOT link `design-system.css`** — they carry their own inline
-  copies of the nav/aurora/wave CSS. Every fix this session had to be applied 4×, and the
-  case studies still lack the nav inversion. This is why dedup is now the priority.
-- **Mobile is unverified on a real device.** The browser tooling could not resize the
-  viewport, so all mobile work was checked by applying the `max-width: 768px` rules at
-  desktop width. Test on a phone before relying on it.
-- `docs/cv.html` has an uncommitted stray blank line after `<!DOCTYPE html>` (a no-op,
-  deliberately left out of every commit) — revert it to get a clean tree.
+- Repo is edited from >1 place — **`git fetch` first**. Repo is public — keep
+  personal notes out of it.
+- **The 3 case-study pages do NOT link `design-system.css` or `theme.js`** —
+  they carry their own inline copies (648 byte-identical lines each). Every
+  shared change must still be applied 4×. This is the *Later* dedup item.
+- **Mobile is still browser-emulated, not device-verified.** This session's
+  mobile checks were done at an emulated 375×812 viewport, which did work —
+  but test on a real phone before relying on it.
+- When testing locally, the browser **aggressively caches `assets/*`**. A stale
+  stylesheet made a correct fix look broken for several minutes. Serve with
+  `Cache-Control: no-store` or cache-bust the `<link>` when verifying CSS edits.
 
 ---
 
-## Current state (audit)
+## Current state (audit) — *historical, from the Phase 0 audit (2026-08)*
+
+> Kept for context only. It is **out of date**: `portfolio-case-study.html` and
+> `icon-preview.html` no longer exist, and About/Contact/CV were retrofitted
+> onto the design system in Phase 1. For the live picture, see the status
+> section at the top of this file and the Notion tracker.
 
 | Page | Tokens (CSS vars) | Dark mode | Responsive | Shared nav/footer | Notes |
 |---|---|---|---|---|---|

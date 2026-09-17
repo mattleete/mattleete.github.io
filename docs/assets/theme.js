@@ -10,9 +10,16 @@
 
   // ─── THEME ───
   // First visit: honour the OS preference; afterwards: honour the saved choice.
+  // Persist the resolved choice immediately. The case studies carry their own
+  // inline copy of this block and read the SAME localStorage key; if we leave
+  // the first visit unsaved they fall back to their own default and the site
+  // splits mid-visit (home dark, case study light). Writing it here keeps
+  // every page agreeing from the first paint.
   const saved = localStorage.getItem('theme');
   const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  html.setAttribute('data-theme', saved || (systemDark ? 'dark' : 'light'));
+  const theme = saved || (systemDark ? 'dark' : 'light');
+  html.setAttribute('data-theme', theme);
+  if (!saved) localStorage.setItem('theme', theme);
 
   const themeBtn = document.querySelector('.theme-btn');
   if (themeBtn) {
