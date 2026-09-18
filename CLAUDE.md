@@ -65,4 +65,6 @@ This repo may be edited from **more than one place/session**. To avoid duplicate
 - No spaces or typos in file/folder names (kebab-case).
 - Case studies are Markdown in `src/case-studies/`; the shared template is `case-study.njk` + `assets/case-study.css` (one copy).
   Migrated bodies keep their bespoke HTML blocks; new ones use plain `## Heading` sections (see `csSections` in `.eleventy.js`).
-- Case-study access: Occypicks is **public** (own product); REST Super / AI accelerator are **password-gated** (`MattLeete`).
+- Case-study access: Occypicks is **public** (own product); REST Super / AI accelerator are **password-gated** (`MattLeete`, set in `src/_data/site.yml`).
+  The gate is an in-page panel under the hero (nav + title stay visible) with an "Email for access" button. A recruiter can be sent a
+  one-click unlock link: `portfolio-case-study-<slug>.html#access=MattLeete` — it unlocks and removes itself from the URL.

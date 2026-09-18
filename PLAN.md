@@ -126,9 +126,9 @@ helper. Nothing is broken on the live site; the findings are gaps and hardening.
 
 **Claude (can start now, no decisions needed):**
 1. The five review defects above, one commit.
-2. **The styled password gate** — 2 of 3 case studies still open to a bare white
-   box. On-brand gate, nav intact, title + one-line summary + "email me for access"
-   visible *before* the field.
+2. ~~The styled password gate~~ — **done 2026-09-18.** In-page panel under the hero,
+   nav/title/meta visible, "Email for access" with a prefilled subject, and a
+   recruiter link `…html#access=<password>` that unlocks in one click.
 3. Wire the new image slots as files arrive (concept screens, trust UI, personas,
    About photo — see the assets plan for which rows need markup).
 

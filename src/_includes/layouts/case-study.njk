@@ -4,62 +4,7 @@ stylesheets:
   - assets/case-study.css
 footerStyle: simple
 ---
-{# ── Password gate ────────────────────────────────────────────────────── #}
-{% if gated %}
-<style>
-  #pw-gate {
-    position: fixed; inset: 0; z-index: 9999;
-    background: var(--bg);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 16px; font-family: 'Instrument Sans', sans-serif;
-  }
-  #pw-gate label { font-size: 14px; color: var(--black); }
-  #pw-gate input {
-    font-family: inherit; font-size: 14px;
-    border: 1px solid var(--grey-5); padding: 10px 16px;
-    outline: none; width: 240px;
-    transition: border-color 0.2s;
-    background: var(--bg); color: var(--black);
-  }
-  #pw-gate input:focus { border-color: var(--black); }
-  #pw-gate button {
-    font-family: inherit; font-size: 11px; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    background: var(--black); color: var(--bg);
-    border: none; padding: 10px 24px; cursor: pointer;
-    transition: opacity 0.2s;
-  }
-  #pw-gate button:hover { opacity: 0.75; }
-  #pw-error { font-size: 12px; color: #c00; display: none; }
-</style>
-<div id="pw-gate">
-  <label for="pw-input">Enter password to view this case study</label>
-  <input id="pw-input" type="password" placeholder="Password" autofocus/>
-  <button onclick="checkPassword()">Enter</button>
-  <span id="pw-error">Incorrect password</span>
-</div>
-<script>
-  (function () {
-    if (sessionStorage.getItem('cs-unlocked') === 'yes') {
-      document.getElementById('pw-gate').style.display = 'none';
-    }
-    document.getElementById('pw-input').addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') checkPassword();
-    });
-  })();
-  function checkPassword() {
-    const val = document.getElementById('pw-input').value;
-    if (val === {{ site.case_study_password | dump | safe }}) {
-      sessionStorage.setItem('cs-unlocked', 'yes');
-      document.getElementById('pw-gate').style.display = 'none';
-    } else {
-      document.getElementById('pw-error').style.display = 'block';
-      document.getElementById('pw-input').value = '';
-    }
-  }
-</script>
-{% endif %}
+{# Password gate: rendered after the hero (see below), not as an overlay. #}
 
 {# ── Hero ─────────────────────────────────────────────────────────────── #}
 <div class="cs-hero">
@@ -86,6 +31,28 @@ footerStyle: simple
   </div>
 </div>
 
+{%- if gated %}
+{# ── Password gate ────────────────────────────────────────────────────── #}
+{# Sits under the hero so the nav, title, tags and meta stay visible. The
+   rest of the page is in .cs-locked and hidden until unlocked. A recruiter
+   can be sent a one-click link: <page>.html#access=<password>. #}
+<div class="cs-gate" id="cs-gate">
+  <div class="cs-gate-inner">
+    <div class="cs-gate-label">Password protected</div>
+    <h2 class="cs-gate-title">This case study is shared on request</h2>
+    <p class="cs-gate-text">It covers client work, so it sits behind a password. If you&rsquo;re hiring or reviewing my work, email me and I&rsquo;ll send it straight back &mdash; or enter the password if you already have it.</p>
+    <form class="cs-gate-form" id="cs-gate-form" autocomplete="off">
+      <label class="cs-gate-sr" for="pw-input">Password</label>
+      <input id="pw-input" type="password" placeholder="Password" autocomplete="off">
+      <button class="btn-primary" type="submit">Enter</button>
+      <a class="btn-secondary" href="mailto:{{ site.email }}?subject={{ ('Portfolio access — ' + title) | urlencode }}">Email for access</a>
+    </form>
+    <div class="cs-gate-error" id="pw-error" role="alert" hidden>That password didn&rsquo;t match &mdash; try again, or email me.</div>
+  </div>
+</div>
+{%- endif %}
+
+<div class="cs-locked"{% if gated %} hidden{% endif %}>
 {# ── Hero image ───────────────────────────────────────────────────────── #}
 <div class="cs-hero-image">
   {%- if hero_html %}
@@ -145,3 +112,42 @@ footerStyle: simple
     <a class="btn-secondary" href="index.html">&larr; All Work</a>
   </div>
 </div>
+</div><!-- /cs-locked -->
+{%- if gated %}
+{# Runs after .cs-locked exists: the #access= and returning-visitor unlocks need it. #}
+<script>
+  (function () {
+    var gate = document.getElementById('cs-gate');
+    var form = document.getElementById('cs-gate-form');
+    var input = document.getElementById('pw-input');
+    var error = document.getElementById('pw-error');
+    var PASSWORD = {{ site.case_study_password | dump | safe }};
+    var store = {
+      get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+      set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+    };
+    function unlock() {
+      store.set('cs-unlocked', 'yes');
+      gate.hidden = true;
+      error.hidden = true;
+      var locked = document.querySelector('.cs-locked');
+      if (locked) locked.hidden = false;
+    }
+    // Direct link: #access=<password> unlocks and clears itself from the URL.
+    var m = /(?:^#|&)access=([^&]+)/.exec(location.hash);
+    if (m && decodeURIComponent(m[1]) === PASSWORD) {
+      unlock();
+      history.replaceState(null, '', location.pathname + location.search);
+    } else if (store.get('cs-unlocked') === 'yes') {
+      unlock();
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value === PASSWORD) { unlock(); return; }
+      error.hidden = false;
+      input.value = '';
+      input.focus();
+    });
+  })();
+</script>
+{%- endif %}
