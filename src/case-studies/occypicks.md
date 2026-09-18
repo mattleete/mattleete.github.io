@@ -1,9 +1,9 @@
 ---
-title: TEST A fantasy World Cup where every pick counts
+title: A fantasy World Cup where every pick counts
 subtitle: OccyPicks — self-initiated product, game and experience design
   for a season-long fantasy draft, played by 23 friends across the 2026 FIFA
   World Cup. Live at occypicks.com.
-description: "TEST Case study: self-initiated product, game and experience
+description: "Case study: self-initiated product, game and experience
   design for a season-long fantasy draft played by 23 friends across the 2026
   FIFA World Cup."
 breadcrumb: Fun → OccyPicks
