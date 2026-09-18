@@ -60,22 +60,3 @@ scripts:
   </div>
 </section>
 {%- endfor %}
-
-{#- ── About ──────────────────────────────────────────────────────────── #}
-{%- set ab = home.about %}
-<section class="section" id="about">
-  <div class="section-inner">
-    <div class="section-title">{{ ab.eyebrow }}</div>
-    <div class="about-block">
-      <h2 class="about-headline">{{ ab.headline }}</h2>
-      <div class="about-body">
-        {{ ab.body | markdown | safe }}
-        <div class="about-actions">
-          {%- for a in ab.actions %}
-          <a class="btn{{ ' btn-secondary' if a.secondary }}" href="{{ a.href }}">{{ a.label }}</a>
-          {%- endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
