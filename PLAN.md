@@ -133,8 +133,8 @@ helper. Nothing is broken on the live site; the findings are gaps and hardening.
    About photo — see the assets plan for which rows need markup).
 
 **Decisions still open (Matt):** Occypicks Fun → Work? · ungate REST Super? · the
-five home cards with an arrow but no link (Move to the music, Sound of Mind, the
-three About cards) — link them or mark in-progress · dark-mode image variants
+two home cards with an arrow but no link (Move to the music, Sound of Mind) — link
+them or mark in-progress (the three About cards were replaced by a prose About section on 2026-09-18) · dark-mode image variants
 (a small template change; decide before exporting the cards) · AI accelerator
 placeholders (team size, deliverables, outcome) · University CRM confirms.
 

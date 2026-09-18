@@ -61,6 +61,10 @@ module.exports = function (eleventyConfig) {
   // Hero word pairs as the [[first, second], …] JSON that home.js expects.
   eleventyConfig.addFilter("pairsJson", (arr) => JSON.stringify((arr || []).map((p) => [p.first, p.second])));
 
+  // Render a Markdown string from data (e.g. home.yml → about.body).
+  const mdInline = markdownIt({ html: true, typographer: false });
+  eleventyConfig.addFilter("markdown", (str) => (str ? mdInline.render(String(str)) : ""));
+
   // Look a case study up by slug (used for the "Next project" block).
   eleventyConfig.addFilter("bySlug", (collection, slug) =>
     (collection || []).find((p) => p.fileSlug === slug));

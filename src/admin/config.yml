@@ -219,10 +219,25 @@ collections:
                   - { label: Second, name: second, widget: string }
               - { label: Name, name: name, widget: string }
               - { label: Role, name: role, widget: string }
+          - label: About
+            name: about
+            widget: object
+            hint: "The prose About section under the card rows."
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, default: "About" }
+              - { label: Headline, name: headline, widget: text }
+              - { label: Body, name: body, widget: markdown, hint: "Two or three paragraphs. Keep client names anonymised." }
+              - label: Buttons
+                name: actions
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Secondary style, name: secondary, widget: boolean, default: false }
           - label: Sections
             name: sections
             widget: list
-            hint: "Work · Fun · About. Each holds a row of cards."
+            hint: "Work · Fun. Each holds a row of cards."
             fields:
               - { label: Anchor id, name: id, widget: string, hint: "Used in links, e.g. index.html#work" }
               - { label: Title, name: title, widget: string }
