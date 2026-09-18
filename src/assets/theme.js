@@ -15,18 +15,25 @@
   // the first visit unsaved they fall back to their own default and the site
   // splits mid-visit (home dark, case study light). Writing it here keeps
   // every page agreeing from the first paint.
-  const saved = localStorage.getItem('theme');
+  // localStorage can throw (Safari private mode, storage blocked). If it did
+  // here it would take the hamburger and wave handlers below down with it, so
+  // every access goes through these two guards.
+  const store = {
+    get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } },
+  };
+  const saved = store.get('theme');
   const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const theme = saved || (systemDark ? 'dark' : 'light');
   html.setAttribute('data-theme', theme);
-  if (!saved) localStorage.setItem('theme', theme);
+  if (!saved) store.set('theme', theme);
 
   const themeBtn = document.querySelector('.theme-btn');
   if (themeBtn) {
     themeBtn.addEventListener('click', () => {
       const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      store.set('theme', next);
     });
   }
 

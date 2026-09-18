@@ -15,6 +15,9 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(`src/${p}`);
   }
 
+  // Footer year — computed at build time, so it never goes stale.
+  eleventyConfig.addGlobalData("year", () => new Date().getFullYear());
+
   // Global data may be written in YAML (src/_data/*.yml) — friendlier for the CMS than JSON.
   eleventyConfig.addDataExtension("yml,yaml", (contents) => yaml.load(contents));
 

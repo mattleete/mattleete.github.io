@@ -18,7 +18,7 @@ scripts:
 <!-- HERO -->
 <section class="hero">
   <div class="hero-text">
-    <div class="hero-display">{{ h.prefix }} <span class="word-slot" id="slot1"><span class="slot-mask">{{ h.pairs | longest("first") }}</span><span class="slot-word">{{ first.first }}</span></span><span class="mobile-break"></span>&nbsp;{{ h.joiner }} <span class="word-slot" id="slot2"><span class="slot-mask">{{ h.pairs | longest("second") }}</span><span class="slot-word">{{ first.second }}</span></span></div>
+    <h1 class="hero-display">{{ h.prefix }} <span class="word-slot" id="slot1"><span class="slot-mask">{{ h.pairs | longest("first") }}</span><span class="slot-word">{{ first.first }}</span></span><span class="mobile-break"></span>&nbsp;{{ h.joiner }} <span class="word-slot" id="slot2"><span class="slot-mask">{{ h.pairs | longest("second") }}</span><span class="slot-word">{{ first.second }}</span></span></h1>
     <div class="hero-name">{{ h.name }}<br>{{ h.role }}</div>
   </div>
   <div class="hero-animation">
@@ -40,7 +40,7 @@ scripts:
       {%- set soon = card.status == "in-progress" %}
       {%- set tag = "a" if card.href else "div" %}
       <{{ tag }} class="card{{ ' card-soon' if soon }}"{% if card.href %} href="{{ card.href }}" style="text-decoration:none;"{% endif %}>
-        <div class="card-image">{% if soon %}<span class="card-badge">{{ card.status_label or "In progress" }}</span>{% endif %}</div>
+        <div class="card-image">{% if card.image %}<img src="{{ card.image }}" alt="{{ card.title }}" loading="lazy">{% endif %}{% if soon %}<span class="card-badge">{{ card.status_label or "In progress" }}</span>{% endif %}</div>
         <div class="card-title">{{ card.title }}</div>
         <div class="card-desc">{{ card.desc }}</div>
         <div class="card-divider"></div>

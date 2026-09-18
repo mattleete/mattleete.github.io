@@ -21,7 +21,8 @@
   "homepage": "https://github.com/mattleete/mattleete.github.io#readme",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
-    "js-yaml": "^5.4.2"
+    "js-yaml": "^5.4.2",
+    "markdown-it": "^14.3.2"
   },
   "private": true
 }

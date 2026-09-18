@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   const code = url.searchParams.get("code"), state = url.searchParams.get("state");
   const cookieState = ((req.headers.cookie || "").match(/(?:^|;\s*)oauth_state=([^;]+)/) || [])[1];
 
-  if (!code) return res.status(400).send(page("Missing code."));
+  if (!code) { res.statusCode = 400; return res.end(page("Missing code.")); }
   if (!state || state !== cookieState) { res.statusCode = 400; return res.end(page("State mismatch — please try signing in again.")); }
 
   const r = await fetch("https://github.com/login/oauth/access_token", {
