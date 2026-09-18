@@ -5,7 +5,7 @@ backend:
   name: github
   repo: mattleete/mattleete.github.io
   branch: main
-  base_url: https://DECAP-OAUTH-URL-PLACEHOLDER.vercel.app   # set after the helper is deployed
+  base_url: https://mattleete-github-io.vercel.app
   auth_endpoint: auth
   commit_messages:
     create: "CMS: add {{collection}} “{{slug}}”"

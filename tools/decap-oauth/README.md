@@ -10,7 +10,7 @@ the server-side step of GitHub OAuth, so this tiny Vercel project does it:
 
 1. GitHub → Settings → Developer settings → **OAuth Apps** → New OAuth App
    - Homepage URL: `https://mattleete.github.io`
-   - Authorization callback URL: `https://<this-project>.vercel.app/callback`
+   - Authorization callback URL: `https://mattleete-github-io.vercel.app/callback`
 2. In the Vercel project → Settings → Environment Variables, add
    `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` from the OAuth App, then redeploy.
 3. `src/admin/config.yml` → `backend.base_url` must be this project's URL.
