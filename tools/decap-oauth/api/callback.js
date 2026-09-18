@@ -8,11 +8,13 @@ const page = (body) =>
   `<!doctype html><meta charset="utf-8"><title>Signing in…</title><body>${body}</body>`;
 
 module.exports = async (req, res) => {
-  const { code, state } = req.query || {};
+  try {
+  const url = new URL(req.url, "http://x");
+  const code = url.searchParams.get("code"), state = url.searchParams.get("state");
   const cookieState = ((req.headers.cookie || "").match(/(?:^|;\s*)oauth_state=([^;]+)/) || [])[1];
 
   if (!code) return res.status(400).send(page("Missing code."));
-  if (!state || state !== cookieState) return res.status(400).send(page("State mismatch — please try signing in again."));
+  if (!state || state !== cookieState) { res.statusCode = 400; return res.end(page("State mismatch — please try signing in again.")); }
 
   const r = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
@@ -33,7 +35,8 @@ module.exports = async (req, res) => {
 
   res.setHeader("Set-Cookie", "oauth_state=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0");
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.status(200).send(page(`<script>
+  res.statusCode = 200;
+  res.end(page(`<script>
     (function () {
       var message = "authorization:github:${status}:" + ${JSON.stringify(JSON.stringify(payload))};
       function receive(e) {
@@ -44,4 +47,8 @@ module.exports = async (req, res) => {
       window.opener.postMessage("authorizing:github", "*");
     })();
   </script><p>Signing you in&hellip; you can close this window if it does not close itself.</p>`));
+  } catch (err) {
+    res.statusCode = 500;
+    res.end("callback failed: " + (err && err.stack || err));
+  }
 };
