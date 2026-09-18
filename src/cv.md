@@ -10,7 +10,7 @@ pdf_label: "Download PDF ↓"
 sections:
   - label: "Experience"
     rows:
-      - { org: "KPMG", position: "Senior Consultant", dates: "Jan 2022 – Present" }
+      - { org: "KPMG", position: "Senior Consultant", dates: "Jan 2022 – Sep 2026" }
       - { org: "Spix App", position: "Product Designer / Founder", dates: "Oct 2020 – Dec 2022" }
       - { org: "University of Sydney Design Lab", position: "Design Researcher & Mentor", dates: "Aug 2020 – Feb 2022" }
       - { org: "With You With Me", position: "Digital Designer", dates: "Jun 2019 – Aug 2020" }

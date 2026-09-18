@@ -121,7 +121,7 @@ helper. Nothing is broken on the live site; the findings are gaps and hardening.
 1. **Figma: Visual Assets Plan rows 0–4** — the system, the card template, and the
    REST Super / AI accelerator / Occypicks cards. Full specs are in Notion
    (*Portfolio — Visual Assets Plan*). Upload via `/admin/` → Settings → Home page.
-2. **CV:** `KPMG · Jan 2022 – Present` at `/admin/` → Pages → CV.
+2. ~~CV: `KPMG · Jan 2022 – Present`~~ — **done 2026-09-18** (now `Jan 2022 – Sep 2026`). The downloadable PDF still needs regenerating.
 3. **A portrait** for About (assets row 15).
 
 **Claude (can start now, no decisions needed):**
