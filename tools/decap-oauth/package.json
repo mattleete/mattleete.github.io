@@ -1,0 +1,6 @@
+{
+  "name": "decap-oauth",
+  "private": true,
+  "description": "GitHub OAuth helper for Decap CMS on mattleete.github.io — two serverless routes, no dependencies.",
+  "engines": { "node": "22.x" }
+}

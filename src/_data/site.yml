@@ -1,0 +1,13 @@
+name: Matt Leete
+title: Product Designer
+url: https://mattleete.github.io
+email: matt.c.leete@gmail.com
+linkedin: https://www.linkedin.com/in/matthewleete/
+# Case-study gate. Client-side only — a courtesy gate, not security.
+case_study_password: MattLeete
+og_image: /images/og-image.jpg
+nav:
+  - { label: Work, href: index.html#work }
+  - { label: Fun, href: index.html#fun }
+  - { label: About, href: portfolio-about.html }
+  - { label: Contact, href: portfolio-contact.html }

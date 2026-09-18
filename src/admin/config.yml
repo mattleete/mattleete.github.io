@@ -1,0 +1,64 @@
+# Decap CMS configuration — https://decapcms.org/docs/configuration-options/
+# Login runs through the helper in tools/decap-oauth (deployed on Vercel).
+
+backend:
+  name: github
+  repo: mattleete/mattleete.github.io
+  branch: main
+  base_url: https://DECAP-OAUTH-URL-PLACEHOLDER.vercel.app   # set after the helper is deployed
+  auth_endpoint: auth
+  commit_messages:
+    create: "CMS: add {{collection}} “{{slug}}”"
+    update: "CMS: update {{collection}} “{{slug}}”"
+    delete: "CMS: delete {{collection}} “{{slug}}”"
+    uploadMedia: "CMS: add image {{path}}"
+    deleteMedia: "CMS: remove image {{path}}"
+
+# Drafts become pull requests; only “Publish” lands on main and goes live.
+publish_mode: editorial_workflow
+
+media_folder: src/images
+public_folder: /images
+
+site_url: https://mattleete.github.io
+display_url: https://mattleete.github.io
+logo_url: https://mattleete.github.io/apple-touch-icon.png
+
+collections:
+  - name: case_studies
+    label: Case studies
+    label_singular: Case study
+    folder: src/case-studies
+    create: true
+    slug: "{{slug}}"
+    preview_path: "portfolio-case-study-{{slug}}.html"
+    summary: "{{title}} — {{industry}}"
+    editor:
+      preview: false
+    fields:
+      - { label: Title, name: title, widget: string, hint: "The big headline. Lead with the outcome or the tension." }
+      - { label: Subtitle, name: subtitle, widget: text, hint: "One or two sentences under the title." }
+      - { label: Meta description, name: description, widget: text, hint: "What search engines and link previews show. ~150 characters." }
+      - { label: Breadcrumb, name: breadcrumb, widget: string, default: "Work" , hint: "e.g. “Work → Higher Education” or “Fun → Occypicks”" }
+      - { label: Tags, name: tags, widget: list, hint: "First tag is highlighted." }
+      - label: Details
+        name: meta
+        widget: list
+        hint: "The label/value pairs beside the title — My role, Industry, Timeline, Team, Deliverables… Use a line break for multiple values."
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: Value, name: value, widget: text }
+      - label: Overview strip
+        name: overview
+        widget: object
+        hint: "The three cells under the hero image."
+        fields:
+          - { label: The challenge, name: challenge, widget: text }
+          - { label: The approach, name: approach, widget: text }
+          - { label: The outcome, name: outcome, widget: text }
+      - { label: Hero image, name: hero_image, widget: image, required: false }
+      - { label: Hero image caption, name: hero_caption, widget: string, required: false }
+      - { label: Password-protected, name: gated, widget: boolean, default: true, hint: "Off = anyone can read it." }
+      - { label: Draft (hidden from the site), name: draft, widget: boolean, default: false }
+      - { label: Next project, name: next, widget: relation, collection: case_studies, value_field: "{{slug}}", search_fields: [title], display_fields: [title], required: false }
+      - { label: Body, name: body, widget: markdown, hint: "Each “## Heading” becomes a numbered section. Bold a sentence to make it a pull-quote." }

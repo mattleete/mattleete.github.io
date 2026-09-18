@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/mattleete/mattleete.github.io#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.6"
+    "@11ty/eleventy": "^3.1.6",
+    "js-yaml": "^5.4.2"
   },
   "private": true
 }

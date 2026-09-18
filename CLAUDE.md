@@ -13,8 +13,12 @@ Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_
 │   ├── portfolio-about.html                dedicated About page
 │   ├── portfolio-contact.html              dedicated Contact page
 │   ├── cv.html  +  matt-leete-cv.pdf        CV page + downloadable PDF
-│   ├── portfolio-case-study-*.html          case studies (rest-super, ai-accelerator, occypicks)
-│   ├── assets/            CODE: design-system.css, theme.js
+│   ├── case-studies/*.md                    case studies — Markdown + front matter, rendered by
+│   │                                        _includes/layouts/case-study.njk → portfolio-case-study-<slug>.html
+│   ├── _includes/layouts/                  base.njk (head/nav/footer) · case-study.njk
+│   ├── _data/site.yml                      name, links, nav, case-study password
+│   ├── admin/                              Decap CMS (index.html + config.yml) — login via tools/decap-oauth
+│   ├── assets/            CODE: design-system.css, case-study.css, theme.js
 │   ├── images/            MEDIA: images/occypicks/…, og-image.jpg
 │   └── src.11tydata.js    keeps flat .html URLs (no /pretty/ paths)
 ├── _site/                ← BUILD OUTPUT (gitignored). Never edit; never commit.
@@ -58,5 +62,6 @@ This repo may be edited from **more than one place/session**. To avoid duplicate
 ## Conventions
 
 - No spaces or typos in file/folder names (kebab-case).
-- Case studies use a shared inline template (currently duplicated across case-study files — a known Phase-3 dedup item).
+- Case studies are Markdown in `src/case-studies/`; the shared template is `case-study.njk` + `assets/case-study.css` (one copy).
+  Migrated bodies keep their bespoke HTML blocks; new ones use plain `## Heading` sections (see `csSections` in `.eleventy.js`).
 - Case-study access: Occypicks is **public** (own product); REST Super / AI accelerator are **password-gated** (`MattLeete`).

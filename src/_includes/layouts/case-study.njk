@@ -1,0 +1,146 @@
+---
+layout: layouts/base.njk
+stylesheets:
+  - assets/case-study.css
+---
+{# ── Password gate ────────────────────────────────────────────────────── #}
+{% if gated %}
+<style>
+  #pw-gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px; font-family: 'Instrument Sans', sans-serif;
+  }
+  #pw-gate label { font-size: 14px; color: var(--black); }
+  #pw-gate input {
+    font-family: inherit; font-size: 14px;
+    border: 1px solid var(--grey-5); padding: 10px 16px;
+    outline: none; width: 240px;
+    transition: border-color 0.2s;
+    background: var(--bg); color: var(--black);
+  }
+  #pw-gate input:focus { border-color: var(--black); }
+  #pw-gate button {
+    font-family: inherit; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--black); color: var(--bg);
+    border: none; padding: 10px 24px; cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  #pw-gate button:hover { opacity: 0.75; }
+  #pw-error { font-size: 12px; color: #c00; display: none; }
+</style>
+<div id="pw-gate">
+  <label for="pw-input">Enter password to view this case study</label>
+  <input id="pw-input" type="password" placeholder="Password" autofocus/>
+  <button onclick="checkPassword()">Enter</button>
+  <span id="pw-error">Incorrect password</span>
+</div>
+<script>
+  (function () {
+    if (sessionStorage.getItem('cs-unlocked') === 'yes') {
+      document.getElementById('pw-gate').style.display = 'none';
+    }
+    document.getElementById('pw-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') checkPassword();
+    });
+  })();
+  function checkPassword() {
+    const val = document.getElementById('pw-input').value;
+    if (val === {{ site.case_study_password | dump | safe }}) {
+      sessionStorage.setItem('cs-unlocked', 'yes');
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      document.getElementById('pw-error').style.display = 'block';
+      document.getElementById('pw-input').value = '';
+    }
+  }
+</script>
+{% endif %}
+
+{# ── Hero ─────────────────────────────────────────────────────────────── #}
+<div class="cs-hero">
+  <div class="cs-breadcrumb">{{ breadcrumb }}</div>
+  <div class="cs-hero-inner">
+    <div>
+      <div class="cs-tags">
+        {#- `tags` also carries the collection tag from case-studies.11tydata.js; never show that one #}
+        {%- for tag in tags | without('case_studies') %}
+        <span class="tag {{ 'tag-accent' if loop.first else 'tag-default' }}">{{ tag }}</span>
+        {%- endfor %}
+      </div>
+      <h1 class="cs-title">{{ title }}</h1>
+      <p class="cs-subtitle">{{ subtitle }}</p>
+    </div>
+    <div class="cs-meta-grid">
+      {%- for m in meta %}
+      <div>
+        <div class="cs-meta-label">{{ m.label }}</div>
+        <div class="cs-meta-value">{{ m.value | replace("\n", "<br>") | safe }}</div>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</div>
+
+{# ── Hero image ───────────────────────────────────────────────────────── #}
+<div class="cs-hero-image">
+  {%- if hero_html %}
+  {{ hero_html | safe }}
+  {%- elif hero_image %}
+  <img class="cs-hero-media" src="{{ hero_image }}" alt="{{ hero_caption or title }}">
+  {%- else %}
+  <div class="img-ph-lg"></div>
+  {%- endif %}
+</div>
+{%- if hero_caption %}
+<div class="cs-image-caption" style="max-width:var(--content-width);margin:0 auto;padding:0 64px;">{{ hero_caption }}</div>
+{%- endif %}
+
+<div class="cs-content">
+
+  {# ── Overview strip ───────────────────────────────────────────────── #}
+  {%- if overview %}
+  <div style="border-bottom: 1px solid var(--grey-5);">
+    <div class="cs-overview" style="border:none; border-bottom:none; margin:0;">
+      <div class="overview-cell">
+        <div class="overview-cell-label">The Challenge</div>
+        <div class="overview-cell-text">{{ overview.challenge }}</div>
+      </div>
+      <div class="overview-cell">
+        <div class="overview-cell-label">The Approach</div>
+        <div class="overview-cell-text">{{ overview.approach }}</div>
+      </div>
+      <div class="overview-cell">
+        <div class="overview-cell-label">The Outcome</div>
+        <div class="overview-cell-text">{{ overview.outcome }}</div>
+      </div>
+    </div>
+  </div>
+  {%- endif %}
+
+  {{ content | csSections | safe }}
+
+</div><!-- /cs-content -->
+
+{# ── Next project ─────────────────────────────────────────────────────── #}
+{%- set nextCs = collections.case_studies | bySlug(next) %}
+<div class="cs-next">
+  <div>
+    {%- if nextCs %}
+    <div class="cs-next-label">Next Project</div>
+    <div class="cs-next-title">{{ nextCs.data.title }}</div>
+    {%- else %}
+    <div class="cs-next-label">More work</div>
+    <div class="cs-next-title">See everything</div>
+    {%- endif %}
+  </div>
+  <div style="display:flex;gap:16px;">
+    {%- if nextCs %}
+    <a class="btn-primary" href="{{ nextCs.url | replace('/', '') }}">View Project &rarr;</a>
+    {%- endif %}
+    <a class="btn-secondary" href="index.html">&larr; All Work</a>
+  </div>
+</div>

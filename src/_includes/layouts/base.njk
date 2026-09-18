@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }} — {{ site.name }}</title>
+<meta name="description" content="{{ description }}">
+
+<!-- Icons -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Social sharing -->
+{%- set pageUrl = site.url + page.url %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:url" content="{{ pageUrl }}">
+<meta property="og:title" content="{{ title }} — {{ site.name }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:image" content="{{ site.url }}{{ site.og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Turn chaos into clarity — {{ site.name }}, {{ site.title }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }} — {{ site.name }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="{{ site.url }}{{ site.og_image }}">
+<link rel="canonical" href="{{ pageUrl }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+{%- for css in stylesheets %}
+<link rel="stylesheet" href="{{ css }}">
+{%- endfor %}
+</head>
+<body>
+
+<!-- LIGHT MODE: MESH GRADIENT -->
+<div class="mesh" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+  <div class="blob blob-5"></div>
+</div>
+<!-- DARK MODE: AURORA -->
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-inner"></div>
+</div>
+
+<div class="site-wrapper">
+
+<!-- NAV -->
+<nav>
+  <div class="theme-toggle">
+    <button class="theme-btn" aria-label="Toggle dark mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="currentColor">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M10.4,6.2 L12,1 L13.6,6.2Z"/>
+        <path d="M15.5,7.1 L20.6,5.1 L17.5,9.7Z"/>
+        <path d="M18.0,11.7 L22.7,14.5 L17.2,14.9Z"/>
+        <path d="M16.0,16.5 L16.8,21.9 L13.0,17.9Z"/>
+        <path d="M11.0,17.9 L7.2,21.9 L8.0,16.5Z"/>
+        <path d="M6.8,14.9 L1.3,14.5 L6.0,11.7Z"/>
+        <path d="M6.5,9.7 L3.4,5.1 L8.5,7.1Z"/>
+      </svg>
+    </button>
+    <a class="nav-logo" href="index.html">{{ site.name }}</a>
+  </div>
+  <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav-links">
+    {%- for item in site.nav %}
+    <a class="nav-link" href="{{ item.href }}">{{ item.label }}</a>
+    {%- endfor %}
+  </nav>
+</nav>
+
+{{ content | safe }}
+
+<footer>
+  <div class="footer-name">{{ site.name }} © 2026</div>
+  <div class="footer-links">
+    <a class="footer-link" href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="footer-link" href="cv.html">CV</a>
+    <a class="footer-link" href="mailto:{{ site.email }}">{{ site.email }}</a>
+  </div>
+</footer>
+
+</div><!-- /site-wrapper -->
+
+<!-- theme toggle + persistence, mobile nav (shared with every page) -->
+<script src="assets/theme.js"></script>
+</body>
+</html>
