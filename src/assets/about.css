@@ -1,0 +1,134 @@
+  /* ─── ABOUT (page-specific) ─── */
+  .about-wrap { padding: 0 64px; }
+
+  /* Hero */
+  .about-hero {
+padding: 96px 0 64px;
+display: grid;
+grid-template-columns: 1fr 460px;
+gap: 64px;
+align-items: end;
+  }
+  .about-eyebrow {
+font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 24px;
+  }
+  .about-title {
+font-size: 56px; font-weight: 600; line-height: 1.02;
+letter-spacing: -0.03em; color: var(--text-primary);
+  }
+  .about-intro {
+font-size: var(--size-h3); font-weight: 400; line-height: 1.6;
+color: var(--text-secondary); margin-bottom: 28px;
+  }
+  .about-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Section scaffold */
+  .about-section { padding: 72px 0; border-top: 1px solid var(--border-default); }
+  .about-section-head {
+display: flex; align-items: baseline; justify-content: space-between;
+gap: 24px; margin-bottom: 40px;
+  }
+  .about-section-title {
+font-size: var(--size-h1); font-weight: 600; line-height: 1.05;
+letter-spacing: -0.03em; color: var(--text-primary);
+  }
+  .about-section-note {
+font-size: var(--size-small); color: var(--text-tertiary);
+max-width: 320px; text-align: right;
+  }
+
+  /* Bio */
+  .bio-grid { display: grid; grid-template-columns: 380px 1fr; gap: 64px; align-items: start; }
+  .bio-photo {
+aspect-ratio: 4 / 5; background: var(--surface-subtle);
+border: 1px solid var(--border-default);
+display: flex; align-items: center; justify-content: center;
+  }
+  .bio-photo span {
+font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+text-transform: uppercase; color: var(--text-disabled);
+  }
+  .bio-para {
+font-size: var(--size-h3); font-weight: 400; line-height: 1.7;
+color: var(--text-secondary); margin-bottom: 20px;
+  }
+  .bio-para strong { color: var(--text-primary); font-weight: 600; }
+  .bio-para:last-child { margin-bottom: 0; }
+
+  /* Skills */
+  .skills-grid {
+display: grid; grid-template-columns: repeat(3, 1fr);
+gap: 1px; background: var(--border-default);
+border: 1px solid var(--border-default);
+  }
+  .skill-cell { background: var(--bg); padding: 28px; }
+  .skill-cat {
+font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+text-transform: uppercase; color: var(--text-tertiary);
+margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-default);
+  }
+  .skill-list { display: flex; flex-direction: column; gap: 10px; }
+  .skill-item { font-size: var(--size-body); color: var(--text-primary); }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 40px; }
+  .meta-block { }
+  .meta-label {
+font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 12px;
+  }
+  .meta-value { font-size: var(--size-body); color: var(--text-primary); line-height: 1.6; }
+
+  /* Selected work */
+  .work-list { display: flex; flex-direction: column; }
+  .work-item {
+display: grid; grid-template-columns: 220px 1fr;
+gap: 40px; padding: 28px 0; border-top: 1px solid var(--border-default);
+  }
+  .work-item:last-child { border-bottom: 1px solid var(--border-default); }
+  .work-meta { }
+  .work-role { font-size: var(--size-body); font-weight: 600; color: var(--text-primary); }
+  .work-year {
+font-size: var(--size-small); color: var(--text-tertiary); margin-top: 4px;
+  }
+  .work-context {
+font-size: var(--size-h3); font-weight: 600; letter-spacing: -0.01em;
+color: var(--text-primary); margin-bottom: 10px;
+  }
+  .work-desc { font-size: var(--size-body); line-height: 1.7; color: var(--text-secondary); }
+  .work-group-label {
+font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
+text-transform: uppercase; color: var(--text-tertiary);
+margin: 48px 0 8px;
+  }
+  .work-group-label:first-child { margin-top: 0; }
+
+  /* CTA */
+  .about-cta {
+padding: 80px 0; border-top: 1px solid var(--border-default);
+display: flex; align-items: center; justify-content: space-between;
+gap: 32px; flex-wrap: wrap;
+  }
+  .about-cta-text {
+font-size: var(--size-h1); font-weight: 600; line-height: 1.05;
+letter-spacing: -0.03em; color: var(--text-primary); max-width: 560px;
+  }
+  .about-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+.about-hero { grid-template-columns: 1fr; gap: 32px; }
+.bio-grid { grid-template-columns: 1fr; gap: 32px; }
+.bio-photo { max-width: 320px; }
+.skills-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+.about-wrap { padding: 0 24px; }
+.about-hero { padding: 56px 0 40px; }
+.about-title { font-size: 38px; }
+.about-section { padding: 48px 0; }
+.about-section-title { font-size: 28px; }
+.about-section-head { flex-direction: column; }
+.about-section-note { text-align: left; }
+.work-item { grid-template-columns: 1fr; gap: 12px; }
+.about-cta-text { font-size: 28px; }
+  }

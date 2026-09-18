@@ -83,6 +83,7 @@
 
 {{ content | safe }}
 
+{%- if footerStyle == "simple" %}
 <footer>
   <div class="footer-name">{{ site.name }} © 2026</div>
   <div class="footer-links">
@@ -91,6 +92,25 @@
     <a class="footer-link" href="mailto:{{ site.email }}">{{ site.email }}</a>
   </div>
 </footer>
+{%- else %}
+<footer id="contact">
+  <div class="footer-left">
+    <span class="footer-static">Contact me here</span>
+    <div class="footer-arrows-wrap">
+      <div class="footer-arrows-track">
+        <span class="footer-arrows-item">{% for i in range(0, 92) %}&gt;{% endfor %}</span>
+        <span class="footer-arrows-item">{% for i in range(0, 92) %}&gt;{% endfor %}</span>
+      </div>
+    </div>
+  </div>
+  <span class="footer-mobile-label">Contact:</span>
+  <div class="footer-links">
+    <a class="footer-link" href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="footer-link" href="cv.html">CV</a>
+    <a class="footer-link" href="mailto:{{ site.email }}">{{ site.email }}</a>
+  </div>
+</footer>
+{%- endif %}
 
 </div><!-- /site-wrapper -->
 

@@ -1,0 +1,31 @@
+---
+layout: layouts/base.njk
+stylesheets:
+  - assets/design-system.css
+  - assets/cv.css
+---
+<!-- CV CONTENT -->
+<div class="page">
+  <div class="cv-header">
+    <div>
+      <div class="cv-name">{{ name }}</div>
+      <div class="cv-role">{{ role }}</div>
+    </div>
+    <a class="btn" href="{{ pdf }}" download>{{ pdf_label }}</a>
+  </div>
+
+  {%- for section in sections %}
+  <div class="cv-section">
+    <div class="cv-section-label">{{ section.label }}</div>
+    {%- for row in section.rows %}
+    <div class="cv-row">
+      <div>
+        <div class="cv-org">{{ row.org }}</div>
+        <div class="cv-position">{{ row.position }}</div>
+      </div>
+      <div class="cv-dates">{{ row.dates }}</div>
+    </div>
+    {%- endfor %}
+  </div>
+  {%- endfor %}
+</div><!-- /page -->

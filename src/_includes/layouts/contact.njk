@@ -1,0 +1,59 @@
+---
+layout: layouts/base.njk
+stylesheets:
+  - assets/design-system.css
+  - assets/contact.css
+---
+<div class="contact-wrap">
+
+  <!-- HERO -->
+  <header class="contact-hero">
+    <div class="contact-eyebrow">{{ hero.eyebrow }}</div>
+    <h1 class="contact-title">{{ hero.headline }}</h1>
+    <p class="contact-intro">{{ hero.intro }}</p>
+  </header>
+
+  <!-- EMAIL -->
+  <section class="email-block">
+    <div class="email-address">{{ email }}</div>
+    <div class="email-actions">
+      <a class="btn" href="mailto:{{ email }}">Email me</a>
+      <button class="btn btn-secondary" id="copyBtn" type="button" data-email="{{ email }}">Copy email</button>
+      <span class="copied-note" id="copiedNote">Copied</span>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section class="channels">
+    {%- for c in channels %}
+    <a class="channel" href="{{ c.href }}"{% if c.external %} target="_blank" rel="noopener"{% endif %}>
+      <span class="channel-platform">{{ c.platform }}</span>
+      <span class="channel-value">{{ c.label }} <span class="channel-arrow">{{ c.arrow }}</span></span>
+      <span class="channel-sub">{{ c.sub }}</span>
+    </a>
+    {%- endfor %}
+  </section>
+
+  <!-- AVAILABILITY -->
+  <div class="availability">
+    <span class="availability-dot" aria-hidden="true"></span>
+    <span class="availability-text">{{ availability }}</span>
+  </div>
+
+</div><!-- /contact-wrap -->
+
+<script>
+  // Copy-email button
+  (function () {
+    const btn = document.getElementById('copyBtn');
+    const note = document.getElementById('copiedNote');
+    if (!btn) return;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.email);
+        note.classList.add('show');
+        setTimeout(() => note.classList.remove('show'), 1800);
+      } catch (e) { /* clipboard unavailable */ }
+    });
+  })();
+</script>

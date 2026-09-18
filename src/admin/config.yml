@@ -62,3 +62,135 @@ collections:
       - { label: Draft (hidden from the site), name: draft, widget: boolean, default: false }
       - { label: Next project, name: next, widget: relation, collection: case_studies, value_field: "{{slug}}", search_fields: [title], display_fields: [title], required: false }
       - { label: Body, name: body, widget: markdown, hint: "Each “## Heading” becomes a numbered section. Bold a sentence to make it a pull-quote." }
+
+  - name: pages
+    label: Pages
+    editor:
+      preview: false
+    files:
+      - name: about
+        label: About
+        file: src/about.md
+        fields:
+          - { label: Meta description, name: description, widget: text }
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Headline, name: headline, widget: text }
+              - { label: Intro, name: intro, widget: text }
+              - label: Buttons
+                name: actions
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Secondary style, name: secondary, widget: boolean, default: false }
+          - { label: Bio, name: body, widget: markdown, hint: "The paragraphs beside the photo. **Bold** is allowed." }
+          - label: What I do
+            name: skills
+            widget: object
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Note, name: note, widget: text }
+              - label: Skill groups
+                name: cells
+                widget: list
+                fields:
+                  - { label: Category, name: category, widget: string }
+                  - { label: Skills, name: items, widget: list }
+          - label: Details row
+            name: meta
+            widget: list
+            hint: "Tools · Qualifications · Based in. Use a line break for multiple values."
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Value, name: value, widget: text }
+          - label: Selected work
+            name: work
+            widget: object
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Note, name: note, widget: text }
+              - label: Groups
+                name: groups
+                widget: list
+                fields:
+                  - { label: Group label, name: label, widget: string }
+                  - label: Items
+                    name: items
+                    widget: list
+                    fields:
+                      - { label: Role, name: role, widget: string }
+                      - { label: Organisation · year, name: org_year, widget: string }
+                      - { label: Project, name: context, widget: string }
+                      - { label: Description, name: desc, widget: text }
+          - label: Closing call-to-action
+            name: cta
+            widget: object
+            fields:
+              - { label: Text, name: text, widget: string }
+              - label: Buttons
+                name: actions
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Secondary style, name: secondary, widget: boolean, default: false }
+          - { label: Layout (do not change), name: layout, widget: hidden, default: layouts/about.njk }
+          - { label: URL (do not change), name: permalink, widget: hidden, default: portfolio-about.html }
+          - { label: Title, name: title, widget: hidden, default: About }
+
+      - name: cv
+        label: CV
+        file: src/cv.md
+        fields:
+          - { label: Meta description, name: description, widget: text }
+          - { label: Name, name: name, widget: string }
+          - { label: Role, name: role, widget: string }
+          - { label: PDF file, name: pdf, widget: string, hint: "Path of the downloadable CV, e.g. matt-leete-cv.pdf" }
+          - { label: PDF button label, name: pdf_label, widget: string }
+          - label: Sections
+            name: sections
+            widget: list
+            fields:
+              - { label: Section label, name: label, widget: string, hint: "e.g. Experience, Education" }
+              - label: Rows
+                name: rows
+                widget: list
+                fields:
+                  - { label: Organisation, name: org, widget: string }
+                  - { label: Position, name: position, widget: string }
+                  - { label: Dates, name: dates, widget: string }
+          - { label: Layout (do not change), name: layout, widget: hidden, default: layouts/cv.njk }
+          - { label: URL (do not change), name: permalink, widget: hidden, default: cv.html }
+          - { label: Title, name: title, widget: hidden, default: CV }
+
+      - name: contact
+        label: Contact
+        file: src/contact.md
+        fields:
+          - { label: Meta description, name: description, widget: text }
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Headline, name: headline, widget: string }
+              - { label: Intro, name: intro, widget: text }
+          - { label: Email address, name: email, widget: string }
+          - label: Channels
+            name: channels
+            widget: list
+            fields:
+              - { label: Platform, name: platform, widget: string }
+              - { label: Link text, name: label, widget: string }
+              - { label: Arrow, name: arrow, widget: string, default: "→" }
+              - { label: Sub-line, name: sub, widget: string }
+              - { label: Link, name: href, widget: string }
+              - { label: Opens in new tab, name: external, widget: boolean, default: false }
+          - { label: Availability line, name: availability, widget: string }
+          - { label: Layout (do not change), name: layout, widget: hidden, default: layouts/contact.njk }
+          - { label: URL (do not change), name: permalink, widget: hidden, default: portfolio-contact.html }
+          - { label: Title, name: title, widget: hidden, default: Contact }

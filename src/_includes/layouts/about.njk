@@ -1,0 +1,98 @@
+---
+layout: layouts/base.njk
+stylesheets:
+  - assets/design-system.css
+  - assets/about.css
+---
+<div class="about-wrap">
+
+  <!-- HERO -->
+  <header class="about-hero">
+    <div>
+      <div class="about-eyebrow">{{ hero.eyebrow }}</div>
+      <h1 class="about-title">{{ hero.headline }}</h1>
+    </div>
+    <div>
+      <p class="about-intro">{{ hero.intro }}</p>
+      <div class="about-actions">
+        {%- for a in hero.actions %}
+        <a class="btn{{ ' btn-secondary' if a.secondary }}" href="{{ a.href }}">{{ a.label }}</a>
+        {%- endfor %}
+      </div>
+    </div>
+  </header>
+
+  <!-- BIO -->
+  <section class="about-section">
+    <div class="bio-grid">
+      <div class="bio-photo"><span>Photo</span></div>
+      <div>
+        {{ content | replace("<p>", '<p class="bio-para">') | safe }}
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="about-section">
+    <div class="about-section-head">
+      <h2 class="about-section-title">{{ skills.title }}</h2>
+      <p class="about-section-note">{{ skills.note }}</p>
+    </div>
+    <div class="skills-grid">
+      {%- for cell in skills.cells %}
+      <div class="skill-cell">
+        <div class="skill-cat">{{ cell.category }}</div>
+        <div class="skill-list">
+          {%- for item in cell.items %}
+          <span class="skill-item">{{ item }}</span>
+          {%- endfor %}
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+    <div class="meta-row">
+      {%- for m in meta %}
+      <div class="meta-block">
+        <div class="meta-label">{{ m.label }}</div>
+        <div class="meta-value">{{ m.value | escape | replace("\n", "<br>") | safe }}</div>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="about-section">
+    <div class="about-section-head">
+      <h2 class="about-section-title">{{ work.title }}</h2>
+      <p class="about-section-note">{{ work.note }}</p>
+    </div>
+    {%- for group in work.groups %}
+    <div class="work-group-label">{{ group.label }}</div>
+    <div class="work-list">
+      {%- for item in group.items %}
+      <div class="work-item">
+        <div class="work-meta">
+          <div class="work-role">{{ item.role }}</div>
+          <div class="work-year">{{ item.org_year }}</div>
+        </div>
+        <div>
+          <div class="work-context">{{ item.context }}</div>
+          <p class="work-desc">{{ item.desc }}</p>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+    {%- endfor %}
+  </section>
+
+  <!-- CTA -->
+  <section class="about-cta">
+    <div class="about-cta-text">{{ cta.text }}</div>
+    <div class="about-cta-actions">
+      {%- for a in cta.actions %}
+      <a class="btn{{ ' btn-secondary' if a.secondary }}" href="{{ a.href }}">{{ a.label }}</a>
+      {%- endfor %}
+    </div>
+  </section>
+
+</div><!-- /about-wrap -->

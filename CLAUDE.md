@@ -10,15 +10,15 @@ Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_
 ```
 ├── src/                  ← PUBLIC. Eleventy input; everything here ends up on the live site. Live pages + assets ONLY.
 │   ├── index.html                          home (single-page, with #work / #fun sections)
-│   ├── portfolio-about.html                dedicated About page
-│   ├── portfolio-contact.html              dedicated Contact page
-│   ├── cv.html  +  matt-leete-cv.pdf        CV page + downloadable PDF
+│   ├── about.md · cv.md · contact.md        About / CV / Contact — front-matter content, rendered by
+│   │                                        _includes/layouts/{about,cv,contact}.njk to the same .html URLs
+│   ├── matt-leete-cv.pdf                   downloadable CV
 │   ├── case-studies/*.md                    case studies — Markdown + front matter, rendered by
 │   │                                        _includes/layouts/case-study.njk → portfolio-case-study-<slug>.html
-│   ├── _includes/layouts/                  base.njk (head/nav/footer) · case-study.njk
+│   ├── _includes/layouts/                  base.njk (head/nav/footer) · case-study.njk · about/cv/contact.njk
 │   ├── _data/site.yml                      name, links, nav, case-study password
 │   ├── admin/                              Decap CMS (index.html + config.yml) — login via tools/decap-oauth
-│   ├── assets/            CODE: design-system.css, case-study.css, theme.js
+│   ├── assets/            CODE: design-system.css, case-study.css, about/cv/contact.css, theme.js
 │   ├── images/            MEDIA: images/occypicks/…, og-image.jpg
 │   └── src.11tydata.js    keeps flat .html URLs (no /pretty/ paths)
 ├── _site/                ← BUILD OUTPUT (gitignored). Never edit; never commit.
