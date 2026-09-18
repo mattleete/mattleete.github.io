@@ -7,3 +7,7 @@
 # Personal "how to work with Claude" guide — kept local (this repo is public)
 Portfolio-Resume-Guide.pdf
 resume-guide.html
+
+# Eleventy build
+node_modules/
+_site/

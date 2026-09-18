@@ -1,0 +1,26 @@
+{
+  "name": "mattleete-github-io",
+  "version": "1.0.0",
+  "description": "Matt Leete portfolio — Eleventy source",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattleete/mattleete.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mattleete/mattleete.github.io/issues"
+  },
+  "homepage": "https://github.com/mattleete/mattleete.github.io#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  },
+  "private": true
+}

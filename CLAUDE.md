@@ -1,6 +1,6 @@
 # Matt Leete — Portfolio (mattleete.github.io)
 
-Personal portfolio site. Static HTML/CSS/JS, no build step. Hosted on **GitHub Pages, served from `docs/`**.
+Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_site/`), deployed to **GitHub Pages by GitHub Actions** on every push to `main`. A git-backed CMS (Decap, at `/admin/`) is being added in stages — see `PLAN.md`.
 
 - **Live:** https://mattleete.github.io  ·  **Repo:** https://github.com/mattleete/mattleete.github.io
 - **Custom domain / other live product:** the Occypicks project lives at https://occypicks.com (separate repo).
@@ -8,14 +8,18 @@ Personal portfolio site. Static HTML/CSS/JS, no build step. Hosted on **GitHub P
 ## Repository layout
 
 ```
-├── docs/                 ← PUBLIC. GitHub Pages serves everything in here. Live pages + assets ONLY.
+├── src/                  ← PUBLIC. Eleventy input; everything here ends up on the live site. Live pages + assets ONLY.
 │   ├── index.html                          home (single-page, with #work / #fun sections)
 │   ├── portfolio-about.html                dedicated About page
 │   ├── portfolio-contact.html              dedicated Contact page
 │   ├── cv.html  +  matt-leete-cv.pdf        CV page + downloadable PDF
 │   ├── portfolio-case-study-*.html          case studies (rest-super, ai-accelerator, occypicks)
 │   ├── assets/            CODE: design-system.css, theme.js
-│   └── images/            MEDIA: images/occypicks/… (screenshots, video)
+│   ├── images/            MEDIA: images/occypicks/…, og-image.jpg
+│   └── src.11tydata.js    keeps flat .html URLs (no /pretty/ paths)
+├── _site/                ← BUILD OUTPUT (gitignored). Never edit; never commit.
+├── .eleventy.js  +  package.json     Eleventy config
+├── .github/workflows/pages.yml       build + deploy to Pages
 ├── design-source/        ← INTERNAL (not served). Design system source of truth.
 │   ├── tokens.json                         colours / type / spacing tokens
 │   ├── style-guide.html, usage-guide.html, figma-naming-guide.html
@@ -26,7 +30,7 @@ Personal portfolio site. Static HTML/CSS/JS, no build step. Hosted on **GitHub P
 └── HOUSEKEEPING.md       repo-structure conventions + best-practice notes
 ```
 
-**Golden rule:** only finished, linked pages + their assets go in `docs/` — it's all public. Drafts, notes, and source belong in `design-source/` or `archive/`, never `docs/`.
+**Golden rule:** only finished, linked pages + their assets go in `src/` — it's all public. Drafts, notes, and source belong in `design-source/` or `archive/`, never `src/`.
 
 ## Design system (must follow)
 
@@ -47,8 +51,9 @@ This repo may be edited from **more than one place/session**. To avoid duplicate
 
 ## Preview & deploy
 
-- **Preview locally:** `cd docs && python3 -m http.server 8891` → open http://localhost:8891/
-- **Deploy:** push to `main`; GitHub Pages rebuilds `docs/` automatically (~1 min).
+- **Preview locally:** `npm install` once, then `npm run serve` → http://localhost:8080/ (live-reloads on edit).
+- **Build only:** `npm run build` → `_site/`.
+- **Deploy:** push to `main`; the Pages workflow builds and deploys (~1–2 min). Check the Actions tab if the site doesn't update.
 
 ## Conventions
 
