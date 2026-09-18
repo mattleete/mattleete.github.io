@@ -9,7 +9,7 @@ Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_
 
 ```
 ├── src/                  ← PUBLIC. Eleventy input; everything here ends up on the live site. Live pages + assets ONLY.
-│   ├── index.html                          home (single-page, with #work / #fun sections)
+│   ├── index.njk  +  _data/home.yml          home (hero words + Work/Fun/About cards come from home.yml)
 │   ├── about.md · cv.md · contact.md        About / CV / Contact — front-matter content, rendered by
 │   │                                        _includes/layouts/{about,cv,contact}.njk to the same .html URLs
 │   ├── matt-leete-cv.pdf                   downloadable CV
@@ -18,7 +18,7 @@ Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_
 │   ├── _includes/layouts/                  base.njk (head/nav/footer) · case-study.njk · about/cv/contact.njk
 │   ├── _data/site.yml                      name, links, nav, case-study password
 │   ├── admin/                              Decap CMS (index.html + config.yml) — login via tools/decap-oauth
-│   ├── assets/            CODE: design-system.css, case-study.css, about/cv/contact.css, theme.js
+│   ├── assets/            CODE: design-system.css, case-study.css, about/cv/contact/home.css, theme.js, home.js
 │   ├── images/            MEDIA: images/occypicks/…, og-image.jpg
 │   └── src.11tydata.js    keeps flat .html URLs (no /pretty/ paths)
 ├── _site/                ← BUILD OUTPUT (gitignored). Never edit; never commit.
@@ -58,6 +58,7 @@ This repo may be edited from **more than one place/session**. To avoid duplicate
 - **Preview locally:** `npm install` once, then `npm run serve` → http://localhost:8080/ (live-reloads on edit).
 - **Build only:** `npm run build` → `_site/`.
 - **Deploy:** push to `main`; the Pages workflow builds and deploys (~1–2 min). Check the Actions tab if the site doesn't update.
+- **Edit copy in the browser:** https://mattleete.github.io/admin/ (Decap CMS; Save = draft PR, Publish = live). Login via `tools/decap-oauth` on Vercel.
 
 ## Conventions
 

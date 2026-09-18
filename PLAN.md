@@ -12,6 +12,16 @@
 **Portfolio — Job-Ready Plan** (private). Notion is the source of truth for
 what's done; this file carries the *why* and the technical detail.
 
+### CMS (2026-09-18) — done, all three stages live
+
+Matt chose a git-backed CMS over web-editing HTML or Markdown-as-source. The site now
+builds from `src/` with **Eleventy 3**, deploys via **GitHub Actions**, and every page is
+editable at **https://mattleete.github.io/admin/** (Decap CMS; Save = draft PR, Publish =
+live in ~90 s). Case studies are Markdown; About/CV/Contact and the home page are
+front-matter/YAML content behind small Nunjucks layouts. The 648-line case-study CSS
+duplication is gone (one `assets/case-study.css`). Login helper: `tools/decap-oauth/` on
+Vercel. Architecture and the "how to add a page" rules are in the `portfolio-design` skill.
+
 **Where we are:** Phases 0 & 1 done; the site is on one design system and live.
 A full review on 2026-09-17 re-prioritised the remaining work around one
 question: *what actually wins interviews?*

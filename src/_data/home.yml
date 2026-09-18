@@ -1,0 +1,56 @@
+# Home page content — edited via /admin/ → Settings → Home page.
+hero:
+  prefix: "Turn"
+  joiner: "into"
+  # Cycles through these pairs: "Turn {first} into {second}"
+  pairs:
+    - { first: "apathy", second: "joy" }
+    - { first: "chaos", second: "clarity" }
+    - { first: "friction", second: "flow" }
+  name: "Matt Leete"
+  role: "Product Designer"
+
+sections:
+  - id: work
+    title: "Work"
+    cards:
+      - title: "Making complex simple"
+        desc: "A member-experience strategy and product concepts that make a complex superannuation journey feel simple."
+        tags: ["Product Design", "CX", "Journey Mapping"]
+        href: portfolio-case-study-rest-super.html
+      - title: "Making unknown trustworthy"
+        desc: "Building trust into an AI-powered workflow accelerator — so people rely on what they can't fully see."
+        tags: ["Product Design", "UX", "AI"]
+        href: portfolio-case-study-ai-accelerator.html
+      - title: "Making formidable fun"
+        desc: "A product concept bringing more inclusive, playful voice communication to competitive gaming."
+        tags: ["Product Design", "Accessibility", "Interaction"]
+        status: in-progress
+        status_label: "In progress"
+
+  - id: fun
+    title: "Fun"
+    cards:
+      - title: "Occypicks"
+        desc: "A fantasy game for the 2026 World Cup — friends snake-draft all 48 teams, then climb a live leaderboard as the tournament plays out. Designed, built, and shipped solo."
+        tags: ["Product Design", "Full-Stack", "React"]
+        href: portfolio-case-study-occypicks.html
+      - title: "Move to the music"
+        desc: "An exploration of computer vision and machine learning to reflect and recognise emotion through music"
+        tags: ["Product Design", "CX", "Journey Mapping"]
+      - title: "Sound of Mind"
+        desc: "An ECG based sonic experience that supports mindfulness meditation with the sound of your thoughts"
+        tags: ["Product Design", "UX", "AI"]
+
+  - id: about
+    title: "About"
+    cards:
+      - title: "What I do for you"
+        desc: "An experienced senior product designer who works end to end — from strategy through to delivery."
+        tags: ["Intentional", "Process driven", "Leadership"]
+      - title: "What I do for me"
+        desc: "If I'm not designing products I'm tinkering with tech, making noise or trying to get tubed (🤙)"
+        tags: ["Creative Coding", "Music and sound", "Surfing"]
+      - title: "What I do for everyone"
+        desc: "I'm a 'rising tide lifts all boats' kind of person. I build a positive and safe work culture that helps teams thrive."
+        tags: ["Teamwork", "Optimistic", "Authentic"]

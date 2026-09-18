@@ -6,12 +6,13 @@ Reference for keeping this repo clean. Done in the 2026-08 housekeeping pass; th
 
 ## The mental model: three layers of structure
 
-### 1. `docs/` is public — treat it that way
-GitHub Pages serves **everything** in `docs/`. So `docs/` contains **only** finished, linked pages and the assets they use. Anything unlinked but present is still reachable by URL.
-- ✅ In `docs/`: live pages, `assets/` (CSS/JS), `images/` (media), the CV PDF.
-- ❌ Not in `docs/`: drafts, scratch files, design source, internal notes, local settings.
+### 1. `src/` is public — treat it that way
+Eleventy builds **everything** in `src/` into `_site/`, which GitHub Actions deploys. So `src/` contains **only** finished content, layouts and the assets they use. Anything present is reachable by URL once built (Markdown with `draft: true` is the one exception — it is never built, but it is still visible in the public repo).
+- ✅ In `src/`: content files (`*.md`, `_data/*.yml`), layouts (`_includes/`), `assets/` (CSS/JS), `images/`, the CV PDF, `admin/` (the CMS).
+- ❌ Not in `src/`: drafts you haven't cleared, scratch files, design source, internal notes, local settings.
+- `_site/` is build output: gitignored, never edited, never committed.
 
-### 2. Source and history live *outside* `docs/`
+### 2. Source and history live *outside* `src/`
 - **`design-source/`** — the design system's source of truth: `tokens.json`, style/usage guides, original `.pages`/`.docx` docs. Versioned, but never served.
 - **`archive/`** — superseded/old work kept for reference (see `archive/README.md`). To retire something: move it here, never delete-in-place, and note it in the README.
 
@@ -48,9 +49,20 @@ Rule of thumb: *stable + every-session → `CLAUDE.md`; detailed + task-triggere
 
 ## Conventions going forward
 
-1. **New live page?** It goes in `docs/`, links `assets/design-system.css`, follows the `portfolio-design` skill. Nothing else goes in `docs/`.
-2. **Retiring a page?** Move it to `archive/` (never leave dead files in `docs/`); note it in `archive/README.md`.
+1. **New live page?** A content file in `src/` (or via `/admin/`) rendered by a layout in `src/_includes/layouts/` — see the `portfolio-design` skill. No hand-written full HTML pages.
+2. **Retiring a page?** Move it to `archive/` (never leave dead files in `src/`); note it in `archive/README.md`.
 3. **Source/tokens/design files?** `design-source/`.
 4. **Names:** kebab-case, no spaces, no typos.
 5. **Git:** `git fetch` before starting; push after milestones; ask before pushing; never force-push; merge on divergence. (See `CLAUDE.md`.)
 6. **Never commit** `settings.local.json` or `.DS_Store` (both gitignored).
+
+---
+
+## 2026-09-18 — Eleventy + Decap CMS
+
+`docs/` became `src/`; the site is now generated (Eleventy 3) and deployed by `.github/workflows/pages.yml` (Pages `build_type: workflow`). Copy is in content files, editable at `/admin/` (Decap CMS, editorial workflow: Save = draft PR, Publish = live). The CMS login runs through `tools/decap-oauth/`, a two-route serverless helper deployed to Vercel (project `mattleete-github-io`, root directory `tools/decap-oauth`) with a GitHub OAuth App's ID/secret as environment variables.
+
+Rules that came with it:
+- **Never `git add -A`** while unpublished drafts sit in `design-source/` — add paths explicitly.
+- A CMS save re-serialises a file's whole front matter (unquoted YAML, block scalars). Large diffs for small edits are normal; values don't change.
+- The case-study layout uses `assets/case-study.css` alone; the other layouts use `design-system.css` + a page file. Don't mix them.

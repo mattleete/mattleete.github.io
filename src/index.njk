@@ -1,0 +1,62 @@
+---
+layout: layouts/base.njk
+permalink: index.html
+title: "Home"
+pageTitle: "Matt Leete — Product Designer"
+description: "Human-centred product designer in Sydney. I turn chaos into clarity — across strategy, research and detailed product design."
+stylesheets:
+  - assets/design-system.css
+  - assets/home.css
+scripts:
+  - https://unpkg.com/three@0.160.0/build/three.min.js
+  - assets/home.js
+---
+{#- Content comes from src/_data/home.yml (CMS: Settings → Home page). -#}
+{%- set h = home.hero %}
+{%- set first = h.pairs[0] %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-display">{{ h.prefix }} <span class="word-slot" id="slot1"><span class="slot-mask">{{ h.pairs | longest("first") }}</span><span class="slot-word">{{ first.first }}</span></span><span class="mobile-break"></span>&nbsp;{{ h.joiner }} <span class="word-slot" id="slot2"><span class="slot-mask">{{ h.pairs | longest("second") }}</span><span class="slot-word">{{ first.second }}</span></span></div>
+    <div class="hero-name">{{ h.name }}<br>{{ h.role }}</div>
+  </div>
+  <div class="hero-animation">
+    <canvas id="ringCanvas" width="272" height="272"></canvas>
+  </div>
+</section>
+<script id="hero-words" type="application/json">{{ h.pairs | pairsJson | safe }}</script>
+
+<!-- WAVE DIVIDER -->
+<div class="wave-divider" aria-hidden="true"></div>
+
+{%- for section in home.sections %}
+<!-- {{ section.title | upper }} -->
+<section class="section" id="{{ section.id }}">
+  <div class="section-inner">
+    <div class="section-title">{{ section.title }}</div>
+    <div class="cards-row">
+      {%- for card in section.cards %}
+      {%- set soon = card.status == "in-progress" %}
+      {%- set tag = "a" if card.href else "div" %}
+      <{{ tag }} class="card{{ ' card-soon' if soon }}"{% if card.href %} href="{{ card.href }}" style="text-decoration:none;"{% endif %}>
+        <div class="card-image">{% if soon %}<span class="card-badge">{{ card.status_label or "In progress" }}</span>{% endif %}</div>
+        <div class="card-title">{{ card.title }}</div>
+        <div class="card-desc">{{ card.desc }}</div>
+        <div class="card-divider"></div>
+        <div class="card-bottom">
+          <div class="card-tags">
+            {%- for t in card.tags %}
+            <span class="tag">{{ t }}</span>
+            {%- endfor %}
+          </div>
+          {%- if not soon %}
+          <span class="card-arrow">→</span>
+          {%- endif %}
+        </div>
+      </{{ tag }}>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endfor %}

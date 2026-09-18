@@ -194,3 +194,64 @@ collections:
           - { label: Layout (do not change), name: layout, widget: hidden, default: layouts/contact.njk }
           - { label: URL (do not change), name: permalink, widget: hidden, default: portfolio-contact.html }
           - { label: Title, name: title, widget: hidden, default: Contact }
+
+  - name: settings
+    label: Settings
+    editor:
+      preview: false
+    files:
+      - name: home
+        label: Home page
+        file: src/_data/home.yml
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: First word, name: prefix, widget: string, default: "Turn" }
+              - { label: Middle word, name: joiner, widget: string, default: "into" }
+              - label: Word pairs
+                name: pairs
+                widget: list
+                hint: "The hero cycles through these — “Turn {first} into {second}”."
+                fields:
+                  - { label: First, name: first, widget: string }
+                  - { label: Second, name: second, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Role, name: role, widget: string }
+          - label: Sections
+            name: sections
+            widget: list
+            hint: "Work · Fun · About. Each holds a row of cards."
+            fields:
+              - { label: Anchor id, name: id, widget: string, hint: "Used in links, e.g. index.html#work" }
+              - { label: Title, name: title, widget: string }
+              - label: Cards
+                name: cards
+                widget: list
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Description, name: desc, widget: text }
+                  - { label: Tags, name: tags, widget: list }
+                  - { label: Link, name: href, widget: string, required: false, hint: "e.g. portfolio-case-study-occypicks.html. Leave empty for no link." }
+                  - { label: Image, name: image, widget: image, required: false }
+                  - { label: Status, name: status, widget: select, options: [{ label: "Published", value: "" }, { label: "In progress (badge, not clickable)", value: "in-progress" }], required: false }
+                  - { label: Status label, name: status_label, widget: string, required: false, default: "In progress" }
+
+      - name: site
+        label: Site details
+        file: src/_data/site.yml
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Title / role, name: title, widget: string }
+          - { label: Site URL, name: url, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: LinkedIn URL, name: linkedin, widget: string }
+          - { label: Case-study password, name: case_study_password, widget: string, hint: "Visible in the page source — a courtesy gate, not security." }
+          - { label: Share image, name: og_image, widget: string, hint: "Path used for link previews, e.g. /images/og-image.jpg" }
+          - label: Navigation
+            name: nav
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Link, name: href, widget: string }

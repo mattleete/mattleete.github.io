@@ -52,6 +52,12 @@ module.exports = function (eleventyConfig) {
   // Array minus one value — used to drop the collection tag from a page's display tags.
   eleventyConfig.addFilter("without", (arr, v) => (arr || []).filter((x) => x !== v));
 
+  // Longest value of `key` across a list of objects — sizes the hero word masks.
+  eleventyConfig.addFilter("longest", (arr, key) =>
+    (arr || []).reduce((best, o) => (String(o[key] || "").length > best.length ? String(o[key]) : best), ""));
+  // Hero word pairs as the [[first, second], …] JSON that home.js expects.
+  eleventyConfig.addFilter("pairsJson", (arr) => JSON.stringify((arr || []).map((p) => [p.first, p.second])));
+
   // Look a case study up by slug (used for the "Next project" block).
   eleventyConfig.addFilter("bySlug", (collection, slug) =>
     (collection || []).find((p) => p.fileSlug === slug));
