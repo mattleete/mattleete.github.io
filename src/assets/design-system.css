@@ -402,6 +402,9 @@ nav:not(.nav-links):has(.nav-links.open) {
 .section {
   padding: 128px 64px;
 }
+/* Two sections back to back would stack their paddings (256px between the
+   Work cards and the Fun title). Collapse the seam so it is one padding. */
+.section + .section { padding-top: 0; }
 .section-inner {
   width: 1312px;
   margin: 0 auto;
