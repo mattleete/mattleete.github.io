@@ -1,30 +1,52 @@
 ---
-title: "A fantasy World Cup where every pick counts"
-subtitle: "OccyPicks — self-initiated product, game and experience design for a season-long fantasy draft, played by 23 friends across the 2026 FIFA World Cup. Live at occypicks.com."
-description: "Case study: self-initiated product, game and experience design for a season-long fantasy draft played by 23 friends across the 2026 FIFA World Cup."
-breadcrumb: "Fun → OccyPicks"
+title: TEST A fantasy World Cup where every pick counts
+subtitle: TEST OccyPicks — self-initiated product, game and experience design
+  for a season-long fantasy draft, played by 23 friends across the 2026 FIFA
+  World Cup. Live at occypicks.com.
+description: "TEST Case study: self-initiated product, game and experience
+  design for a season-long fantasy draft played by 23 friends across the 2026
+  FIFA World Cup."
+breadcrumb: Fun → OccyPicks
 tags:
-  - "Product Design"
-  - "Game Design"
-  - "Creative Coding"
-  - "Solo"
+  - Product Design
+  - Game Design
+  - Creative Coding
+  - Solo
 meta:
-  - { label: "My Role", value: "Design, game system & build" }
-  - { label: "Type", value: "Self-initiated side project" }
-  - { label: "Duration", value: "Feb – Jul 2026" }
-  - { label: "Built for", value: "23 friends (the KSO group)" }
-  - { label: "Deliverables", value: "Game & scoring system\nDesign system & brand\nLive web app\nPost-season analytics" }
-overview:
-  challenge: "Twenty-three friends wanted a shared, season-long way into the 2026 World Cup. But fantasy formats are fiddly and player-by-player — and once your team is knocked out, you're watching the rest of the tournament with nothing at stake."
-  approach: "I designed a simple team-draft game with a scoring system that deliberately rewards weaker teams, built it as a live web app with a real-time draft, gave it a character — Occy — and ran it for real across the whole tournament."
-  outcome: "A product genuinely used by 23 people for a month. The scoring landed near-perfect balance across team strengths, the draft became a group event, and the season closed with its own analytics pack."
-gated: false
+  - label: My Role
+    value: Design, game system & build
+  - label: Type
+    value: Self-initiated side project
+  - label: Duration
+    value: Feb – Jul 2026
+  - label: Built for
+    value: 23 friends (the KSO group)
+  - label: Deliverables
+    value: |-
+      Game & scoring system
+      Design system & brand
+      Live web app
+      Post-season analytics
 draft: false
-next: rest-super
-hero_html: |
-  <video class="cs-hero-media" autoplay muted loop playsinline poster="images/occypicks/occy-poster.png">
+hero_html: >
+  <video class="cs-hero-media" autoplay muted loop playsinline
+  poster="images/occypicks/occy-poster.png">
     <source src="images/occypicks/occy.mp4" type="video/mp4">
   </video>
+overview:
+  challenge: Twenty-three friends wanted a shared, season-long way into the 2026
+    World Cup. But fantasy formats are fiddly and player-by-player — and once
+    your team is knocked out, you're watching the rest of the tournament with
+    nothing at stake.
+  approach: I designed a simple team-draft game with a scoring system that
+    deliberately rewards weaker teams, built it as a live web app with a
+    real-time draft, gave it a character — Occy — and ran it for real across the
+    whole tournament.
+  outcome: A product genuinely used by 23 people for a month. The scoring landed
+    near-perfect balance across team strengths, the draft became a group event,
+    and the season closed with its own analytics pack.
+gated: false
+next: rest-super
 ---
 
 <!-- 01 THE PROBLEM -->
