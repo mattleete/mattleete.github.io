@@ -6,7 +6,7 @@
 
 ---
 
-## ▶ Current status / Next up (updated 2026-09-17 — read this first)
+## ▶ Current status / Next up (updated 2026-09-18 — read this first)
 
 **Tracker:** the live, tickable version of this list lives in Notion —
 **Portfolio — Job-Ready Plan** (private). Notion is the source of truth for
@@ -74,28 +74,69 @@ What the review found instead, in order of hiring impact:
   arrow) plus an `In progress` badge on the image. The badge sits on the image
   rather than in the tag row because a status word there forces the tags to wrap.
 
+### Code & plan review (2026-09-18, after the CMS migration)
+
+Full pass over the generated site, the layouts, the CMS config, the deploy and the
+helper. Nothing is broken on the live site; the findings are gaps and hardening.
+
+**Defects (fix first — small, mine):**
+1. **Home cards ignore the `image` field.** The CMS exposes *Image* per card
+   (Settings → Home page) but `src/index.njk` never renders it and there is no
+   `.card-image img` rule. Uploading a card image today does nothing. Fix: render
+   `<img>` with `object-fit: cover` when `card.image` is set.
+2. **`markdown-it` is required by `.eleventy.js` but not declared** in
+   `package.json` — it works only because Eleventy pulls it in transitively. A
+   future Eleventy bump can break the build. Declare it.
+3. **`theme.js` has no guard around `localStorage`.** In Safari private mode or
+   with storage blocked it throws on line 1 — and because the hamburger and wave
+   handlers are in the same script, the mobile nav dies with it. Wrap in try/catch.
+4. **No `<h1>` on Home or CV** (hero and name are `<div>`s). Accessibility and
+   search both want one per page. Promote `.hero-display` and `.cv-name`.
+5. Minor: footer year hardcoded `2026` in `base.njk` (make it computed); one
+   `res.status()` Vercel-helper call left in `tools/decap-oauth/api/callback.js`
+   (the rest uses plain Node); Decap loaded as `^3.0.0` from unpkg (pin an exact
+   version so a minor release can't change the editor under Matt).
+
+**Tech debt (Later):**
+- `case-study.css` still carries its own copies of the nav, aurora/mesh, footer and
+  `.tag` rules (≈120 lines) that `design-system.css` also has. The case-study
+  layout therefore loads *only* `case-study.css`. Reconciling them (one nav, one
+  footer) is the next dedup — and the reason the case-study nav lacks the
+  blend-mode inversion the other pages have.
+- The three migrated case-study bodies are raw HTML inside Markdown. They render
+  identically, but in `/admin/` they edit as HTML blocks. New case studies use
+  clean Markdown; converting the old three is optional polish.
+- No `robots.txt`, `sitemap.xml` or styled 404. All cheap; none urgent.
+- `images/occypicks` is 2.2 MB across 9 files (see sizes in git); worth a WebP pass
+  when the Phase-3 performance work happens.
+
+**Risk (needs Matt):**
+- The University CRM draft — `design-source/case-studies/university-crm-draft.html`
+  plus the two source `.md` files — is **untracked**. It exists on one machine only.
+  Strip the NOT-FOR-PUBLICATION section and commit, or copy it somewhere safe.
+
 ### Next up
 
-**Do next (highest hiring impact):**
-1. **Images on the home-page cards.** Even 3–4 strong ones beats nine grey
-   boxes. Work cards matter most.
-2. **Replace the naked password wall** with a styled gate: on-brand, nav intact,
-   case-study title + one-line summary + "email me for access" visible *before*
-   the password field. Turns a dead end into a lead.
-3. **Visuals in REST Super.** It's the anchor and it has none.
+**Matt (the interview bottleneck):**
+1. **Figma: Visual Assets Plan rows 0–4** — the system, the card template, and the
+   REST Super / AI accelerator / Occypicks cards. Full specs are in Notion
+   (*Portfolio — Visual Assets Plan*). Upload via `/admin/` → Settings → Home page.
+2. **CV:** `KPMG · Jan 2022 – Present` at `/admin/` → Pages → CV.
+3. **A portrait** for About (assets row 15).
 
-**Needs Matt (blocked on input):**
-- **AI accelerator placeholders** — team size, deliverables, adoption/impact are
-  still literal `[add …]` text on the page.
-- **Decision: move Occypicks from Fun into Work?** It's the most complete, fully
-  public case study with real imagery and a live product, but it sits in the
-  section that signals "side project".
-- **Decision: ungate REST Super** (possibly anonymised)? Gated content can't be
-  discovered — two-thirds of the work is invisible without the password. Note
-  the gate is plaintext client-side: `MattLeete` is readable in view-source, so
-  it's a courtesy gate, not security.
+**Claude (can start now, no decisions needed):**
+1. The five review defects above, one commit.
+2. **The styled password gate** — 2 of 3 case studies still open to a bare white
+   box. On-brand gate, nav intact, title + one-line summary + "email me for access"
+   visible *before* the field.
+3. Wire the new image slots as files arrive (concept screens, trust UI, personas,
+   About photo — see the assets plan for which rows need markup).
 
-**Later:** case-study CSS dedup · accessibility + performance pass · 404 page.
+**Decisions still open (Matt):** Occypicks Fun → Work? · ungate REST Super? · the
+five home cards with an arrow but no link (Move to the music, Sound of Mind, the
+three About cards) — link them or mark in-progress · dark-mode image variants
+(a small template change; decide before exporting the cards) · AI accelerator
+placeholders (team size, deliverables, outcome) · University CRM confirms.
 
 **Gotchas learned (don't re-break these — all commented in the CSS):**
 - `body { overflow-x: hidden }` makes body a scroll container and **silently
