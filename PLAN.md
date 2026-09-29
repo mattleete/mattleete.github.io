@@ -22,6 +22,8 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 - **2026-09-29 review, fixed in the same session:**
   - The CMS login helper could hand your GitHub token to any site that opened it. Now it
     only answers `mattleete.github.io` and asks for `public_repo` access instead of `repo`.
+    The fixed helper is live on Vercel, and Matt revoked the old full-`repo` grant on
+    GitHub, so the next `/admin/` login asks for approval again with the smaller access.
   - Home cards were cut off at every window width from 769px to about 1440px (most
     laptops). The cards now share the row.
   - The hero headline ran off the right edge from 769px to about 880px (portrait iPads).
@@ -35,23 +37,19 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 ## Next up
 
 ### Matt — the interview bottleneck
-1. **Redeploy the login helper and drop the old grant.** Redeploy `tools/decap-oauth` on
-   Vercel (automatic if the project is connected to the repo). Then go to GitHub → Settings →
-   Applications → Authorized OAuth Apps and revoke this app once, so the old full-`repo` grant
-   goes away. The next CMS login asks again with the smaller scope.
-2. **Visual assets, rows 0–4** (Notion *Visual Assets Plan*): the Figma system, the card
+1. **Visual assets, rows 0–4** (Notion *Visual Assets Plan*): the Figma system, the card
    template, and the REST Super / AI accelerator / Occypicks cards. Upload through `/admin/` →
    Settings → Home page → card → Image.
-3. **Fill the AI accelerator or pull it.** It's linked from a Work card and every section still
+2. **Fill the AI accelerator or pull it.** It's linked from a Work card and every section still
    shows `[add …]` placeholders: team size, deliverables, outcome, process, trust techniques,
    reflection. Anyone sent the password sees a template. Until it's written, set the card to
    *In progress*, or set the case study to `draft: true`.
-4. **Decide the gate** (see the open decisions below). This is more urgent than it looks: the
+3. **Decide the gate** (see the open decisions below). This is more urgent than it looks: the
    gate only hides text in the browser.
-5. **Regenerate the CV PDF.** The site says KPMG ended Sep 2026; the PDF recruiters download
+4. **Regenerate the CV PDF.** The site says KPMG ended Sep 2026; the PDF recruiters download
    hasn't been updated since the change.
-6. **A portrait for About** (assets row 15).
-7. **Save the University CRM drafts.** `design-source/case-studies/university-crm-*` is still
+5. **A portrait for About** (assets row 15).
+6. **Save the University CRM drafts.** `design-source/case-studies/university-crm-*` is still
    untracked and exists on one machine only. Strip the NOT-FOR-PUBLICATION section and commit,
    or copy it somewhere safe.
 
