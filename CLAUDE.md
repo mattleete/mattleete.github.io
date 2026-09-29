@@ -1,6 +1,6 @@
 # Matt Leete — Portfolio (mattleete.github.io)
 
-Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_site/`), deployed to **GitHub Pages by GitHub Actions** on every push to `main`. A git-backed CMS (Decap, at `/admin/`) is being added in stages — see `PLAN.md`.
+Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_site/`), deployed to **GitHub Pages by GitHub Actions** on every push to `main`. Copy is editable in a git-backed CMS (Decap, at `/admin/`). Current status and next steps: `PLAN.md`.
 
 - **Live:** https://mattleete.github.io  ·  **Repo:** https://github.com/mattleete/mattleete.github.io
 - **Custom domain / other live product:** the Occypicks project lives at https://occypicks.com (separate repo).
@@ -30,7 +30,7 @@ Personal portfolio site. Static HTML/CSS/JS built by **Eleventy** (`src/` → `_
 │   └── case-studies/     original .pages source docs
 ├── archive/              ← INTERNAL (not served). Superseded/old work, kept for reference.
 ├── .claude/skills/portfolio-design/        the design-system skill (see below)
-├── PLAN.md               staged plan + locked design decisions for the job-hunt build
+├── PLAN.md               current status, next up, open + locked decisions, gotchas (history → archive/)
 └── HOUSEKEEPING.md       repo-structure conventions + best-practice notes
 ```
 
