@@ -134,8 +134,11 @@ footerStyle: simple
       if (locked) locked.hidden = false;
     }
     // Direct link: #access=<password> unlocks and clears itself from the URL.
-    var m = /(?:^#|&)access=([^&]+)/.exec(location.hash);
-    if (m && decodeURIComponent(m[1]) === PASSWORD) {
+    // A malformed value (e.g. a stray %) makes decodeURIComponent throw, which
+    // would stop this script before the form handler below is attached.
+    var m = /(?:^#|&)access=([^&]+)/.exec(location.hash), given = null;
+    if (m) { try { given = decodeURIComponent(m[1]); } catch (e) {} }
+    if (given === PASSWORD) {
       unlock();
       history.replaceState(null, '', location.pathname + location.search);
     } else if (store.get('cs-unlocked') === 'yes') {

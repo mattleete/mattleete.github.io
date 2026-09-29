@@ -7,6 +7,9 @@ backend:
   branch: main
   base_url: https://mattleete-github-io.vercel.app
   auth_endpoint: auth
+  # The repo is public, so the CMS needs no access to private repos.
+  # The helper enforces this too (tools/decap-oauth/api/auth.js).
+  auth_scope: public_repo
   commit_messages:
     create: "CMS: add {{collection}} “{{slug}}”"
     update: "CMS: update {{collection}} “{{slug}}”"

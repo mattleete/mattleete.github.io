@@ -10,11 +10,10 @@
 
   // ─── THEME ───
   // First visit: honour the OS preference; afterwards: honour the saved choice.
-  // Persist the resolved choice immediately. The case studies carry their own
-  // inline copy of this block and read the SAME localStorage key; if we leave
-  // the first visit unsaved they fall back to their own default and the site
-  // splits mid-visit (home dark, case study light). Writing it here keeps
-  // every page agreeing from the first paint.
+  // base.njk has a one-line copy of this rule in <head> so the theme is set
+  // before first paint (no white flash); keep the two in step. Persisting the
+  // resolved choice on the first visit keeps every page agreeing even if the
+  // OS preference changes mid-visit.
   // localStorage can throw (Safari private mode, storage blocked). If it did
   // here it would take the hamburger and wave handlers below down with it, so
   // every access goes through these two guards.

@@ -68,6 +68,8 @@
 })();
 
 // ─── 3D BLOB (Three.js) ───
+// Dormant: the canvas is hidden and index.njk no longer loads three.js, so
+// this returns at the THREE check. See index.njk to switch it back on.
 (function () {
   const canvas = document.getElementById('ringCanvas');
   if (!canvas || typeof THREE === 'undefined') return;

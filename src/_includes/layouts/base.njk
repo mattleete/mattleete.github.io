@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ pageTitle or (title + ' — ' + site.name) }}</title>
 <meta name="description" content="{{ description }}">
+{%- if gated %}
+{#- The gate only hides the text in the browser; it is still in the HTML.
+    Keep search engines from indexing it. #}
+<meta name="robots" content="noindex">
+{%- endif %}
+{#- Set the theme before first paint. theme.js runs at the end of <body>, so
+    without this a dark-mode visitor sees a white flash on every page. It uses
+    the same rule as theme.js: saved choice, else the OS preference. #}
+<script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'))}catch(e){}</script>
 
 <!-- Icons -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">

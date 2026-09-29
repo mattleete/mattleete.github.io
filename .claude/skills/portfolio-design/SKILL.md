@@ -39,7 +39,7 @@ Monochrome greyscale + a single electric-blue accent. Instrument Sans throughout
 - `nav` + `.nav-logo` `.nav-links` `.nav-link` `.nav-hamburger` — the header. Includes the mobile hamburger + `.theme-toggle`/`.theme-btn` with sun/moon icons.
 - `.wave-divider` — thick wavy section divider. Inverts whatever is behind it (`mix-blend-mode: difference`), so it needs no theme colours and works in light + dark automatically. Tune via `--wave-height/-period/-duration/-opacity`; line thickness is the SVG `stroke-width` in the CSS. Replaced the old scrolling skills marquee.
 - `.section` + `.section-inner` `.section-title` `.cards-row` — a content section.
-- `.card` + `.card-image` `.card-title` `.card-desc` `.card-divider` `.card-bottom` `.card-tags` `.tag` `.card-arrow` — the work/fun/about cards (432px wide, horizontal-scroll on mobile).
+- `.card` + `.card-image` `.card-title` `.card-desc` `.card-divider` `.card-bottom` `.card-tags` `.tag` `.card-arrow` — the work/fun cards. They share the row equally (432px each at the full 1312px width, narrower below it; never a fixed px width) and scroll sideways at 300px on mobile. Image slot is 3:2.
 - `footer` + `.footer-left` `.footer-static` `.footer-arrows-*` `.footer-links` `.footer-link` `.footer-mobile-label` — the footer.
 - `.btn` / `.btn-secondary` — pill buttons.
 - Background: `.mesh` (+ `.blob-1..5`, light) and `.aurora` (+ `.aurora-inner`, dark). Include both blocks near the top of `<body>` with `aria-hidden="true"`.

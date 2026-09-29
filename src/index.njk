@@ -7,8 +7,10 @@ description: "Human-centred product designer in Sydney. I turn chaos into clarit
 stylesheets:
   - assets/design-system.css
   - assets/home.css
+# three.js is NOT loaded while the hero blob is hidden (home.css) — it cost
+# ~670 KB and a WebGL frame loop for nothing on screen. To bring the blob
+# back, add https://unpkg.com/three@0.160.0/build/three.min.js before home.js.
 scripts:
-  - https://unpkg.com/three@0.160.0/build/three.min.js
   - assets/home.js
 ---
 {#- Content comes from src/_data/home.yml (CMS: Settings → Home page). -#}

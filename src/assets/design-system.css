@@ -405,8 +405,12 @@ nav:not(.nav-links):has(.nav-links.open) {
 /* Two sections back to back would stack their paddings (256px between the
    Work cards and the Fun title). Collapse the seam so it is one padding. */
 .section + .section { padding-top: 0; }
+/* Fluid up to the content width. A fixed 1312px overflowed every window
+   narrower than 1440px, and html/body clip horizontal overflow — so the
+   third card was cut off with no way to scroll to it on most laptops. */
 .section-inner {
-  width: 1312px;
+  width: 100%;
+  max-width: var(--content-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -426,9 +430,11 @@ nav:not(.nav-links):has(.nav-links.open) {
 }
 
 /* ─── CARD ─── */
+/* Cards share the row equally: exactly 432px each at the full 1312px width,
+   narrower below it. (Mobile switches to fixed-width, side-scrolling cards.) */
 .card {
-  width: 432px;
-  flex-shrink: 0;
+  flex: 1 1 0;
+  min-width: 0;
   border: 1px solid var(--grey-5);
   display: flex;
   flex-direction: column;
@@ -442,12 +448,12 @@ nav:not(.nav-links):has(.nav-links.open) {
   position: relative;   /* anchors .card-badge */
   overflow: hidden;     /* the image is centre-cropped when the card narrows on mobile */
   width: 100%;
-  height: 288px;
+  aspect-ratio: 3 / 2;  /* 432×288 at full width; keeps its shape as cards narrow */
   background: var(--grey-4);
   flex-shrink: 0;
 }
 /* Card artwork from the CMS (Settings → Home page → card → Image). Fills the
-   432×288 slot; on mobile the card is 300 wide, so the image centre-crops. */
+   3:2 slot; on mobile the slot is 300×288, so the image centre-crops. */
 .card-image img {
   display: block;
   width: 100%;
@@ -682,7 +688,8 @@ footer {
     scrollbar-width: none;
   }
   .cards-row::-webkit-scrollbar { display: none; }
-  .card { width: 300px; }
+  .card { flex: 0 0 300px; }
+  .card-image { aspect-ratio: auto; height: 288px; }   /* unchanged mobile size */
 
   footer {
     flex-direction: column;

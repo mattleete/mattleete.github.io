@@ -21,7 +21,10 @@
   gap: 32px;
 }
 .hero-display {
-  font-size: 72px;
+  /* Full size from ~900px up; scales down just above the mobile breakpoint,
+     where the nowrap headline would otherwise run off the right edge
+     (e.g. portrait iPads at 810–820px). */
+  font-size: min(var(--size-display), 8vw);
   font-weight: 600;
   line-height: 1;
   letter-spacing: -0.04em;
