@@ -37,7 +37,7 @@ What the review found instead, in order of hiring impact:
 1. **All 9 home-page cards are empty grey boxes** (`<div class="card-image"></div>`).
    A product designer's portfolio showing zero design work is the single
    biggest problem on the site. Occypicks is the only page with any imagery —
-   REST Super, the anchor case study, has 5,400 words and **zero images**.
+   The super fund case study, the anchor, has 5,400 words and **zero images**.
 2. **2 of 3 case studies open to a bare white password box** — no nav, no title,
    no context, no way to request access, and it ignores dark mode. It reads as
    broken. Recruiters close the tab rather than email for a password.
@@ -64,9 +64,9 @@ What the review found instead, in order of hiring impact:
   a stroked polyline so it needs no webfont), `docs/apple-touch-icon.png`
   (180×180), and `docs/images/og-image.jpg` (1200×630, real Instrument Sans,
   signature wave). Full OG + Twitter + canonical + icon tags on **all 7 pages**;
-  `index.html`, `rest-super` and `occypicks` also gained missing meta
+  `index.html`, `super-fund` and `occypicks` also gained missing meta
   descriptions.
-- **Dead link fixed.** REST Super's "Next Project" pointed at **"Spix App"** —
+- **Dead link fixed.** The super fund case study's "Next Project" pointed at **"Spix App"** —
   a project that doesn't exist anywhere on the site — via `href="#"`. It now
   chains to Occypicks, which also gives the gated page an exit to a public one.
 - **Work card 3** ("Making formidable fun") links nowhere, so it no longer
@@ -119,7 +119,7 @@ helper. Nothing is broken on the live site; the findings are gaps and hardening.
 
 **Matt (the interview bottleneck):**
 1. **Figma: Visual Assets Plan rows 0–4** — the system, the card template, and the
-   REST Super / AI accelerator / Occypicks cards. Full specs are in Notion
+   super fund / AI accelerator / Occypicks cards. Full specs are in Notion
    (*Portfolio — Visual Assets Plan*). Upload via `/admin/` → Settings → Home page.
 2. ~~CV: `KPMG · Jan 2022 – Present`~~ — **done 2026-09-18** (now `Jan 2022 – Sep 2026`). The downloadable PDF still needs regenerating.
 3. **A portrait** for About (assets row 15).
@@ -132,7 +132,7 @@ helper. Nothing is broken on the live site; the findings are gaps and hardening.
 3. Wire the new image slots as files arrive (concept screens, trust UI, personas,
    About photo — see the assets plan for which rows need markup).
 
-**Decisions still open (Matt):** Occypicks Fun → Work? · ungate REST Super? · the
+**Decisions still open (Matt):** Occypicks Fun → Work? · ungate the super fund case study? · the
 two home cards with an arrow but no link (Move to the music, Sound of Mind) — link
 them or mark in-progress (the three About cards were replaced by a prose About section on 2026-09-18) · dark-mode image variants
 (a small template change; decide before exporting the cards) · AI accelerator
@@ -176,7 +176,7 @@ placeholders (team size, deliverables, outcome) · University CRM confirms.
 | Page | Tokens (CSS vars) | Dark mode | Responsive | Shared nav/footer | Notes |
 |---|---|---|---|---|---|
 | `index.html` | ✅ | ✅ | ✅ | inline | Reference page — most modern |
-| `portfolio-case-study-rest-super.html` | ✅ | ✅ | ✅ | inline | Password-gated, most complete case study |
+| `portfolio-case-study-super-fund.html` | ✅ | ✅ | ✅ | inline | Password-gated, most complete case study |
 | `portfolio-about.html` | ❌ hardcoded | ❌ | partial | inline | Older generation |
 | `portfolio-contact.html` | ❌ hardcoded | ❌ | partial | inline | Older generation |
 | `portfolio-case-study.html` | ❌ hardcoded | ❌ | partial | inline | Generic/template case study, password-gated |
@@ -244,7 +244,7 @@ Retrofit the older-generation pages so all pages share one look:
 2. `portfolio-contact.html` → same.
 3. `portfolio-case-study.html` → same (or fold into the case-study template).
 4. `cv.html` → same; ensure it matches and the PDF is linked/consistent.
-5. Re-verify `index.html` and `rest-super` still match after CSS extraction.
+5. Re-verify `index.html` and `super-fund` still match after CSS extraction.
 
 **Acceptance:** open every page in light + dark, desktop + mobile — nav, footer, type, colour, spacing all identical in feel. No page looks "older".
 
@@ -253,7 +253,7 @@ Retrofit the older-generation pages so all pages share one look:
 ## Phase 2 — Content: the actual job-search substance
 
 > Pixels get you in the door; case studies get you hired. This phase likely matters most.
-1. **Case studies** — decide how many to show (2–3 strong > many weak). For each: problem, your role, process, decisions, outcome + metrics. REST Super is the anchor; identify the next 1–2.
+1. **Case studies** — decide how many to show (2–3 strong > many weak). For each: problem, your role, process, decisions, outcome + metrics. The super fund case study is the anchor; identify the next 1–2.
 2. **Home** — sharpen the hero line and the card copy so it reads clearly to a hiring manager in 5 seconds.
 3. **About** — positioning: who you are, what you do, what you're looking for.
 4. **Contact** — working email link, LinkedIn, CV download. Make it frictionless.
@@ -309,8 +309,8 @@ If time is tight, the minimum shippable cut is: **Phase 0.2 (shared CSS) + Phase
 8. **Orphan drafts** — ✅ **Keep** `portfolio-about.html`, `portfolio-contact.html`, `portfolio-case-study.html`; **retrofit later**, paired with their Phase 2 content build so nav never points at an unstyled page.
 
 ### Phase 1 scope (revised)
-Only `cv.html` is a live old-generation page today (linked from the home footer), so Phase 1 = retrofit `cv.html` + verify REST Super stays consistent. About/Contact page retrofit + nav rewiring moves into Phase 2 (built with their content).
+Only `cv.html` is a live old-generation page today (linked from the home footer), so Phase 1 = retrofit `cv.html` + verify the super fund case study stays consistent. About/Contact page retrofit + nav rewiring moves into Phase 2 (built with their content).
 
 ### Still open (resolve during the relevant phase)
 - **Reference sites** — optional: Matt can share 1–3 admired sites to sharpen taste rules.
-- **Case studies** — how many total, and which 1–2 come after REST Super (Phase 2).
+- **Case studies** — how many total, and which 1–2 come after the super fund case study (Phase 2).

@@ -43,7 +43,7 @@ Rule of thumb: *stable + every-session → `CLAUDE.md`; detailed + task-triggere
 - `.gitignore` now also ignores `**/.claude/settings.local.json` (per-machine local settings that had leaked into `docs/` and the source folders).
 - Removed the stray `settings.local.json` files and `docs/.claude/`.
 
-**Naming:** removed spaces/typos — kebab-case folders (`design-source`, `superseded-site`), `rest-super-case-study.pages`, `figma-auto-layout-naming-guide.docx`.
+**Naming:** removed spaces/typos — kebab-case folders (`design-source`, `superseded-site`), `super-fund-case-study.pages`, `figma-auto-layout-naming-guide.docx`.
 
 ---
 

@@ -1,101 +1,64 @@
 ---
-title: "Making the Unknown Trustworthy"
-subtitle: "Product design for an AI-powered accelerator built to enhance professional-services delivery."
-description: "Case study: designing trust into an AI-powered workflow accelerator. Password-protected."
+title: "Designing an internal AI product people could trust"
+subtitle: "Product design and project management for an internally funded AI product at a global professional services firm, from a first version that missed to a funded full build."
+description: "Case study: resetting an executive-led AI product after its first round of testing, and designing the MVP around trust in the output. Password-protected."
 breadcrumb: "Work → AI Product"
 tags:
   - "Product Design"
   - "AI"
-  - "UX"
-  - "Delivery"
+  - "User Testing"
+  - "Product Strategy"
 meta:
-  - { label: "My Role", value: "Product Designer & Delivery Lead" }
-  - { label: "Industry", value: "Professional Services" }
-  - { label: "Timeline", value: "Multiple sprints · 2024" }
-  - { label: "Team", value: "Design & engineering\n[add team size]" }
-  - { label: "Deliverables", value: "[add: e.g. product concept, UX flows, prototype]" }
+  - { label: "My Role", value: "Product Designer & Project Manager" }
+  - { label: "Context", value: "Internally funded AI product\nProfessional services" }
+  - { label: "Timeline", value: "Two sprints · 2024" }
+  - { label: "Team", value: "Design team (which I managed)\nDevelopment team" }
+  - { label: "Deliverables", value: "Research and insights\nWireframes and prototypes\nTested MVP design" }
 overview:
-  challenge: "An AI-powered accelerator promised faster, better client-service delivery — but only if the people using it could trust output they couldn’t fully see or verify."
-  approach: "Leading design and engineering across multiple sprints — user interviews, ideation sessions, and iterative design — to build trust into the product experience."
-  outcome: "Delivered on time and within budget. [add: adoption / impact / what happened next]"
+  challenge: "The firm funded an AI product as a strategic initiative, and the first version was scoped by executive stakeholders before it had been tested with the people who would use it."
+  approach: "When our first round of testing showed that V1 didn't solve a real problem, I escalated it, worked directly with the business unit who would use the product to redefine its vision and scope, and designed the MVP around the adoption risk research had found, which was trust in the output."
+  outcome: "The MVP was selected for continued internal funding, identified as a global priority and moved to full build."
 gated: true
 draft: false
-next: rest-super
+next: super-fund
 hero_html: |
   <div class="img-ph-lg"></div>
 ---
 
-<!-- 01 THE PROBLEM -->
-<div class="cs-section">
-<div class="cs-section-aside">
-<div class="cs-section-label">01</div>
-<h2 class="cs-section-heading">The Problem</h2>
-</div>
-<div class="cs-section-body">
-<p class="cs-body-text">The firm set out to build an AI-driven accelerator to enhance how client services were delivered &mdash; faster synthesis, less manual effort, more consistent output. But AI introduces a specific design challenge: people are asked to rely on results they can&rsquo;t easily trace or verify. Without trust, even a capable tool goes unused.</p>
-<p class="cs-body-text"><span style="color:var(--grey-3)">[Add specifics: what workflow did the accelerator target? Who were the users? What was slow, inconsistent, or painful before it existed?]</span></p>
-</div>
-</div>
+## An executive-led AI product, set up before the user need was defined
 
-<!-- 02 MY ROLE -->
-<div class="cs-section">
-<div class="cs-section-aside">
-<div class="cs-section-label">02</div>
-<h2 class="cs-section-heading">My Role</h2>
-</div>
-<div class="cs-section-body">
-<p class="cs-body-text">I led design and technology teams throughout the engagement &mdash; spanning product design and delivery. I ran user interviews, facilitated ideation sessions, and translated findings into design solutions, while keeping multiple sprints on track and on budget.</p>
-<p class="cs-body-text"><span style="color:var(--grey-3)">[Optional: how you balanced the design and delivery-lead hats; who you worked with.]</span></p>
-</div>
-</div>
+This was an unusual engagement, in that the client was the firm itself. The product was an internally funded AI tool intended to speed up how client services were delivered, and it was a strategic initiative led by senior executives rather than a response to a need a team had raised.
 
-<!-- 03 PROCESS -->
-<div class="cs-section">
-<div class="cs-section-aside">
-<div class="cs-section-label">03</div>
-<h2 class="cs-section-heading">Process</h2>
-</div>
-<div class="cs-section-body">
-<p class="cs-body-text">Working in sprints, the team moved from understanding the problem to testing solutions: user interviews to surface needs and anxieties, ideation sessions to explore directions, and iterative design to refine the product experience.</p>
-<div class="cs-image-full"><div class="img-ph-sm"></div></div>
-<div class="cs-image-caption"><span style="color:var(--grey-3)">[Add a process artefact &mdash; a flow, a sketch, a workshop photo]</span></div>
-<p class="cs-body-text"><span style="color:var(--grey-3)">[Add: 2&ndash;3 key decisions or turning points. What did you learn from users? What did you change as a result?]</span></p>
-</div>
-</div>
+I was the product designer and the project manager. I managed the design team, contributed to the MVP product strategy, and ran the design process across two sprints: research and insights workshops to establish the current state, ideation, wireframes, user testing, and design updates from what testing found.
 
-<!-- 04 DESIGNING FOR TRUST -->
-<div class="cs-section">
-<div class="cs-section-aside">
-<div class="cs-section-label">04</div>
-<h2 class="cs-section-heading">Designing for Trust</h2>
-</div>
-<div class="cs-section-body">
-<p class="cs-body-text">The core design problem was trust: helping people rely on what they can&rsquo;t fully see. <span style="color:var(--grey-3)">[Add the specific techniques you used &mdash; e.g. showing sources/citations, confidence signals, human-in-the-loop review, transparency about limitations, undo/verify affordances.]</span></p>
-<div class="cs-quote">
-<div class="cs-quote-text"><span style="color:var(--grey-3)">[Add a strong one-line insight or principle that guided the design.]</span></div>
-<div class="cs-quote-attr">Project reflection</div>
-</div>
-</div>
-</div>
+## The first round of testing said V1 solved no real problem
 
-<!-- 05 OUTCOME -->
-<div class="cs-section">
-<div class="cs-section-aside">
-<div class="cs-section-label">05</div>
-<h2 class="cs-section-heading">Outcome</h2>
-</div>
-<div class="cs-section-body">
-<p class="cs-body-text">The project was delivered on time and within budget across multiple sprints. <span style="color:var(--grey-3)">[Add the real outcome: adoption, time saved, whether it moved to a next phase or production, and any anonymised feedback.]</span></p>
-</div>
-</div>
+The V1 MVP had been directed by the executive stakeholders, and we designed it to that brief. The first round of user testing showed that it didn't solve a real problem for the people it was built for.
 
-<!-- 06 REFLECTION -->
-<div class="cs-section">
-<div class="cs-section-aside">
-<div class="cs-section-label">06</div>
-<h2 class="cs-section-heading">Reflection</h2>
-</div>
-<div class="cs-section-body">
-<p class="cs-body-text"><span style="color:var(--grey-3)">[Add: what you&rsquo;d do differently, what you learned about designing for AI, or how this shaped how you think about trust in products.]</span></p>
-</div>
-</div>
+## Escalating the finding immediately instead of refining V1
+
+There were two ways to handle that. We could keep iterating V1 within the brief, which was the lower-friction path with the sponsors, or we could take the finding back to them straight away and ask to change the brief. I escalated the insights immediately. In my opinion refining V1 would have produced a better-designed version of the wrong product, and every sprint spent on it would have made the reset harder to argue for.
+
+## Redefining the scope with the business unit who would use it
+
+Escalating the problem was only useful if we came back with a better answer, so I requested direct access to the internal business unit who would be using the product. We worked closely with them to redefine the product vision and scope around what their work actually needed, and took the revised scope back to the executive for approval. Once it was approved the project was back on track.
+
+## Trust in the output was the adoption risk
+
+Early research with users surfaced a second issue, which turned out to be the one that shaped the design. People were not confident in the accuracy of what an LLM would give them, and that lack of trust was a significant risk to adoption. A tool that produces a good answer the user doesn't believe will still go unused, or be checked so thoroughly that it saves no time.
+
+With that in mind, we built every element of the MVP to be transparent about where its output came from, and treated trust as a requirement that applied to the whole product.
+
+## Making every answer traceable to its source
+
+The clearest expression of this was the trace feature. A user could highlight any part of the output and see the sources the LLM had generated it from. It let people check a specific claim against its source without re-doing the work themselves, which is what made the output usable.
+
+I worked directly with the development team on the solution architecture, which kept the design inside what could actually be built. Traceability in particular depended on how the system handled and stored its sources, so it had to be agreed with the developers early rather than designed on top at the end.
+
+## Funded for full build and identified as a global priority
+
+The MVP was selected for continued internal funding, identified as a global priority and moved into full build.
+
+## Reflection
+
+The V1 problem only surfaced at the first round of testing, which was also the first time the business unit's view entered the work. If I ran this again I would push for access to them before V1 was scoped, since a few early conversations would have cost far less than a reset. The trust work confirmed something I now apply to any AI product, which is that the first question is whether people will believe the output, and the design has to answer that before it answers anything else.

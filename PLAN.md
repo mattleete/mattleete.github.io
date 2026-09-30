@@ -38,7 +38,7 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 
 ### Matt — the interview bottleneck
 1. **Visual assets, rows 0–4** (Notion *Visual Assets Plan*): the Figma system, the card
-   template, and the REST Super / AI accelerator / Occypicks cards. Upload through `/admin/` →
+   template, and the super fund / AI accelerator / Occypicks cards. Upload through `/admin/` →
    Settings → Home page → card → Image.
 2. **Fill the AI accelerator or pull it.** It's linked from a Work card and every section still
    shows `[add …]` placeholders: team size, deliverables, outcome, process, trust techniques,
@@ -93,10 +93,10 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 ## Decisions
 
 ### Open (Matt)
-- **Gate: ungate REST Super, or keep it?** The password is in the page source and the repo,
+- **Gate: ungate the super fund case study, or keep it?** The password is in the page source and the repo,
   and the full text is in the public HTML and Markdown. `noindex` now keeps search engines
-  out, but anyone can still read it. The URL also names the client (`rest-super`), while the
-  About page anonymises them. If the gate exists for confidentiality, it doesn't provide it:
+  out, but anyone can still read it. (The slug no longer names the client: it was
+  anonymised to `super-fund` on 2026-09-30.) If the gate exists for confidentiality, it doesn't provide it:
   either ungate and anonymise the slug, or move gated content off the public repo entirely.
   If it's just a courtesy, it's fine as is.
 - **Occypicks: Fun → Work?** It's the only case study with real visuals and a shipped product.
