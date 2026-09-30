@@ -47,7 +47,7 @@ display: flex; align-items: center; justify-content: center;
   }
   .bio-photo span {
 font-size: var(--size-micro); font-weight: 500; letter-spacing: 0.12em;
-text-transform: uppercase; color: var(--text-disabled);
+text-transform: uppercase; color: var(--text-tertiary);
   }
   .bio-para {
 font-size: var(--size-h3); font-weight: 400; line-height: 1.7;

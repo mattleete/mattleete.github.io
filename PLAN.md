@@ -11,7 +11,7 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 
 ---
 
-## Where we are (2026-09-29)
+## Where we are (2026-09-30)
 
 - **Platform: done.** Eleventy 3 builds `src/` → `_site/`; GitHub Actions deploys on push to
   `main`; every page is editable at `/admin/` (Decap, editorial workflow: Save = draft PR,
@@ -33,6 +33,18 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
   - Dark-mode visitors saw a white flash on every page load. The theme is now set in `<head>`.
   - Gated case studies are marked `noindex`, and a malformed `#access=` link no longer
     breaks the gate.
+- **2026-09-30: case studies rewritten.** All three were rewritten in Matt's voice with
+  decision-led headings, the verified outcome in the overview, and plain Markdown bodies
+  (editable in `/admin/`). Notes, open questions, short versions and the visual list are in
+  `design-source/case-studies/rewrite-notes-2026-09-30.md`. Also that day:
+  - The super fund slug was anonymised (`super-fund`), and the client name was removed from
+    every current file. It is still in git history.
+  - Topic pills were removed from case-study pages. Home cards keep them.
+  - Home card descriptions were rewritten to match.
+  - Light-mode `--grey-3` went from `#8a8a8a` (3.4:1) to `#6b6b6b` (5.3:1), so every label,
+    breadcrumb and meta line passes WCAG AA. Captions and the About photo label moved off
+    `--grey-4`. Dark mode is unchanged (6.1:1).
+  - Grey placeholder image slots on case studies keep their full height again.
 
 ## Next up
 
@@ -40,12 +52,11 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 1. **Visual assets, rows 0–4** (Notion *Visual Assets Plan*): the Figma system, the card
    template, and the super fund / AI accelerator / Occypicks cards. Upload through `/admin/` →
    Settings → Home page → card → Image.
-2. **Fill the AI accelerator or pull it.** It's linked from a Work card and every section still
-   shows `[add …]` placeholders: team size, deliverables, outcome, process, trust techniques,
-   reflection. Anyone sent the password sees a template. Until it's written, set the card to
-   *In progress*, or set the case study to `draft: true`.
-3. **Decide the gate** (see the open decisions below). This is more urgent than it looks: the
-   gate only hides text in the browser.
+2. **Sign off the AI accelerator.** It's written now, but a few lines of reasoning and the
+   reflection are in Matt's voice without being in the facts file (listed in the rewrite
+   notes). Confirm or replace them, and read it once with the employment matter in mind,
+   before sending it to anyone.
+3. **Decide the gate** (see the open decisions below).
 4. **Regenerate the CV PDF.** The site says KPMG ended Sep 2026; the PDF recruiters download
    hasn't been updated since the change.
 5. **A portrait for About** (assets row 15).
@@ -57,17 +68,11 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 1. **Fun cards "Move to the music" and "Sound of Mind":** their tags were copied from the
    Work cards ("CX, Journey Mapping" / "UX, AI") and their descriptions have no full stops.
    Needs the correct tags from Matt; the rest is mechanical.
-2. **Contrast.** `--grey-3` (#8a8a8a) on white is 3.4:1. It's used for every 10–12px label,
-   breadcrumb and piece of meta text, and fails the WCAG AA minimum of 4.5:1. Captions,
-   `.journey-num` and `.concept-num` use `--grey-4`, which is 1.5:1 in light mode and 1.9:1 in
-   dark. Propose a darker `--text-tertiary` in light mode and move content text off
-   `--grey-4`. Check it against the look before shipping.
-3. **Case-study CSS scope.** The "Occypicks media" block at the end of `case-study.css`
-   resizes `.cs-hero-image` and `.cs-image-full` on *every* case study, which is why the
-   placeholder heroes collapse to small boxes. Scope it to Occypicks.
-4. **Wire image slots as files arrive** (concept screens, trust UI, personas, the About photo;
-   the assets plan says which rows need markup).
-5. **Small cleanups:**
+2. **Wire image slots as files arrive.** Super fund: journey map and the three priority
+   concepts. AI accelerator: V1 vs redefined scope and the trace feature. Plus the home
+   cards and the About photo. A plain Markdown image gets the 600px frame; a tall one
+   needs the `cs-image-full tall` HTML (see Occypicks' leaderboard).
+3. **Small cleanups:**
    - Remove the unused `markdown` filter in `.eleventy.js`.
    - Merge the duplicate `.hero-animation` rules in `home.css`.
    - Fix the indentation in `about.css`, `cv.css` and `contact.css`, and swap their
@@ -78,8 +83,8 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
   footer, `.tag` and button rules are duplicated, so the case-study layout can't load the
   shared file. Merging gives case studies the blend-mode nav, the reduced-motion rule and the
   shared focus style they currently lack.
-- The three migrated case-study bodies are raw HTML inside Markdown, so in `/admin/` they edit
-  as HTML. New case studies use plain Markdown. Converting the old three is optional.
+- The `.cs-stats`, `.cs-persona`, `.cs-concepts`, `.cs-journey` etc. rules in
+  `case-study.css` are unused since the bodies went to Markdown. Delete them in the reconcile.
 - `robots.txt`, `sitemap.xml`, a styled 404.
 - WebP pass on `images/occypicks` (2.2 MB across 10 files), then run Lighthouse and aim for
   90+ everywhere.
@@ -93,17 +98,19 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
 ## Decisions
 
 ### Open (Matt)
-- **Gate: ungate the super fund case study, or keep it?** The password is in the page source and the repo,
-  and the full text is in the public HTML and Markdown. `noindex` now keeps search engines
-  out, but anyone can still read it. (The slug no longer names the client: it was
-  anonymised to `super-fund` on 2026-09-30.) If the gate exists for confidentiality, it doesn't provide it:
-  either ungate and anonymise the slug, or move gated content off the public repo entirely.
-  If it's just a courtesy, it's fine as is.
+- **Gate: ungate the super fund case study, or keep it?** The password is in the page
+  source and the repo, and the full text is public in the Markdown, so the gate is a
+  courtesy, not confidentiality. The client is no longer named anywhere current.
+  Recommendation: ungate the super fund (a skimming reviewer won't email for a password),
+  and keep the AI accelerator gated until it's been signed off.
 - **Occypicks: Fun → Work?** It's the only case study with real visuals and a shipped product.
 - **The two unlinked Fun cards:** link them, or mark them *In progress*. Today they have no
   link but still show an arrow.
 - **Dark-mode image variants.** A small template change; decide before exporting the cards.
-- **AI accelerator facts:** team size, deliverables, outcome.
+- **AI accelerator facts:** team size and number of test participants (both would
+  strengthen it). "2024" in its meta is carried from the old page and not in the facts file.
+- **Super fund facts:** "12 weeks" and "3–4 people" are carried from the old page and not in
+  the facts file. Member testing was confirmed 2026-09-30.
 - **University CRM:** confirm the facts before it goes anywhere near `src/`.
 
 ### Locked (2026-08)
@@ -135,6 +142,11 @@ The full history (the Phase 0–4 audit, the old reviews, the CMS migration note
   `theme.js`. Change both together.
 - **The OAuth helper must only post to `CMS_ORIGIN`.** GitHub skips its consent screen for an
   app you've already approved, so answering "whoever asked" leaks the token.
+- **The case-study media rules are shared, not Occypicks-only.** Real images and video size to
+  their content on every case study; a slot still holding a grey placeholder keeps its fixed
+  height through `:has(> .img-ph-*)`. Don't scope the media block to one page.
+- `csSections` can't add classes to a Markdown image. Anything other than the default
+  full-width 600px frame (a tall shot, a phone pair) needs the HTML block in the body.
 - `/admin/` can serve a config that's up to 10 minutes stale. Verify CMS config changes with
   `curl`, not a reload. A CMS save re-writes a file's whole front matter; big diffs for small
   edits are normal.

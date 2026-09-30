@@ -16,7 +16,7 @@
   --black:   #0a0a0a;
   --grey-1:  #1a1a1a;
   --grey-2:  #4a4a4a;
-  --grey-3:  #8a8a8a;
+  --grey-3:  #6b6b6b;  /* 5.3:1 on white, 5.0:1 on grey-6: passes WCAG AA for small text (dark keeps #8a8a8a) */
   --grey-4:  #d0d0d0;
   --grey-5:  #ebebeb;
   --grey-6:  #f7f7f7;

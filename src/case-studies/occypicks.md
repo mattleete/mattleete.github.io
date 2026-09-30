@@ -81,7 +81,8 @@ Day to day, the app lived on its leaderboard. I went with a deliberately un-spor
 
 Each player's card shows their teams, form and points, and expands into a per-match breakdown for anyone who wants the detail. Your own card inverts to solid black so you can always find yourself, and the table refreshes itself as games finish. Fixtures, results and group tables each have a "your teams" filter, so a casual player can go straight to what they care about. It was built mobile-first, with full keyboard support, ARIA labelling and a reduced-motion path that stills the animated mascot.
 
-![The OccyPicks live leaderboard](images/occypicks/leaderboard.png "The live standings, with your own row inverted to black")
+<div class="cs-image-full tall"><img class="cs-shot" src="images/occypicks/leaderboard.png" alt="The OccyPicks live leaderboard"></div>
+<div class="cs-image-caption">The live standings, with your own row inverted to black</div>
 
 <div class="cs-image-half-grid">
 <div class="cs-image-half"><img class="cs-phone" src="images/occypicks/m-landing.png" alt="OccyPicks on mobile, landing page"></div>

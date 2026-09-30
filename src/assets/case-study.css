@@ -3,7 +3,7 @@
   :root {
     --black:   #0a0a0a;
     --grey-2:  #4a4a4a;
-    --grey-3:  #8a8a8a;
+    --grey-3:  #6b6b6b;  /* 5.3:1 on white: WCAG AA for small text (dark mode keeps #8a8a8a) */
     --grey-4:  #d0d0d0;
     --grey-5:  #ebebeb;
     --grey-6:  #f7f7f7;
@@ -372,7 +372,7 @@
   .journey-cell { background: var(--bg); padding: 32px; }
   .journey-num {
     font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--grey-4); margin-bottom: 12px;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 12px;
   }
   .journey-title {
     font-size: 14px; font-weight: 600; color: var(--black);
@@ -418,7 +418,7 @@
   }
   .cs-image-caption {
     font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--grey-4); margin-top: 10px;
+    text-transform: uppercase; color: var(--grey-3); margin-top: 10px;
   }
 
   /* ─── PASSWORD GATE ───
@@ -504,7 +504,7 @@
   }
   .concept-num {
     font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--grey-4); margin-bottom: 8px;
+    text-transform: uppercase; color: var(--grey-3); margin-bottom: 8px;
   }
   .concept-insight-label {
     font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
@@ -704,7 +704,11 @@
     .footer-links { gap: 8px; flex-wrap: wrap; }
   }
 
-/* ─── OCCYPICKS MEDIA (page-specific; harmless elsewhere) ─── */
+/* ─── CASE-STUDY MEDIA ───
+   Real images and video size to their content on every case study (hero_image,
+   hero_html video, and the Markdown images csSections wraps in .cs-image-full).
+   The fixed heights above are for the grey placeholders, so a slot that still
+   holds one keeps its height instead of collapsing to a thin strip. */
   .cs-hero-image { height: auto; background: var(--grey-6); padding: 28px 24px; }
   .cs-hero-media { display:block; width:100%; max-width:1000px; margin:0 auto; height:auto;
     border:1px solid var(--grey-5); border-radius:12px; background:#faf9f6; }
@@ -714,8 +718,13 @@
   .cs-image-half { height:auto; background:var(--grey-6); padding:24px; }
   .cs-phone { display:block; width:100%; max-width:300px; margin:0 auto; height:auto;
     border:1px solid var(--grey-5); border-radius:20px; }
+  .cs-hero-image:has(> .img-ph-lg) { height: 640px; padding: 0; }
+  .cs-image-full:has(> .img-ph-sm) { height: 400px; }
+  .cs-image-half:has(> .img-ph-sm) { height: 280px; padding: 0; }
   @media (max-width: 768px) {
     .cs-shot { height:400px; }
     .cs-image-full.tall .cs-shot { height:520px; }
     .cs-image-half-grid { grid-template-columns: 1fr; }
+    .cs-hero-image:has(> .img-ph-lg) { height: 280px; }
+    .cs-image-full:has(> .img-ph-sm) { height: 220px; }
   }
