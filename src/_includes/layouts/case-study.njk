@@ -11,12 +11,6 @@ footerStyle: simple
   <div class="cs-breadcrumb">{{ breadcrumb }}</div>
   <div class="cs-hero-inner">
     <div>
-      <div class="cs-tags">
-        {#- `tags` also carries the collection tag from case-studies.11tydata.js; never show that one #}
-        {%- for tag in tags | without('case_studies') %}
-        <span class="tag {{ 'tag-accent' if loop.first else 'tag-default' }}">{{ tag }}</span>
-        {%- endfor %}
-      </div>
       <h1 class="cs-title">{{ title }}</h1>
       <p class="cs-subtitle">{{ subtitle }}</p>
     </div>

@@ -7,11 +7,6 @@ description: "Case study: self-initiated product, game and experience
   design for a season-long fantasy draft played by 23 friends across the 2026
   FIFA World Cup."
 breadcrumb: Fun → OccyPicks
-tags:
-  - Product Design
-  - Game Design
-  - Creative Coding
-  - Solo
 meta:
   - label: My Role
     value: Game design, product design and build

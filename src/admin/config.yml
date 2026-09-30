@@ -43,7 +43,6 @@ collections:
       - { label: Subtitle, name: subtitle, widget: text, hint: "One or two sentences under the title." }
       - { label: Meta description, name: description, widget: text, hint: "What search engines and link previews show. ~150 characters." }
       - { label: Breadcrumb, name: breadcrumb, widget: string, default: "Work" , hint: "e.g. “Work → Higher Education” or “Fun → Occypicks”" }
-      - { label: Tags, name: tags, widget: list, hint: "First tag is highlighted." }
       - label: Details
         name: meta
         widget: list

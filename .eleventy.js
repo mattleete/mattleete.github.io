@@ -52,9 +52,6 @@ module.exports = function (eleventyConfig) {
     return out;
   });
 
-  // Array minus one value — used to drop the collection tag from a page's display tags.
-  eleventyConfig.addFilter("without", (arr, v) => (arr || []).filter((x) => x !== v));
-
   // Longest value of `key` across a list of objects — sizes the hero word masks.
   eleventyConfig.addFilter("longest", (arr, key) =>
     (arr || []).reduce((best, o) => (String(o[key] || "").length > best.length ? String(o[key]) : best), ""));

@@ -3,11 +3,6 @@ title: "Designing an internal AI product people could trust"
 subtitle: "Product design and project management for an internally funded AI product at a global professional services firm, from a first version that missed to a funded full build."
 description: "Case study: resetting an executive-led AI product after its first round of testing, and designing the MVP around trust in the output. Password-protected."
 breadcrumb: "Work → AI Product"
-tags:
-  - "Product Design"
-  - "AI"
-  - "User Testing"
-  - "Product Strategy"
 meta:
   - { label: "My Role", value: "Product Designer & Project Manager" }
   - { label: "Context", value: "Internally funded AI product\nProfessional services" }

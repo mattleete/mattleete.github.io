@@ -33,7 +33,7 @@ sections:
     cards:
       - title: "Occypicks"
         desc: "A World Cup fantasy game for 23 friends, with scoring that makes minnows worth drafting. Designed, built and run solo."
-        tags: ["Product Design", "Full-Stack", "React"]
+        tags: ["Product Design"]
         href: portfolio-case-study-occypicks.html
       - title: "Move to the music"
         desc: "An exploration of computer vision and machine learning to reflect and recognise emotion through music"

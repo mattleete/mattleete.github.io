@@ -214,15 +214,6 @@
     align-items: end;
     padding-bottom: 64px;
   }
-  .cs-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
-  .tag {
-    display: inline-flex; align-items: center; padding: 4px 10px;
-    font-family: 'Instrument Sans', sans-serif; font-size: 10px; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .tag-default { color: var(--grey-2); border: 1px solid var(--grey-4); }
-  .tag-accent  { color: var(--accent); border: 1px solid var(--accent); }
-  .tag-filled  { background: var(--black); color: var(--bg); border: none; }
   .cs-title {
     font-size: 72px; font-weight: 600; line-height: 100%;
     letter-spacing: -0.04em; color: var(--black);

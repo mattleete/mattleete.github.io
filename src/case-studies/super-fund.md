@@ -3,11 +3,6 @@ title: "Giving young super members a reason to stay"
 subtitle: "Member experience strategy, journey mapping and product concepts for an Australian super fund with around $100B in funds under management."
 description: "Case study: a member experience framework and product concepts to keep young members engaged with a large Australian super fund. Password-protected."
 breadcrumb: "Work → Superannuation"
-tags:
-  - "CX Strategy"
-  - "Journey Mapping"
-  - "Product Concepts"
-  - "Superannuation"
 meta:
   - { label: "My Role", value: "Led the CX team\nStrategy, journey mapping, concepts and facilitation" }
   - { label: "Client", value: "Australian super fund\n~$100B funds under management" }
