@@ -16,8 +16,7 @@ overview:
 gated: true
 draft: false
 next: occypicks
-hero_html: |
-  <div class="img-ph-lg"></div>
+hero_image: /images/super-fund/hero.png
 ---
 
 ## Young members were leaving just as their balances started to matter
