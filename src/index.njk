@@ -37,6 +37,31 @@ scripts:
 <section class="section" id="{{ section.id }}">
   <div class="section-inner">
     <div class="section-title">{{ section.title }}</div>
+    {%- if section.layout == "list" %}
+    {#- Text-only list, one item per line: tagline, company, tags. #}
+    <div class="study-list">
+      {%- for card in section.cards %}
+      {%- set soon = card.status == "in-progress" %}
+      {%- set tag = "a" if card.href else "div" %}
+      <{{ tag }} class="study-row{{ ' study-row-soon' if soon }}"{% if card.href %} href="{{ card.href }}"{% endif %}>
+        <div class="study-text">
+          <div class="study-title">{{ card.title }}{% if soon %}<span class="study-badge">{{ card.status_label or "In progress" }}</span>{% endif %}</div>
+          {%- if card.company %}
+          <div class="study-company">{{ card.company }}</div>
+          {%- endif %}
+          <div class="card-tags">
+            {%- for t in card.tags %}
+            <span class="tag">{{ t }}</span>
+            {%- endfor %}
+          </div>
+        </div>
+        {%- if not soon %}
+        <span class="card-arrow study-arrow" aria-hidden="true">→</span>
+        {%- endif %}
+      </{{ tag }}>
+      {%- endfor %}
+    </div>
+    {%- else %}
     <div class="cards-row">
       {%- for card in section.cards %}
       {%- set soon = card.status == "in-progress" %}
@@ -59,6 +84,7 @@ scripts:
       </{{ tag }}>
       {%- endfor %}
     </div>
+    {%- endif %}
   </div>
 </section>
 {%- endfor %}

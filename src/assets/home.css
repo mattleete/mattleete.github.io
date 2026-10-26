@@ -69,8 +69,65 @@
   visibility: hidden;
 }
 
+/* ─── CASE STUDY LIST ─── */
+/* Text-only rows, one case study per line (home.yml section `layout: list`).
+   Thin rules between rows instead of card borders; the arrow is the only motion. */
+.study-list { border-bottom: 1px solid var(--grey-5); }
+.study-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--grey-5);
+  color: var(--black);
+  text-decoration: none;
+}
+.study-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.study-title {
+  font-size: var(--size-h1);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.study-company {
+  font-size: var(--size-h3);
+  font-weight: 500;
+  color: var(--grey-2);
+  margin-bottom: var(--space-2);
+}
+.study-arrow { font-size: var(--size-h2); }
+.study-row:hover .card-arrow {
+  color: var(--black);
+  transform: translateX(4px);
+}
+/* Not published yet: no arrow, no pointer, and a status label beside the title. */
+.study-row-soon { cursor: default; }
+.study-badge {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: var(--space-3);
+  padding: 6px 12px;
+  background: var(--black);
+  color: var(--white);
+  font-size: var(--size-micro);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
+  .study-row { padding: var(--space-3) 0 20px; gap: var(--space-3); }
+  .study-title { font-size: var(--size-h2); }
+  .study-company { font-size: var(--size-body); }
+  .study-badge { margin-left: var(--space-2); }
   .hero {
     padding: 48px 24px;
     flex-direction: column;

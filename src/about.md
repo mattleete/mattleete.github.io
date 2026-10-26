@@ -92,7 +92,7 @@ cta:
   text: "Interested in working together?"
   actions:
     - { label: "Get in touch", href: "portfolio-contact.html", secondary: false }
-    - { label: "View work", href: "index.html#work", secondary: true }
+    - { label: "View case studies", href: "index.html#case-studies", secondary: true }
 ---
 I'm a **human-centred designer dedicated to creating meaningful, impactful experiences** that redefine how people engage with products and services.
 

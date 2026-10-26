@@ -11,20 +11,20 @@ hero:
   role: "Product Designer"
 
 sections:
-  - id: work
-    title: "Work"
+  - id: case-studies
+    title: "Case studies"
+    layout: list
     cards:
-      - title: "Making complex simple"
-        desc: "Member experience strategy and product concepts to keep young members with a large Australian super fund."
-        tags: ["Product Design", "CX", "Journey Mapping"]
+      - title: "Making superannuation simple"
+        company: "Rest Super"
+        tags: ["Customer Experience Design", "Product Design"]
         href: portfolio-case-study-super-fund.html
-        image: /images/super-fund/card.png
-      - title: "Making unknown trustworthy"
-        desc: "Resetting an internal AI product after its first round of testing, and designing it around trust in the output."
+      - title: "Making AI output trustworthy"
+        company: "KPMG"
         tags: ["Product Design", "UX", "AI"]
         href: portfolio-case-study-ai-accelerator.html
-      - title: "Making formidable fun"
-        desc: "A product concept bringing more inclusive, playful voice communication to competitive gaming."
+      - title: "Making competitive gaming more inclusive"
+        company: "Spix App"
         tags: ["Product Design", "Accessibility", "Interaction"]
         status: in-progress
         status_label: "In progress"

@@ -42,7 +42,7 @@ collections:
       - { label: Title, name: title, widget: string, hint: "The big headline. Lead with the outcome or the tension." }
       - { label: Subtitle, name: subtitle, widget: text, hint: "One or two sentences under the title." }
       - { label: Meta description, name: description, widget: text, hint: "What search engines and link previews show. ~150 characters." }
-      - { label: Breadcrumb, name: breadcrumb, widget: string, default: "Work" , hint: "e.g. “Work → Higher Education” or “Fun → Occypicks”" }
+      - { label: Breadcrumb, name: breadcrumb, widget: string, default: "Case studies" , hint: "e.g. “Case studies → Higher Education” or “Fun → Occypicks”" }
       - label: Details
         name: meta
         widget: list
@@ -224,16 +224,18 @@ collections:
           - label: Sections
             name: sections
             widget: list
-            hint: "Work · Fun. Each holds a row of cards."
+            hint: "Case studies · Fun. Each holds image cards, or a text list (one per line)."
             fields:
-              - { label: Anchor id, name: id, widget: string, hint: "Used in links, e.g. index.html#work" }
+              - { label: Anchor id, name: id, widget: string, hint: "Used in links, e.g. index.html#case-studies" }
+              - { label: Layout, name: layout, widget: select, required: false, options: [{ label: "Image cards", value: "" }, { label: "Text list, one per line", value: "list" }] }
               - { label: Title, name: title, widget: string }
               - label: Cards
                 name: cards
                 widget: list
                 fields:
-                  - { label: Title, name: title, widget: string }
-                  - { label: Description, name: desc, widget: text }
+                  - { label: Title, name: title, widget: string, hint: "In a text list this is the tagline, e.g. Making superannuation simple" }
+                  - { label: Company, name: company, widget: string, required: false, hint: "Text list only, e.g. KPMG" }
+                  - { label: Description, name: desc, widget: text, required: false, hint: "Image cards only" }
                   - { label: Tags, name: tags, widget: list }
                   - { label: Link, name: href, widget: string, required: false, hint: "e.g. portfolio-case-study-occypicks.html. Leave empty for no link." }
                   - { label: Image, name: image, widget: image, required: false }
