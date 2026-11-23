@@ -41,7 +41,7 @@ We carried that into the future state journey maps by giving every stage a minim
 
 ## A vision and three principles to hold every concept against
 
-We set the vision as "make super surprisingly simple". Super is complex and we weren't going to change that, so the aim was for engaging with it to feel easy, and occasionally better than members expected. Three principles sat under the vision: intuitive, so nothing needed explaining; personalised to the member's goals, life stage and financial literacy; and surprising, meaning small moments of value in places members didn't expect them.
+We set the vision as "to make the complex surprisingly simple". Super is complex and we weren't going to change that, so the aim was for engaging with it to feel easy, and occasionally better than members expected. Three principles sat under the vision, built from the workshops, the fund's research and its existing strategy documents: intuitive, making it easy to understand and take action; personalised, delivered in a way that feels relevant; and surprising, creating joy in unexpected moments.
 
 The framework itself was a template for designing any single interaction with the fund, in three parts. The reason to engage welcomed the member, gave them a relevant reason to act and told them how long it would take, the action guided them through the task and marked its completion, and the return reassured them that it had worked and gave them a reason to come back. The thinking was that a run of small, easy successes would build a member's confidence with their super, and their attachment to the fund that made it easy. We designed it to be reused, so the reasons to stay journey was the template applied again and again over a member's time with the fund, and the job change journey was the same template applied to a single moment.
 
@@ -56,6 +56,31 @@ The two stages needed different things from the fund. At joining, the task was t
 ## Three journeys, weighted towards the job change
 
 We mapped three journeys: acquiring and onboarding a member, giving them reasons to stay, and the job change. The job change was the highest-risk moment. Many young members didn't know they could take their super with them to a new employer, and the experience at that point had the least to offer them, so it carried the most weight in the concept work. In the future state map, the member's starting point at that stage was that they didn't know who their super provider was and had no reason to take it with them.
+
+<div class="cs-stages" role="group" aria-label="The job change journey's design brief, in three stages">
+<div class="cs-stage">
+<div class="cs-stage-name">1. Reason to engage</div>
+<p class="cs-stage-brief">Recognise members at job change moments and remind them of the benefits of taking their super with them.</p>
+<div class="cs-stage-shift"><span class="cs-stage-label">Member thinks now</span>"I don't know who my super provider is, and I have no reason to take it with me."</div>
+<div class="cs-stage-shift is-goal"><span class="cs-stage-label">Shift to</span>"I know who my super is with, and I want to take it with me when I change jobs."</div>
+<div class="cs-stage-actions"><span><b>Minimum</b> Engages with the message</span><span><b>Ideal</b> Engages and starts the call to action</span></div>
+</div>
+<div class="cs-stage">
+<div class="cs-stage-name">2. Action: the member stays</div>
+<p class="cs-stage-brief">Guide members with clear, personalised instructions, through their preferred channel, on how to stay when they change employers.</p>
+<div class="cs-stage-shift"><span class="cs-stage-label">Member thinks now</span>"It might be easier to just join my new employer's super fund."</div>
+<div class="cs-stage-shift is-goal"><span class="cs-stage-label">Shift to</span>"Taking my super with me is easy, and I want to stick with it. I feel valued here."</div>
+<div class="cs-stage-actions"><span><b>Minimum</b> Knows where to find the details they need</span><span><b>Ideal</b> Takes their super to the new employer</span></div>
+</div>
+<div class="cs-stage">
+<div class="cs-stage-name">3. Keep me interested</div>
+<p class="cs-stage-brief">Reassure members that they are set up for success, and that their super is being looked after.</p>
+<div class="cs-stage-shift"><span class="cs-stage-label">Member thinks now</span>"I think I'm set up, but I'm not sure."</div>
+<div class="cs-stage-shift is-goal"><span class="cs-stage-label">Shift to</span>"I'm confident I'm set up, and that it was the right choice."</div>
+<div class="cs-stage-actions"><span><b>Minimum</b> Opens the message</span><span><b>Ideal</b> Opens it and follows the link</span></div>
+</div>
+</div>
+<div class="cs-image-caption">The job change journey's design brief, simplified from the future state map with the fund's name removed</div>
 
 We ranked three concepts highest, one for each journey. "Your super so far" replaced the generic first-login dashboard with a summary of what had already built up on the member's behalf, which answered whether the app was worth their time without needing any financial literacy. Life milestone triggers reached members at moments the fund could reasonably infer, such as starting a new job, with one short and relevant thing worth knowing about their super at that point. "Just one thing" surfaced a single action or piece of information each time a member opened the app, so that no visit felt like homework.
 
