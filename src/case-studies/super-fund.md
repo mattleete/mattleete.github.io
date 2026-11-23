@@ -15,7 +15,7 @@ overview:
   outcome: "The fund prioritised the chosen concepts in its product roadmap, and came back to us for further CX and UX work."
 gated: true
 draft: false
-next: occypicks
+next: spix
 hero_image: /images/super-fund/hero.png
 ---
 

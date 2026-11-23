@@ -6,7 +6,7 @@ subtitle: OccyPicks, a self-initiated side project. I designed the game, the
 description: "Case study: self-initiated product, game and experience
   design for a season-long fantasy draft played by 23 friends across the 2026
   FIFA World Cup."
-breadcrumb: Work → OccyPicks
+breadcrumb: Fun → OccyPicks
 meta:
   - label: My Role
     value: Game design, product design and build
@@ -40,7 +40,7 @@ overview:
     finished within 3.8 points across all four tiers, and the title was decided
     by two points on the final weekend.
 gated: false
-next: ai-accelerator
+next: super-fund
 ---
 
 ## A tournament-length game for a casual group
