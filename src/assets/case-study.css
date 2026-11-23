@@ -728,3 +728,24 @@
     .cs-hero-image:has(> .img-ph-lg) { height: 280px; }
     .cs-image-full:has(> .img-ph-sm) { height: 220px; }
   }
+
+/* ─── FLOW DIAGRAM (HTML block in a case-study body) ───
+   Text diagram built from colour tokens (px values follow the 8/16/32 space scale) so it reads on mobile and flips with the theme.
+   Lanes stack, and each lane's steps wrap. Used on the AI product page. */
+  .cs-flow { background: var(--grey-6); padding: 32px; display: grid; gap: 24px; }
+  .cs-flow-lane { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start; }
+  .cs-flow-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grey-3); padding-top: 12px; }
+  .cs-flow-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: step; }
+  .cs-flow-steps li { counter-increment: step; display: flex; gap: 8px; align-items: baseline; flex: 1 1 160px;
+    font-size: 14px; line-height: 1.4; color: var(--black); background: var(--bg); border: 1px solid var(--grey-4); border-radius: 8px; padding: 10px 14px; }
+  .cs-flow-steps li::before { content: counter(step); font-size: 11px; font-weight: 500; color: var(--grey-3); }
+  .cs-flow-steps li.is-miss { border-style: dashed; color: var(--grey-2); }
+  .cs-flow-steps.is-reset li { border-color: var(--accent); }
+  .cs-flow-steps li.is-outcome { border-width: 2px; font-weight: 600; }
+  .cs-flow-steps li.is-outcome::before { color: var(--accent); }
+  @media (max-width: 768px) {
+    .cs-flow { padding: 16px; }
+    .cs-flow-lane { grid-template-columns: 1fr; gap: 8px; }
+    .cs-flow-label { padding-top: 0; }
+    .cs-flow-steps li { flex-basis: 100%; }
+  }

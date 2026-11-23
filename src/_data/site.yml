@@ -8,6 +8,5 @@ case_study_password: MattLeete
 og_image: /images/og-image.jpg
 nav:
   - { label: Work, href: index.html#work }
-  - { label: Fun, href: index.html#fun }
   - { label: About, href: portfolio-about.html }
   - { label: Contact, href: portfolio-contact.html }

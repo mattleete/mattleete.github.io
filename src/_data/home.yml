@@ -23,22 +23,9 @@ sections:
         desc: "Resetting an internal AI product after its first round of testing, and designing it around trust in the output."
         tags: ["Product Design", "UX", "AI"]
         href: portfolio-case-study-ai-accelerator.html
-      - title: "Making formidable fun"
-        desc: "A product concept bringing more inclusive, playful voice communication to competitive gaming."
-        tags: ["Product Design", "Accessibility", "Interaction"]
-        status: in-progress
-        status_label: "In progress"
-
-  - id: fun
-    title: "Fun"
-    cards:
       - title: "Occypicks"
         desc: "A World Cup fantasy game for 23 friends, with scoring that makes minnows worth drafting. Designed, built and run solo."
         tags: ["Product Design"]
         href: portfolio-case-study-occypicks.html
-      - title: "Move to the music"
-        desc: "An exploration of computer vision and machine learning to reflect and recognise emotion through music"
-        tags: ["Product Design", "CX", "Journey Mapping"]
-      - title: "Sound of Mind"
-        desc: "An ECG based sonic experience that supports mindfulness meditation with the sound of your thoughts"
-        tags: ["Product Design", "UX", "AI"]
+        image: /images/occypicks/card.png
+

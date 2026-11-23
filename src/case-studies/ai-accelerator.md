@@ -22,7 +22,7 @@ hero_html: |
 
 ## An executive-led AI product, set up before the user need was defined
 
-This was an unusual engagement, in that the client was the firm itself. The product was an internally funded AI tool intended to speed up how client services were delivered, and it was a strategic initiative led by senior executives rather than a response to a need a team had raised.
+This was an unusual engagement, in that the client was the firm itself. The product was an internally funded AI tool intended to speed up how client services were delivered, and it was a strategic initiative led by senior executives rather than a response to a need a team had raised. Its aim was to cut a project's discovery phase from about two weeks to two days.
 
 I was the product designer and the project manager. I managed the design team, contributed to the MVP product strategy, and ran the design process across two sprints: research and insights workshops to establish the current state, ideation, wireframes, user testing, and design updates from what testing found.
 
@@ -38,6 +38,27 @@ There were two ways to handle that. We could keep iterating V1 within the brief,
 
 Escalating the problem was only useful if we came back with a better answer, so I requested direct access to the internal business unit who would be using the product. We worked closely with them to redefine the product vision and scope around what their work actually needed, and took the revised scope back to the executive for approval. Once it was approved the project was back on track.
 
+<div class="cs-flow" role="group" aria-label="How the project was reset after the first round of testing">
+<div class="cs-flow-lane">
+<div class="cs-flow-label">V1, as briefed</div>
+<ol class="cs-flow-steps">
+<li>Scope set by the executive sponsors</li>
+<li>V1 MVP designed to that brief</li>
+<li class="is-miss">First round of testing: no real user problem solved</li>
+</ol>
+</div>
+<div class="cs-flow-lane">
+<div class="cs-flow-label">The reset</div>
+<ol class="cs-flow-steps is-reset">
+<li>Findings escalated straight away</li>
+<li>Vision and scope redefined with the business unit</li>
+<li>New scope approved by the executive</li>
+<li>MVP designed around trust in the output</li>
+<li class="is-outcome">Funded for full build</li>
+</ol>
+</div>
+</div>
+
 ## Trust in the output was the adoption risk
 
 Early research with users surfaced a second issue, which turned out to be the one that shaped the design. People were not confident in the accuracy of what an LLM would give them, and that lack of trust was a significant risk to adoption. A tool that produces a good answer the user doesn't believe will still go unused, or be checked so thoroughly that it saves no time.
@@ -46,13 +67,13 @@ With that in mind, we built every element of the MVP to be transparent about whe
 
 ## Making every answer traceable to its source
 
-The clearest expression of this was the trace feature. A user could highlight any part of the output and see the sources the LLM had generated it from. It let people check a specific claim against its source without re-doing the work themselves, which is what made the output usable.
+The clearest expression of this was the trace feature. A user could highlight any part of the output and see the sources the LLM had generated it from, and clicking a figure opened the original document at the passage it came from. It let people check a specific claim against its source without re-doing the work themselves, which is what made the output usable.
 
 I worked directly with the development team on the solution architecture, which kept the design inside what could actually be built. Traceability in particular depended on how the system handled and stored its sources, so it had to be agreed with the developers early rather than designed on top at the end.
 
 ## Funded for full build and identified as a global priority
 
-The MVP was selected for continued internal funding, identified as a global priority and moved into full build.
+The MVP was selected for continued internal funding, identified as a global priority and moved into full build. I pitched the trust-led design to the executive sponsors, and the trace feature is still in the product.
 
 ## Reflection
 
