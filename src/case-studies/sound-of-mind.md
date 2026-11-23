@@ -30,9 +30,15 @@ This was my Master of Interaction Design research project at the University of S
 
 Sound of Mind was an interactive sound installation for group walking meditation. Participants wore a Muse EEG headset, and their brainwave patterns modulated a soundscape I built in Max/MSP and Ableton Live, with the aim of encouraging harmony between body and mind while the group walked together.
 
+<div class="cs-image-full fit"><img class="cs-shot" src="/images/sound-of-mind/session.jpg" alt="Participants standing in a darkened studio during a walking meditation session, with the sound equipment on the floor"></div>
+<div class="cs-image-caption">A walking meditation session in the studio</div>
+
 ## Adding body scans so participants could map what they felt
 
 I redesigned the session to add a second mindfulness practice, a body scan, at the beginning, middle and end of the walk. The body scans asked participants to notice their experience at each stage, and that made it possible to use body mapping, an experimental qualitative method where participants draw what they felt onto a stylised outline of the body. We then discussed each person's body maps in a focus group after the session. We ran two sessions with 8–10 participants each.
+
+<div class="cs-image-full fit"><img class="cs-shot" src="/images/sound-of-mind/focus-group.jpg" alt="Participants sitting in a circle on the studio floor, discussing their body maps after a session"></div>
+<div class="cs-image-caption">Discussing body maps in the focus group after a session</div>
 
 <div class="cs-image-full fit"><img class="cs-shot" src="/images/sound-of-mind/body-maps.jpg" alt="A grid of participants' body maps, each a row of body outlines with coloured markings and handwritten notes"></div>
 <div class="cs-image-caption">Participants' body maps from the sessions</div>
