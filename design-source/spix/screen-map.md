@@ -5,8 +5,9 @@ notes authored by Matt). Internal reference: not served on the site. Wording is 
 a trailing `?` was an open question on the original note.
 
 The original uses two header colours: purple for **Log in** and **Current spix audio wheel**,
-blue for the other eight screens. What the colours meant is not recorded here — ask Matt
-before describing it publicly.
+blue for the other eight screens. Per Matt (23 Nov 2026): purple is what he must rebuild for
+the portfolio; purple + blue together is the full product build. Purple is **not** an MVP
+scope, so don't describe it as one.
 
 | # | Screen (header note) | Features / elements (in order) |
 |---|---|---|
@@ -38,7 +39,7 @@ before describing it publicly.
 - "View website?" on the log-in screen
 - "Loadouts for specific games / genres?" on the loadouts screen
 - Settings has an unnamed fourth item ("XXXX")
-- Whether this map was the MVP scope or the fuller product plan is not recorded
+- The map is the full product build (purple + blue); purple marks the portfolio rebuild scope
 
 ## How it is used on the site
 
