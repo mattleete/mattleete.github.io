@@ -16,8 +16,8 @@ overview:
 gated: true
 draft: false
 next: super-fund
-hero_html: |
-  <div class="img-ph-lg"></div>
+hero_image: /images/ai-accelerator/hero.png
+hero_caption: "A detailed report with a passage highlighted and its source excerpts open in the side panel, redrawn with dummy content"
 ---
 
 ## An executive-led AI product, set up before the user need was defined
@@ -68,6 +68,8 @@ With that in mind, we built every element of the MVP to be transparent about whe
 ## Making every answer traceable to its source
 
 The clearest expression of this was the trace feature. A user could highlight any part of the output and see the sources the LLM had generated it from, and clicking a figure opened the original document at the passage it came from. It let people check a specific claim against its source without re-doing the work themselves, which is what made the output usable.
+
+Two other tools worked alongside it. A data confidence view colour-coded the report to show its high and low confidence areas, and a flag let the user mark any highlighted passage for review. Used together, they let a reviewer find the weaker parts of a report and check them against their sources, rather than re-reading the whole thing.
 
 I worked directly with the development team on the solution architecture, which kept the design inside what could actually be built. Traceability in particular depended on how the system handled and stored its sources, so it had to be agreed with the developers early rather than designed on top at the end.
 
