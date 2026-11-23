@@ -38,4 +38,9 @@ sections:
         tags: ["Product Design"]
         href: portfolio-case-study-occypicks.html
         image: /images/occypicks/card.png
+      - title: "Sound of Mind"
+        desc: "An EEG-modulated soundscape for group walking meditation, published at MOCO '20 and TEI '21."
+        tags: ["Research", "Interaction Design"]
+        href: portfolio-case-study-sound-of-mind.html
+        image: /images/sound-of-mind/card.jpg
 
