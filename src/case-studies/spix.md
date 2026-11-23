@@ -17,7 +17,7 @@ gated: false
 draft: false
 next: ai-accelerator
 hero_image: /images/spix/hero.png
-hero_caption: "How the phrase wheel worked, illustrated for this page rather than taken from the original designs"
+hero_caption: "The Spix App banner"
 ---
 
 ## Online games run on voice, and the tools assume everyone can speak
@@ -33,6 +33,9 @@ We ran research, co-design workshops and usability testing with people with impa
 ## A phrase wheel on a key and a flick of the mouse
 
 We built the product around a phrase wheel. A player loaded their key phrases into the wheel, either recorded in their own voice or typed in for text-to-speech, and each phrase sat at a position on it, such as 12 o'clock. In a game they held a key, moved the mouse towards the phrase and released the key, and Spix said it to their team. "Push the point", "heal me", "I'm being attacked", "enemy on me" and "wait a second" could each be said in one movement.
+
+<div class="cs-image-full fit"><img class="cs-shot" src="/images/spix/phrase-wheel.png" alt="A six-position phrase wheel with Push the point selected at 12 o'clock, and a hold key in the centre"></div>
+<div class="cs-image-caption">The phrase wheel, illustrated for this page rather than taken from the original designs</div>
 
 The calls that matter most in team games are short and time-critical, and the wheel let players with impaired speech get that information to their teammates quickly. Binding phrases to a key and a mouse direction also kept their hands where they already were, on the keyboard and mouse, so a callout didn't mean stopping to type in the middle of a fight.
 
@@ -64,6 +67,24 @@ Building it meant designing within the technical constraints of speech input and
 ## A voice that fitted the player
 
 For players who couldn't speak, text-to-speech did the talking, and that raised a question recorded phrases didn't, which was whose voice the team would hear. The concept was a range of text-to-speech voices, so a player could choose one that resonated with their persona in the game.
+
+## Mapping the product around the wheel
+
+Alongside the wheel itself, I mapped the key screens of the product and what each one needed to do. The wheel sat at the centre, and the active wheel stayed visible from the home dashboard and the persistent menu. Around it, loadouts let a player keep alternative wheels and attach them to a game profile, a recording studio let them record, trim and edit their own clips, a library kept those clips searchable and tagged, and a marketplace let them sample and buy clips. The game setup also covered Zoom and Teams calls as well as games.
+
+<div class="cs-map" role="group" aria-label="The key screens of Spix App and what each one did">
+<div class="cs-map-screen"><div class="cs-map-name">Log in</div><ul><li>Username and password</li><li>Recover password</li><li>Sign in or sign up</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Persistent menu</div><ul><li>Active loadout</li><li>Change or edit loadout</li><li>Home, library, marketplace and settings</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Home dashboard</div><ul><li>Active voice wheel</li><li>Navigation</li><li>What's new and tips</li><li>Sign out</li></ul></div>
+<div class="cs-map-screen is-core"><div class="cs-map-name">Audio wheel</div><ul><li>Phrase buttons with audio attached</li><li>Keybindings</li><li>Update audio files</li><li>Equalise audio levels</li><li>Customise visuals</li><li>Swap wheel</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Loadouts</div><ul><li>Saved loadouts</li><li>Create new loadout</li><li>Duplicate</li><li>Favourite</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Recording studio</div><ul><li>Record a new clip</li><li>Edit length and sound</li><li>Apply sound effects</li><li>Name and save</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Library</div><ul><li>Review saved clips</li><li>Search, tag and filter</li><li>Upload and delete</li><li>Link to marketplace</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Marketplace</div><ul><li>Search clips</li><li>Sample and listen</li><li>Buy</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Game setup</div><ul><li>Game profiles</li><li>Add wheels to a profile</li><li>Customise a wheel per game</li><li>Setup for Zoom and Teams</li></ul></div>
+<div class="cs-map-screen"><div class="cs-map-name">Settings</div><ul><li>Audio</li><li>Light and dark mode</li><li>Keyboard shortcuts</li></ul></div>
+</div>
+<div class="cs-image-caption">The key screens and what each needed, redrawn from my original screen map</div>
 
 ## Testing the prototype with users with a range of needs
 

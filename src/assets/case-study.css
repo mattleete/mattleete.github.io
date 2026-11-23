@@ -715,6 +715,7 @@
   .cs-image-full { height:auto; padding:0; overflow:hidden; background:var(--grey-6); }
   .cs-shot { display:block; width:100%; height:600px; object-fit:cover; object-position:top center; }
   .cs-image-full.tall .cs-shot { height:820px; }
+  .cs-image-full.fit .cs-shot { height:auto; object-fit:contain; }   /* whole image, no crop: diagrams and illustrations */
   .cs-image-half { height:auto; background:var(--grey-6); padding:24px; }
   .cs-phone { display:block; width:100%; max-width:300px; margin:0 auto; height:auto;
     border:1px solid var(--grey-5); border-radius:20px; }
@@ -764,5 +765,17 @@
   .cs-stage-actions b { font-weight: 500; color: var(--black); margin-right: 6px; }
   @media (max-width: 768px) {
     .cs-stages { grid-template-columns: 1fr; padding: 16px; }
+  }
+
+/* ─── SCREEN MAP (HTML block in a case-study body) ───
+   A grid of screens and their features. Five columns on desktop, two on mobile.
+   Text-based so it reads at any width and flips with the theme. Used on the Spix page. */
+  .cs-map { background: var(--grey-6); padding: 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+  .cs-map-screen { background: var(--bg); border: 1px solid var(--grey-4); border-radius: 8px; padding: 12px; }
+  .cs-map-screen.is-core { border: 2px solid var(--accent); }
+  .cs-map-name { font-size: 12px; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+  .cs-map-screen ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 11px; line-height: 1.4; color: var(--grey-2); }
+  @media (max-width: 768px) {
+    .cs-map { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 16px; gap: 8px; }
   }
 
